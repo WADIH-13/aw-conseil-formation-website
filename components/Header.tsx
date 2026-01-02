@@ -9,6 +9,7 @@ export default function Header() {
 
   const navigation = [
     { name: 'Accueil', href: '/' },
+    { name: 'Écosystème', href: '/ecosysteme' },
     { name: 'Formations', href: '/formations' },
     { name: 'Démarche qualité', href: '/demarche-qualite' },
     { name: 'Contact', href: '/contact' },
