@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState } from 'react'
 
 export default function Header() {
@@ -19,10 +20,13 @@ export default function Header() {
         <div className="flex justify-between items-center py-6">
           <div className="flex items-center space-x-3">
             <Link href="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity">
-              <img 
+              <Image 
                 src="/logo-aw.png" 
                 alt="AW Conseil et Formation" 
-                className="h-7 md:h-9"
+                width={144}
+                height={36}
+                className="h-7 md:h-9 w-auto"
+                priority
               />
               <span className="text-lg md:text-xl font-medium text-black">
                 AW Conseil et Formation
