@@ -17,9 +17,16 @@ export default function Header() {
     <header className="bg-white border-b border-gray-100">
       <nav className="container-custom" aria-label="Navigation principale">
         <div className="flex justify-between items-center py-6">
-          <div className="flex justify-start lg:w-0 lg:flex-1">
-            <Link href="/" className="text-xl font-semibold text-black hover:text-aw-red transition-colors">
-              AW Conseil et Formation
+          <div className="flex items-center space-x-3">
+            <Link href="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity">
+              <img 
+                src="/logo-aw.png" 
+                alt="AW Conseil et Formation" 
+                className="h-7 md:h-9"
+              />
+              <span className="text-lg md:text-xl font-medium text-black">
+                AW Conseil et Formation
+              </span>
             </Link>
           </div>
           
