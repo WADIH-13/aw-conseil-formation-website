@@ -11,6 +11,7 @@ export default function Header() {
     { name: 'Accueil', href: '/' },
     { name: 'Écosystème', href: '/ecosysteme' },
     { name: 'Formations', href: '/formations' },
+    { name: 'Regard scientifique', href: '/regard-scientifique' },
     { name: 'Démarche qualité', href: '/demarche-qualite' },
     { name: 'Contact', href: '/contact' },
   ]
