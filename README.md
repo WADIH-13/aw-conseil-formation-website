@@ -1,118 +1,81 @@
 # AW Conseil et Formation - Site Vitrine
 
-Site vitrine moderne et minimaliste pour AW Conseil et Formation, centré sur l'accompagnement humain et la formation à la charge mentale.
+Site vitrine moderne et épuré pour AW Conseil et Formation, centré sur l'accompagnement humain et bienveillant.
 
 ## 🎯 Objectifs du site
 
-- **Accueillir avec humanité** : Créer un espace rassurant pour les personnes en difficulté
-- **Donner envie de revenir** : Quand on ne se sent pas bien, proposer un havre de paix
-- **Expliquer clairement** : L'approche compréhensible en moins de 30 secondes
-- **Aucune vente agressive** : Approche douce et respectueuse
-- **Aucune promesse miracle** : Honnêteté et transparence
-- **Langage accessible** : Éviter tout jargon médical ou technique
+- Accueillir avec humanité
+- Donner envie de revenir quand on ne se sent pas bien
+- Expliquer clairement l'approche en moins de 30 secondes
+- Aucune vente agressive
+- Aucune promesse miracle
+- Aucun vocabulaire médical
 
-## 🎨 Design & Identité
+## 🏗️ Architecture
 
-### Signature visuelle
+### Pages créées
+
+- **Accueil** (`/`) - Page principale avec signature et présentation
+- **Formations** (`/formations`) - Vue d'ensemble des formations
+  - **Découvrir la charge mentale** (`/formations/decouvrir-charge-mentale`) - Formation 7h
+  - **Devenir référent charge mentale** (`/formations/devenir-referent`) - Formation 28h
+- **Démarche qualité** (`/demarche-qualite`) - Engagement qualité et éthique
+- **Contact** (`/contact`) - Formulaire de contact et informations
+- **Mentions légales** (`/mentions-legales`) - Informations légales
+
+### Signature intégrée
+
 > "Accompagner avec humanité.  
 > Révéler ce qui compte.  
 > Connecter durablement."
 
-### Palette de couleurs
-- **Fond** : Blanc (#FFFFFF)
-- **Texte** : Noir (#000000)
-- **Accent** : Rouge (#DC2626) - utilisé avec parcimonie
-- **Gris** : Pour les textes secondaires
+## 🎨 Design
 
-### Principes de design
-- Beaucoup d'espace blanc
-- Lisibilité maximale
-- Style sobre et premium
-- Design respirant et apaisant
+- **Couleurs** : Fond blanc, texte noir, rouge (#DC2626) avec parcimonie
+- **Typographie** : Inter, lisibilité maximale
+- **Espacement** : Beaucoup d'espace pour respirer
+- **Style** : Sobre, premium, épuré
 
-## 📱 Structure du site
+## 🛠️ Stack technique
 
-### Pages principales
-- **Accueil** (`/`) - Page d'atterrissage avec la signature
-- **Formations** (`/formations`) - Vue d'ensemble des formations
-- **Démarche qualité** (`/demarche-qualite`) - Engagement qualité
-- **Contact** (`/contact`) - Prise de contact simple
-- **Mentions légales** (`/mentions-legales`) - Informations légales
-
-### Pages formations détaillées
-- **Découvrir la charge mentale** (`/formations/decouvrir-charge-mentale`) - Formation 7h
-- **Devenir référent** (`/formations/devenir-referent`) - Formation 28h
-
-## 🛠 Stack technique
-
-- **Framework** : Next.js 14 avec TypeScript
+- **Framework** : Next.js 14
 - **Styling** : Tailwind CSS
-- **Police** : Inter (Google Fonts)
-- **Déploiement** : Exportation statique (compatible avec tous les hébergeurs)
+- **Typescript** : Support complet
+- **Responsive** : Mobile-first
 
 ## 🚀 Installation et développement
 
-### Prérequis
-- Node.js 18+ 
-- npm ou yarn
-
-### Installation
 ```bash
-# Cloner le repository
-git clone https://github.com/WADIH-13/aw-conseil-formation-website.git
-
 # Installer les dépendances
-cd aw-conseil-formation-website
 npm install
 
-# Lancer le serveur de développement
+# Lancer en développement
 npm run dev
+
+# Build de production
+npm run build
+
+# Lancer en production
+npm start
 ```
 
-Le site sera accessible sur `http://localhost:3000`
+## 📝 Contraintes éditoriales respectées
 
-### Scripts disponibles
-```bash
-npm run dev      # Serveur de développement
-npm run build    # Build de production
-npm run start    # Serveur de production
-npm run lint     # Linting du code
-```
+- Langage simple et accessible
+- Phrases courtes
+- Ton calme et bienveillant
+- Pas de jargon technique
+- Évitement du vocabulaire médical (diagnostic, thérapie, traitement, patient)
+- Le mot "conseil" n'apparaît que dans le titre
 
-## 📝 Contraintes éditoriales
+## 🔄 Évolutivité
 
-### Ton et style
-- **Langage simple** et accessible
-- **Phrases courtes** et claires
-- **Ton calme** et rassurant
-- **Accessible à tous** les publics
-- **Pas de jargon** technique ou médical
-
-### Mots à éviter absolument
-- Diagnostic
-- Thérapie
-- Traitement
-- Patient
-- Tout vocabulaire médical
-
-### Le mot "conseil"
-- Utilisé **uniquement** dans le titre "AW Conseil et Formation"
-- Évité dans le reste du contenu pour privilégier "accompagnement"
-
-## 🎯 Call-to-Action principal
-
-**"Prendre un temps d'échange"** - Bouton principal présent sur toutes les pages importantes.
+Le site est conçu pour rester simple aujourd'hui tout en permettant des évolutions futures :
+- Structure modulaire des composants
+- Configuration Tailwind extensible
+- Architecture Next.js scalable
 
 ## 📞 Contact
 
-Pour toute question sur le développement ou les modifications du site :
-- Email : contact@aw-conseil-formation.fr
-- Téléphone : 01 23 45 67 89
-
-## 📄 Licence
-
-Tous droits réservés - AW Conseil et Formation © 2026
-
----
-
-*Site développé avec soin pour refléter les valeurs d'humanité et de bienveillance d'AW Conseil et Formation.*
+Pour toute question sur le développement du site :
+- Repository : [aw-conseil-formation-website](https://github.com/WADIH-13/aw-conseil-formation-website)
