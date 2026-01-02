@@ -68,96 +68,6 @@ export default function DevenirReferentPage() {
       <section className="py-16">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-              <div>
-                <h2 className="text-3xl font-light text-black mb-6">
-                  Pour qui ?
-                </h2>
-                <div className="space-y-4 text-gray-700">
-                  <p>
-                    <span className="font-medium text-black">Managers</span> qui souhaitent mieux soutenir leurs équipes.
-                  </p>
-                  <p>
-                    <span className="font-medium text-black">RH</span> amenés à accompagner les collaborateurs en difficulté.
-                  </p>
-                  <p>
-                    <span className="font-medium text-black">Représentants du personnel</span> dans leur rôle de soutien.
-                  </p>
-                  <p>
-                    <span className="font-medium text-black">Toute personne</span> amenée à soutenir ses collègues dans leur bien-être au travail.
-                  </p>
-                </div>
-              </div>
-              <div className="bg-gray-50 p-8 rounded-lg">
-                <h3 className="text-xl font-medium text-black mb-6">Informations pratiques</h3>
-                <div className="space-y-4">
-                  <div>
-                    <span className="font-medium text-black">Durée :</span>
-                    <span className="text-gray-700 ml-2">28 heures (4 journées)</span>
-                  </div>
-                  <div>
-                    <span className="font-medium text-black">Format :</span>
-                    <span className="text-gray-700 ml-2">Présentiel recommandé</span>
-                  </div>
-                  <div>
-                    <span className="font-medium text-black">Groupe :</span>
-                    <span className="text-gray-700 ml-2">Maximum 10 personnes</span>
-                  </div>
-                  <div>
-                    <span className="font-medium text-black">Suivi :</span>
-                    <span className="text-gray-700 ml-2">3 mois d'accompagnement inclus</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-16 bg-gray-50">
-        <div className="container-custom">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-light text-black mb-8 text-center">
-              Programme détaillé
-            </h2>
-            <div className="space-y-6">
-              <div className="bg-white p-6 rounded-lg">
-                <h3 className="text-lg font-medium text-black mb-3">Jour 1 : Comprendre pour mieux accompagner</h3>
-                <p className="text-gray-700 text-sm">
-                  Les mécanismes de la charge mentale. Ses impacts sur l'individu et l'équipe. 
-                  Votre rôle et ses limites.
-                </p>
-              </div>
-              <div className="bg-white p-6 rounded-lg">
-                <h3 className="text-lg font-medium text-black mb-3">Jour 2 : Développer sa posture d'accompagnant</h3>
-                <p className="text-gray-700 text-sm">
-                  L'écoute active. La communication bienveillante. 
-                  Comment créer un espace de confiance.
-                </p>
-              </div>
-              <div className="bg-white p-6 rounded-lg">
-                <h3 className="text-lg font-medium text-black mb-3">Jour 3 : Outils et techniques d'accompagnement</h3>
-                <p className="text-gray-700 text-sm">
-                  Mener un entretien de soutien. Orienter efficacement. 
-                  Cas pratiques et mises en situation.
-                </p>
-              </div>
-              <div className="bg-white p-6 rounded-lg">
-                <h3 className="text-lg font-medium text-black mb-3">Jour 4 : Préserver son équilibre</h3>
-                <p className="text-gray-700 text-sm">
-                  Éviter l'épuisement du référent. Construire son réseau de soutien. 
-                  Plan d'action personnalisé.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Nouvel encart - Démarche d'observation */}
-      <section className="py-16">
-        <div className="container-custom">
-          <div className="max-w-4xl mx-auto">
             <div className="bg-gray-50 border border-gray-200 p-8 rounded-lg">
               <h2 className="text-2xl font-light text-black mb-6 text-center">
                 Démarche d'observation et d'amélioration continue
@@ -175,13 +85,11 @@ export default function DevenirReferentPage() {
                 <p>
                   Les restitutions se limitent à des 
                   <span className="font-medium text-black"> tendances globales</span>, 
-                  accessibles au dirigeant ou au commanditaire de la formation, 
-                  dans une démarche d'amélioration des conditions de travail.
+                  accessibles au dirigeant ou au commanditaire de la formation.
                 </p>
                 <p>
                   Cette approche s'inscrit dans une logique compatible avec celle 
-                  des acteurs de la prévention (Services de Prévention et de Santé au Travail Interentreprises, 
-                  Agence nationale pour l'amélioration des conditions de travail), 
+                  des acteurs de la prévention (SPSTI, Anact), 
                   dans le respect des cadres réglementaires en vigueur.
                 </p>
               </div>
