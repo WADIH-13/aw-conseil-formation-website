@@ -17,8 +17,8 @@ export default function DevenirReferentPage() {
                 Devenir référent charge mentale
               </h1>
               <p className="text-xl text-gray-600 leading-relaxed">
-                Acquérir les outils et la posture pour soutenir vos collègues<br />
-                avec bienveillance et professionnalisme.
+                Acquérir les outils et la posture pour soutenir vos collègues.<br />
+                Avec bienveillance et professionnalisme.
               </p>
             </div>
           </div>
@@ -35,29 +35,33 @@ export default function DevenirReferentPage() {
               <div className="bg-white p-6 rounded-lg">
                 <h3 className="text-lg font-medium text-black mb-4">Développer une écoute bienveillante</h3>
                 <p className="text-gray-700 text-sm leading-relaxed">
-                  Créer un espace sécurisant où la personne peut s'exprimer librement, 
-                  sans jugement ni pression.
+                  Comment être présent sans envahir ? 
+                  Comment écouter sans juger ? 
+                  Les bases d'un accompagnement respectueux.
                 </p>
               </div>
               <div className="bg-white p-6 rounded-lg">
                 <h3 className="text-lg font-medium text-black mb-4">Accompagner sans conseiller</h3>
                 <p className="text-gray-700 text-sm leading-relaxed">
-                  Apprendre à soutenir sans donner de solutions toutes faites. 
-                  Aider la personne à trouver ses propres ressources.
+                  Résister à l'envie de donner des solutions. 
+                  Faire confiance à la personne accompagnée. 
+                  L'art de poser les bonnes questions.
                 </p>
               </div>
               <div className="bg-white p-6 rounded-lg">
                 <h3 className="text-lg font-medium text-black mb-4">Orienter vers les bonnes ressources</h3>
                 <p className="text-gray-700 text-sm leading-relaxed">
-                  Savoir quand et comment orienter vers un professionnel. 
-                  Connaître le réseau de soutien disponible.
+                  Connaître vos limites et celles de votre rôle. 
+                  Savoir quand et vers qui orienter. 
+                  Construire un réseau de ressources fiables.
                 </p>
               </div>
               <div className="bg-white p-6 rounded-lg">
                 <h3 className="text-lg font-medium text-black mb-4">Préserver votre propre équilibre</h3>
                 <p className="text-gray-700 text-sm leading-relaxed">
-                  Comment aider sans s'épuiser ? 
-                  Reconnaître vos limites et protéger votre énergie.
+                  Accompagner sans porter la charge des autres. 
+                  Reconnaître vos signaux d'alerte. 
+                  Prendre soin de vous pour mieux aider.
                 </p>
               </div>
             </div>
@@ -75,16 +79,19 @@ export default function DevenirReferentPage() {
                 </h2>
                 <div className="space-y-4 text-gray-700">
                   <p>
-                    <span className="font-medium text-black">Managers</span> qui souhaitent mieux soutenir leurs équipes.
+                    Managers qui souhaitent mieux soutenir leurs équipes ?
                   </p>
                   <p>
-                    <span className="font-medium text-black">RH</span> amenés à accompagner les collaborateurs en difficulté.
+                    Professionnels RH en première ligne face aux difficultés ?
                   </p>
                   <p>
-                    <span className="font-medium text-black">Représentants du personnel</span> dans leur rôle de soutien.
+                    Représentants du personnel qui veulent agir concrètement ?
                   </p>
                   <p>
-                    <span className="font-medium text-black">Toute personne</span> amenée à soutenir ses collègues dans leur bien-être au travail.
+                    Toute personne amenée à accompagner ses collègues ?
+                  </p>
+                  <p className="font-medium text-black">
+                    Cette formation vous donnera les clés pour agir avec justesse.
                   </p>
                 </div>
               </div>
@@ -116,13 +123,53 @@ export default function DevenirReferentPage() {
 
       <section className="py-16 bg-gray-50">
         <div className="container-custom">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-light text-black mb-8 text-center">
+              Programme détaillé
+            </h2>
+            <div className="space-y-6">
+              <div className="bg-white p-6 rounded-lg">
+                <h3 className="text-lg font-medium text-black mb-3">Jour 1 : Comprendre pour mieux accompagner</h3>
+                <p className="text-gray-700 text-sm">
+                  Les mécanismes de la charge mentale. Ses impacts sur l'individu et l'équipe. 
+                  Votre rôle et ses limites.
+                </p>
+              </div>
+              <div className="bg-white p-6 rounded-lg">
+                <h3 className="text-lg font-medium text-black mb-3">Jour 2 : Développer sa posture d'accompagnant</h3>
+                <p className="text-gray-700 text-sm">
+                  L'écoute active. La communication bienveillante. 
+                  Comment créer un espace de confiance.
+                </p>
+              </div>
+              <div className="bg-white p-6 rounded-lg">
+                <h3 className="text-lg font-medium text-black mb-3">Jour 3 : Outils et techniques d'accompagnement</h3>
+                <p className="text-gray-700 text-sm">
+                  Mener un entretien de soutien. Orienter efficacement. 
+                  Cas pratiques et mises en situation.
+                </p>
+              </div>
+              <div className="bg-white p-6 rounded-lg">
+                <h3 className="text-lg font-medium text-black mb-3">Jour 4 : Préserver son équilibre</h3>
+                <p className="text-gray-700 text-sm">
+                  Éviter l'épuisement du référent. Construire son réseau de soutien. 
+                  Plan d'action personnalisé.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16">
+        <div className="container-custom">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl font-light text-black mb-6">
-              Prêt à accompagner ?
+              Prêt à devenir référent ?
             </h2>
             <p className="text-lg text-gray-700 mb-8 leading-relaxed">
-              Échangeons ensemble pour voir comment cette formation 
-              peut répondre à vos besoins d'accompagnement.
+              Discutons ensemble de votre projet et des modalités 
+              qui conviendraient le mieux à votre contexte.
             </p>
             <Link
               href="/contact"
