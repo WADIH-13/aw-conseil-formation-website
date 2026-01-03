@@ -57,38 +57,20 @@ export default function RegardScientifiquePage() {
         </div>
       </section>
 
-      <section className="py-20">
-        <div className="container-custom">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-light text-black text-center mb-12">
-              Un cadre clair et éthique
-            </h2>
-            <div className="space-y-8">
-              <div className="bg-gray-50 p-8 rounded-lg">
-                <h3 className="text-xl font-medium text-black mb-4">Prévention et amélioration</h3>
-                <p className="text-gray-700 leading-relaxed">
-                  Notre regard scientifique s'inscrit dans une démarche de prévention 
-                  et d'amélioration des conditions de travail.
-                </p>
-              </div>
-              <div className="bg-gray-50 p-8 rounded-lg">
-                <h3 className="text-xl font-medium text-black mb-4">Protection des données</h3>
-                <p className="text-gray-700 leading-relaxed">
-                  Toutes les observations sont strictement anonymisées et agrégées. 
-                  Aucune donnée individuelle n'est conservée ou transmise.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section className="py-16 bg-gray-50">
         <div className="container-custom">
           <div className="max-w-3xl mx-auto text-center">
             <p className="text-lg text-gray-700 mb-8 leading-relaxed">
-              Des questions sur notre approche scientifique ? 
-              Échangeons ensemble sur cette dimension de notre travail.
+              Des questions sur notre approche scientifique ?
+            </p>
+            <p className="text-gray-600 mb-8">
+              En savoir plus sur notre{' '}
+              <Link 
+                href="/dr-mahi-bahi" 
+                className="text-aw-red hover:text-red-700 underline"
+              >
+                référent scientifique
+              </Link>
             </p>
             <Link
               href="/contact"
