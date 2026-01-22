@@ -8,15 +8,15 @@ const Footer = () => {
         <div className="flex justify-between">
           <div className="flex space-x-4">
             {/* Existing footer links */}
-            <Link href="/about">
-              <a className="text-gray-600 text-sm hover:text-gray-800">À propos</a>
+            <Link href="/about" className="text-gray-600 text-sm hover:text-gray-800">
+              À propos
             </Link>
-            <Link href="/contact">
-              <a className="text-gray-600 text-sm hover:text-gray-800">Contact</a>
+            <Link href="/contact" className="text-gray-600 text-sm hover:text-gray-800">
+              Contact
             </Link>
             {/* New discreet link to Dr Mahi Bahi */}
-            <Link href="/dr-mahi-bahi">
-              <a className="text-gray-400 text-xs hover:text-gray-600">Dr Mahi Bahi</a>
+            <Link href="/dr-mahi-bahi" className="text-gray-400 text-xs hover:text-gray-600">
+              Dr Mahi Bahi
             </Link>
           </div>
           {/* Other footer content if any */}
