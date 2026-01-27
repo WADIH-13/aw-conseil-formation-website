@@ -10,6 +10,9 @@ const config: Config = {
     extend: {
       colors: {
         'aw-red': '#DC2626',
+        'aw-red-deep': '#8B1D1D',
+        'aw-ink': '#111111',
+        'aw-mist': '#F7F5F4',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],

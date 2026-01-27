@@ -1,6 +1,57 @@
+/* Animation premium pour le CTA baromètre */
+.aw-barometre-cta {
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 32px rgba(139,29,29,0.18), 0 2px 8px rgba(139,29,29,0.10);
+  background: linear-gradient(90deg, #8B1D1D 0%, #B02A2A 100%);
+  transition: background 0.3s, box-shadow 0.3s, transform 0.2s;
+}
+.aw-barometre-cta::after {
+  content: '';
+  position: absolute;
+  left: -60%;
+  top: 0;
+  width: 220%;
+  height: 100%;
+  background: linear-gradient(120deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.22) 60%, transparent 100%);
+  opacity: 0.7;
+  pointer-events: none;
+  transform: translateX(0);
+  transition: transform 0.7s cubic-bezier(.4,0,.2,1);
+}
+.aw-barometre-cta:hover::after {
+  transform: translateX(40%);
+}
+.aw-barometre-cta:active {
+  transform: scale(0.98);
+  box-shadow: 0 6px 18px rgba(139,29,29,0.16);
+}
+.animate-premium-cta {
+  animation: premiumPulse 2.8s cubic-bezier(.4,0,.2,1) infinite;
+}
+@keyframes premiumPulse {
+  0%, 100% { box-shadow: 0 10px 32px rgba(139,29,29,0.18), 0 2px 8px rgba(139,29,29,0.10); }
+  50% { box-shadow: 0 18px 44px rgba(139,29,29,0.22), 0 4px 16px rgba(139,29,29,0.13); }
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Boutons principaux */
+.btn-primary {
+  @apply inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium text-white bg-aw-red hover:bg-aw-red-deep rounded-lg transition-all duration-200;
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-aw-red focus-visible:ring-offset-2;
+}
+
+.btn-secondary {
+  @apply inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium text-aw-red border border-aw-red hover:bg-aw-red hover:text-white rounded-lg transition-all duration-200;
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-aw-red focus-visible:ring-offset-2;
+}
+
+/* Focus states globaux */
+a:focus-visible, button:focus-visible {
+  @apply outline-none ring-2 ring-aw-red ring-offset-2;
+}
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
@@ -21,6 +72,58 @@ body {
 body {
   color: #000;
   background: #fff;
+}
+
+.aw-diagonal-surface {
+  background-color: #fbfbfb;
+  background-image:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.9)),
+    repeating-linear-gradient(135deg, rgba(0, 0, 0, 0.035) 0, rgba(0, 0, 0, 0.035) 1px, transparent 1px, transparent 12px),
+    repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.02) 0, rgba(0, 0, 0, 0.02) 1px, transparent 1px, transparent 18px);
+}
+
+.aw-hero-surface {
+  background-color: #fcfcfc;
+  background-image:
+    radial-gradient(1200px 600px at 20% -10%, rgba(139, 29, 29, 0.08), transparent 60%),
+    radial-gradient(900px 500px at 80% 0%, rgba(0, 0, 0, 0.05), transparent 55%),
+    repeating-linear-gradient(135deg, rgba(0, 0, 0, 0.03) 0, rgba(0, 0, 0, 0.03) 1px, transparent 1px, transparent 14px);
+}
+
+.aw-card-surface {
+  background-color: #ffffff;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
+}
+
+.aw-fine-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.08), transparent);
+}
+
+.aw-logo-marquee {
+  display: flex;
+  gap: 1.5rem;
+  width: max-content;
+  animation: aw-marquee 34s linear infinite;
+}
+
+.aw-logo-marquee:hover {
+  animation-play-state: paused;
+}
+
+@keyframes aw-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aw-logo-marquee {
+    animation: none;
+  }
 }
 
 a {
@@ -45,3 +148,73 @@ a {
     padding: 0 2rem;
   }
 }
+
+/* CTA buttons - harmonized */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.25rem;
+  background-color: #8B1D1D;
+  color: #ffffff;
+  border-radius: 10px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 12px 30px rgba(139,29,29,0.18);
+  transition: background-color 0.15s ease, transform 0.08s ease;
+}
+.btn-primary:hover { background-color: #7c1818; }
+.btn-primary:active { transform: scale(0.99); }
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem 1rem;
+  background-color: #ffffff;
+  color: #111827;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.06);
+  text-decoration: none;
+  font-weight: 600;
+}
+.btn-secondary:hover { background-color: rgba(0,0,0,0.02); }
+
+/* Floating small capsule for quick access to the barometer */
+.floating-barometre {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  width: 56px;
+  height: 56px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #8B1D1D 0%, #B02A2A 100%);
+  color: #fff;
+  box-shadow: 0 10px 30px rgba(139,29,29,0.18);
+  z-index: 60;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+.floating-barometre:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(139,29,29,0.22); }
+
+/* Focus visible for keyboard users */
+.floating-barometre:focus {
+  outline: none;
+  box-shadow: 0 6px 18px rgba(139,29,29,0.28), 0 0 0 4px rgba(176,42,42,0.12);
+  transform: translateY(-2px);
+}
+
+/* Hide on small screens to avoid obstruction; visible from md+ */
+@media (max-width: 767px) {
+  .floating-barometre { display: none; }
+}
+
+/* Slightly larger on very large screens for accessibility */
+@media (min-width: 1400px) {
+  .floating-barometre { width: 64px; height: 64px; right: 1.5rem; bottom: 1.5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-premium-cta { animation: none; }
+  .floating-barometre { transition: none; }
+}
+

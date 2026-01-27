@@ -1,131 +1,81 @@
+import ContactForm from '@/components/ContactForm'
+
 export const metadata = {
   title: 'Contact - AW Conseil et Formation',
-  description: 'Prenez un temps d\'échange avec nous. Contact pour accompagnement et formations.',
+  description: "Échangez avec AW Conseil et Formation. Conseil, formation et solutions pour libérer la charge mentale.",
 }
 
 export default function ContactPage() {
   return (
     <div className="bg-white">
-      <section className="py-16 md:py-24">
+      <section className="aw-hero-surface py-16 md:py-24">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-light text-black mb-6 leading-tight">
-              Prendre un temps d'échange
+              Échangeons sur vos besoins
             </h1>
             <p className="text-xl text-gray-600 mb-12 leading-relaxed">
-              Un simple appel pour voir ensemble<br />
-              ce qui pourrait vous aider.
+              Conseil, formation, ateliers et solutions concrètes<br />
+              pour réduire la charge mentale et prévenir les RPS.
             </p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             <div>
-              <h2 className="text-2xl font-light text-black mb-6">
-                Pourquoi nous contacter ?
-              </h2>
+              <h2 className="text-2xl font-light text-black mb-6">Pourquoi nous contacter ?</h2>
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-lg font-medium text-black mb-2">Pour vous</h3>
+                  <h3 className="text-lg font-medium text-black mb-2">Conseil & prévention</h3>
                   <p className="text-gray-700">
-                    Vous ressentez une fatigue qui ne part pas ? 
-                    Vous avez besoin d'un espace pour poser ce qui pèse ?
+                    Vous souhaitez structurer une démarche de prévention RPS,
+                    mieux comprendre les risques et agir avec méthode.
                   </p>
                 </div>
                 <div>
-                  <h3 className="text-lg font-medium text-black mb-2">Pour votre équipe</h3>
+                  <h3 className="text-lg font-medium text-black mb-2">Formation & ateliers</h3>
                   <p className="text-gray-700">
-                    Vous voulez sensibiliser vos collaborateurs ? 
-                    Former des référents dans votre organisation ?
+                    Vous voulez sensibiliser, former vos équipes ou proposer des ateliers
+                    pour réduire la charge mentale.
                   </p>
                 </div>
                 <div>
-                  <h3 className="text-lg font-medium text-black mb-2">Pour comprendre</h3>
+                  <h3 className="text-lg font-medium text-black mb-2">Accompagnement sur mesure</h3>
                   <p className="text-gray-700">
-                    Vous souhaitez simplement en savoir plus sur notre approche 
-                    et nos formations ?
+                    Vous recherchez un partenaire discret, professionnel et engagé
+                    pour co-construire des solutions concrètes.
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-gray-50 p-8 rounded-lg">
-              <h2 className="text-2xl font-light text-black mb-6">
-                Comment ça se passe ?
-              </h2>
-              <div className="space-y-4">
-                <div className="flex items-start">
-                  <span className="text-aw-red mr-3 font-bold">1.</span>
-                  <div>
-                    <h3 className="font-medium text-black">Vous nous appelez</h3>
-                    <p className="text-gray-700 text-sm">
-                      Un premier échange téléphonique de 20 minutes, 
-                      sans engagement.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start">
-                  <span className="text-aw-red mr-3 font-bold">2.</span>
-                  <div>
-                    <h3 className="font-medium text-black">Nous écoutons</h3>
-                    <p className="text-gray-700 text-sm">
-                      Vous nous expliquez votre situation, 
-                      vos besoins, vos questionnements.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start">
-                  <span className="text-aw-red mr-3 font-bold">3.</span>
-                  <div>
-                    <h3 className="font-medium text-black">Nous orientons</h3>
-                    <p className="text-gray-700 text-sm">
-                      Ensemble, nous voyons si et comment 
-                      nous pouvons vous accompagner.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-8 pt-6 border-t border-gray-200">
-                <div className="space-y-4">
-                  <div>
-                    <h3 className="font-medium text-black">Téléphone</h3>
-                    <a href="tel:+33123456789" className="text-aw-red hover:text-red-700 transition-colors">
-                      01 23 45 67 89
-                    </a>
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-black">Email</h3>
-                    <a href="mailto:contact@aw-conseil-formation.fr" className="text-aw-red hover:text-red-700 transition-colors">
-                      contact@aw-conseil-formation.fr
-                    </a>
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-black">Disponibilités</h3>
-                    <p className="text-gray-700 text-sm">
-                      Lundi au vendredi, 9h-18h
-                    </p>
-                  </div>
-                </div>
-              </div>
+            <div className="aw-card-surface p-8 rounded-2xl border border-black/5">
+              <h2 className="text-2xl font-light text-black mb-6">Formulaire de contact</h2>
+              <ContactForm />
             </div>
           </div>
         </div>
       </section>
 
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 aw-diagonal-surface">
         <div className="container-custom">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl font-light text-black mb-6">
-              Aucune urgence ?
+              Vous préférez un échange direct ?
             </h2>
             <p className="text-lg text-gray-700 mb-8 leading-relaxed">
-              Prenez le temps qu'il vous faut.<br />
-              Nous serons là quand vous serez prêt.
+              Nous restons disponibles par téléphone et email,
+              du lundi au vendredi, de 9h à 18h.
             </p>
-            <p className="text-gray-600">
-              En attendant, n'hésitez pas à explorer nos formations 
-              ou notre approche qualité pour mieux nous connaître.
-            </p>
+            <div className="space-y-3 text-gray-700">
+              <p>
+                Téléphone :{' '}
+                <a href="tel:+33651455083" className="text-aw-red hover:text-red-700">06 51 45 50 83</a>
+              </p>
+              <p>
+                Email :{' '}
+                <a href="mailto:ahmed.wadih@gmail.com" className="text-aw-red hover:text-red-700">ahmed.wadih@gmail.com</a>
+              </p>
+            </div>
           </div>
         </div>
       </section>
