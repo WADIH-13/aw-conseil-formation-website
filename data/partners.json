@@ -1,0 +1,73 @@
+[
+  {
+    "slug": "partenaire-a",
+    "name": "Partenaire A",
+    "logo": "",
+    "website": "https://example.org",
+    "email": "contact@example.org",
+    "phone": "",
+    "short": "Soutien thérapeutique et ateliers d’expression.",
+    "contribution": "Apporte des pratiques expressives complémentaires pour la prévention et le bien-être."
+  },
+  {
+    "slug": "partenaire-b",
+    "name": "Partenaire B",
+    "logo": "",
+    "website": "",
+    "email": "",
+    "phone": "",
+    "short": "Accompagnement organisationnel et prévention.",
+    "contribution": "Intervient sur les organisations pour prévenir la surcharge et améliorer les conditions de travail."
+  }
+  ,
+  {
+    "slug": "institut-c",
+    "name": "Institut C",
+    "logo": "",
+    "website": "https://institut-c.example",
+    "email": "contact@institut-c.example",
+    "phone": "",
+    "short": "Centre de recherche et ressources institutionnelles.",
+    "contribution": "Apporte un regard institutionnel et des ressources méthodologiques pour les projets collectifs."
+  },
+  {
+    "slug": "sante-d",
+    "name": "Santé D",
+    "logo": "",
+    "website": "",
+    "email": "contact@santed.example",
+    "phone": "",
+    "short": "Réseau de professionnels de la santé mentale.",
+    "contribution": "Intervient en complément pour les questions cliniques et la prévention santé au travail."
+  },
+  {
+    "slug": "association-e",
+    "name": "Association E",
+    "logo": "",
+    "website": "",
+    "email": "",
+    "phone": "",
+    "short": "Association locale d’accompagnement social.",
+    "contribution": "Propose des actions de terrain et des ateliers citoyens pour renforcer le lien social."
+  },
+  {
+    "slug": "entreprise-f",
+    "name": "Entreprise F",
+    "logo": "",
+    "website": "https://entreprise-f.example",
+    "email": "contact@entreprise-f.example",
+    "phone": "",
+    "short": "Société spécialisée en ergonomie et organisation du travail.",
+    "contribution": "Apporte des diagnostics organisationnels et des formations pratiques pour les équipes."
+  },
+  {
+    "slug": "partenaire-g",
+    "name": "Partenaire G",
+    "logo": "",
+    "website": "",
+    "email": "",
+    "phone": "",
+    "short": "Pratiques corporelles et bien-être.",
+    "contribution": "Intervient sur les pratiques corporelles en lien avec la gestion du stress et la récupération."
+  }
+]
