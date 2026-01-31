@@ -2,10 +2,23 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { usePathname } from 'next/navigation'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const pathname = usePathname()
+  const [hasFormationSingle, setHasFormationSingle] = useState(false)
+
+  useEffect(() => {
+    const check = () => setHasFormationSingle(!!document.querySelector('.formation-single'))
+    check()
+    const observer = new MutationObserver(check)
+    observer.observe(document.body, { childList: true, subtree: true })
+    return () => observer.disconnect()
+  }, [pathname])
+
+  const isFormationDetail = pathname?.startsWith('/formations') || hasFormationSingle
 
   const navigation = [
     { name: 'Accueil', href: '/' },
@@ -15,27 +28,31 @@ export default function Header() {
     { name: 'Blog', href: '/blog' },
     { name: 'Écosystème', href: '/ecosysteme' },
     { name: 'Regard scientifique', href: '/regard-scientifique' },
-    { name: 'Démarche qualité', href: '/demarche-qualite' },
-    { name: 'Contact', href: '/contact' },
+    { name: 'Démarches', href: '/demarche-qualite' },
   ]
 
   return (
-    <header className="bg-white border-b border-gray-100">
+    <header className="aw-diagonal-surface border-b border-black/5">
       <nav className="container-custom" aria-label="Navigation principale">
-        <div className="flex justify-between items-center py-6">
-          <div className="flex items-center space-x-3">
-            <Link href="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity">
-              <Image 
-                src="/logo-aw.png" 
-                alt="AW Conseil et Formation" 
-                width={144}
-                height={36}
-                className="h-7 md:h-9 w-auto"
+        <div className="flex items-center justify-between gap-8 py-10 md:py-12">
+          <div className="flex items-center">
+            <Link
+              href="/"
+              className="flex items-center gap-6 px-2 py-2 rounded-2xl transition-all duration-300 hover:opacity-90"
+            >
+              <Image
+                src="/logo-aw.png"
+                alt="AW Conseil et Formation"
+                width={260}
+                height={80}
+                className="h-12 md:h-16 w-auto"
                 priority
               />
-              <span className="text-lg md:text-xl font-medium text-black">
-                AW Conseil et Formation
-              </span>
+              <div className="hidden lg:flex flex-col leading-tight">
+                <span className="text-xs tracking-[0.32em] uppercase text-black/55">
+                  Conseil et Formation
+                </span>
+              </div>
             </Link>
           </div>
           
@@ -64,25 +81,21 @@ export default function Header() {
             </button>
           </div>
 
-          <div className="hidden md:flex space-x-10">
+          <div className="hidden md:flex items-center justify-center flex-1 space-x-10">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-base font-medium text-gray-700 hover:text-aw-red transition-colors"
+                className="group relative text-sm lg:text-base font-light tracking-[0.08em] text-black/70 transition-all duration-300 hover:text-aw-red-deep"
               >
-                {item.name}
+                <span className="inline-flex items-center transition-transform duration-300 group-hover:-translate-y-[1px]">
+                  {item.name}
+                </span>
               </Link>
             ))}
           </div>
-
-          <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-            <Link
-              href="/contact"
-              className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-aw-red hover:bg-red-700 transition-colors"
-            >
-              Prendre un temps d'échange
-            </Link>
+          <div className="hidden md:flex items-center justify-end">
+            {/* Qualiopi logo removed from header per design decision */}
           </div>
         </div>
 
@@ -99,13 +112,7 @@ export default function Header() {
                   {item.name}
                 </Link>
               ))}
-              <Link
-                href="/contact"
-                className="block w-full mt-4 px-3 py-2 rounded-md text-base font-medium text-white bg-aw-red hover:bg-red-700 text-center transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Prendre un temps d'échange
-              </Link>
+              {/* Qualiopi logo removed from mobile menu as well */}
             </div>
           </div>
         )}

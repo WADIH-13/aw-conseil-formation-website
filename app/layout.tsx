@@ -8,8 +8,8 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'AW Conseil et Formation',
-  description: 'Accompagner avec humanité. Révéler ce qui compte. Connecter durablement.',
-  keywords: 'formation, charge mentale, accompagnement, bien-être',
+  description: 'Cabinet de conseil et de formation pour la prévention des RPS et la réduction de la charge mentale.',
+  keywords: 'conseil, formation, charge mentale, prévention RPS, ateliers, accompagnement',
 }
 
 export default function RootLayout({
