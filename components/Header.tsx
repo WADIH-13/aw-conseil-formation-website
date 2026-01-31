@@ -22,9 +22,11 @@ export default function Header() {
 
   const navigation = [
     { name: 'Accueil', href: '/' },
-    { name: 'Écosystème', href: '/ecosysteme' },
     { name: 'Formations', href: '/formations' },
-    { name: 'Sessions', href: '/trouver-une-session' },
+    { name: 'Partenaires', href: '/partenaires' },
+    { name: 'Veille', href: '/veille-charge-mentale' },
+    { name: 'Blog', href: '/blog' },
+    { name: 'Écosystème', href: '/ecosysteme' },
     { name: 'Regard scientifique', href: '/regard-scientifique' },
     { name: 'Démarches', href: '/demarche-qualite' },
   ]
