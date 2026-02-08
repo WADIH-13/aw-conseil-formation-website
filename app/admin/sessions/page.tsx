@@ -4,19 +4,22 @@ import { createSupabaseServerClient } from '@/lib/supabase/server'
 
 type SessionRow = {
   id: string
-  training_id: string
-  dates: string[] | null
+  offer_id: string
+  start_date: string | null
+  end_date: string | null
   format: 'presentiel' | 'distanciel'
   city: string | null
-  department: string | null
-  region: string | null
+  department_code: string | null
+  region_code: string | null
   publication_status: 'draft' | 'pending_review' | 'published' | 'rejected' | 'archived'
   created_at: string
+  offers?: { title: string | null } | null
 }
 
-function firstDate(dates: string[] | null): string {
-  if (!dates?.length) return '—'
-  return dates.slice().sort()[0] ?? '—'
+function firstDate(startDate: string | null, endDate: string | null): string {
+  if (startDate) return startDate
+  if (endDate) return endDate
+  return '—'
 }
 
 export default async function AdminSessionsPage() {
@@ -35,7 +38,7 @@ export default async function AdminSessionsPage() {
 
   const { data: sessions, error } = await supabase
     .from('sessions')
-    .select('id, training_id, dates, format, city, department, region, publication_status, created_at')
+    .select('id, offer_id, start_date, end_date, format, city, department_code, region_code, publication_status, created_at, offers (title)')
     .order('created_at', { ascending: false })
     .limit(200)
 
@@ -76,12 +79,12 @@ export default async function AdminSessionsPage() {
             <tbody className="divide-y divide-black/5">
               {(sessions ?? []).map((s: SessionRow) => (
                 <tr key={s.id} className="hover:bg-black/[0.015]">
-                  <td className="px-6 py-4 text-black/80">{s.training_id}</td>
-                  <td className="px-6 py-4 text-black/70">{firstDate(s.dates)}</td>
+                  <td className="px-6 py-4 text-black/80">{s.offers?.title || s.offer_id}</td>
+                  <td className="px-6 py-4 text-black/70">{firstDate(s.start_date, s.end_date)}</td>
                   <td className="px-6 py-4 text-black/70">
                     {s.format === 'distanciel'
                       ? 'Distanciel'
-                      : [s.city, s.department, s.region].filter(Boolean).join(' · ') || '—'}
+                      : [s.city, s.department_code, s.region_code].filter(Boolean).join(' · ') || '—'}
                   </td>
                   <td className="px-6 py-4">
                     <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold border text-black/70 bg-black/[0.03] border-black/10">
@@ -89,13 +92,18 @@ export default async function AdminSessionsPage() {
                     </span>
                   </td>
                   <td className="px-6 py-4">
-                    {s.publication_status === 'draft' ? (
-                      <form action={`/api/admin/sessions/${s.id}/submit`} method="post">
-                        <button type="submit" className="btn-secondary">Soumettre</button>
-                      </form>
-                    ) : (
-                      <span className="text-black/45">—</span>
-                    )}
+                    <div className="flex flex-wrap gap-2">
+                      <Link href={`/admin/sessions/${s.id}`} className="btn-secondary">
+                        Modifier
+                      </Link>
+                      {s.publication_status === 'draft' ? (
+                        <form action={`/api/admin/sessions/${s.id}/submit`} method="post">
+                          <button type="submit" className="btn-secondary">Soumettre</button>
+                        </form>
+                      ) : (
+                        <span className="text-black/45">—</span>
+                      )}
+                    </div>
                   </td>
                 </tr>
               ))}

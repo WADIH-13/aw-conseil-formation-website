@@ -4,12 +4,13 @@ import { createSupabaseServerClient } from '@/lib/supabase/server'
 import { isSupabaseConfigured } from '@/lib/supabase/env'
 
 const CreateSessionSchema = z.object({
-  trainingId: z.string().min(1),
+  offerId: z.string().min(1),
   format: z.enum(['presentiel', 'distanciel']),
   dates: z.array(z.string().regex(/^\d{4}-\d{2}-\d{2}$/)).default([]),
-  region: z.string().nullable().optional(),
-  department: z.string().nullable().optional(),
+  region_code: z.string().nullable().optional(),
+  department_code: z.string().nullable().optional(),
   city: z.string().nullable().optional(),
+  city_insee_code: z.string().nullable().optional(),
 })
 
 export async function GET() {
@@ -24,7 +25,7 @@ export async function GET() {
 
   const { data, error } = await supabase
     .from('sessions')
-    .select('id, training_id, dates, format, region, department, city, publication_status, availability_status, created_at')
+    .select('id, offer_id, start_date, end_date, format, region_code, department_code, city, publication_status, availability_status, created_at')
     .order('created_at', { ascending: false })
     .limit(200)
 
@@ -55,18 +56,18 @@ export async function POST(request: Request) {
   const endDate = sortedDates.length ? sortedDates[sortedDates.length - 1] : null
 
   const { data, error } = await supabase.from('sessions').insert({
-    training_id: payload.trainingId,
+    offer_id: payload.offerId,
     format: payload.format,
-    dates: payload.dates,
     start_date: startDate,
     end_date: endDate,
-    region: payload.format === 'presentiel' ? payload.region ?? null : null,
-    department: payload.format === 'presentiel' ? payload.department ?? null : null,
+    region_code: payload.format === 'presentiel' ? payload.region_code ?? null : null,
+    department_code: payload.format === 'presentiel' ? payload.department_code ?? null : null,
     city: payload.format === 'presentiel' ? payload.city ?? null : null,
+    city_insee_code: payload.format === 'presentiel' ? payload.city_insee_code ?? null : null,
     publication_status: 'draft',
     availability_status: 'sur_demande',
     organized_by_label: 'Réseau national',
-    duration_hours: payload.trainingId === 'devenir-referent-charge-mentale' ? 28 : 7,
+    duration_hours: payload.offerId === 'devenir-referent-charge-mentale' ? 28 : 7,
     created_by: userData.user.id,
   }).select('id').single()
 

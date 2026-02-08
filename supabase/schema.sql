@@ -196,3 +196,25 @@ for insert with check (true);
 create policy "survey_responses_select" on survey_responses
 for select to authenticated
 using (true);
+
+-- Table for Meteo collective (anonymous, aggregated observation)
+create table if not exists meteo_collective_entries (
+  id uuid primary key default gen_random_uuid(),
+  value text not null check (value in ('fluide', 'charge', 'lourd')),
+  perimeter text,
+  created_at timestamptz not null default now(),
+  indexed_at date generated always as (created_at::date) stored
+);
+
+create index if not exists meteo_collective_value_idx on meteo_collective_entries(value);
+create index if not exists meteo_collective_perimeter_idx on meteo_collective_entries(perimeter);
+create index if not exists meteo_collective_created_at_idx on meteo_collective_entries(created_at);
+
+alter table meteo_collective_entries enable row level security;
+
+create policy "meteo_collective_insert" on meteo_collective_entries
+for insert with check (true);
+
+create policy "meteo_collective_select" on meteo_collective_entries
+for select to authenticated
+using (true);

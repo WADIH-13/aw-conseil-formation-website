@@ -19,7 +19,7 @@ const surveyPayloadSchema = z.object({
     })
   ),
   // ⭐ Toutes les réponses : { question_id: réponse_value }
-  answers: z.record(z.number()),
+  answers: z.record(z.string(), z.number()),
 });
 
 export async function POST(request: NextRequest) {

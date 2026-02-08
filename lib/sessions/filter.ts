@@ -1,4 +1,4 @@
-import type { Session, SessionFilters, TrainingId } from './types'
+import type { Session, SessionFilters } from './types'
 
 function normalize(value: string): string {
   return value
@@ -8,51 +8,61 @@ function normalize(value: string): string {
     .replace(/[\u0300-\u036f]/g, '')
 }
 
-function getSessionStartDate(session: Session): string | undefined {
-  if (!session.dates.length) return undefined
-  return session.dates.slice().sort()[0]
+function getSessionStartDate(session: Session): string | null {
+  return session.start_date ?? null
 }
 
 export function filterSessions(sessions: Session[], filters: SessionFilters): Session[] {
-  const regionOrDepartment = filters.regionOrDepartment
-    ? normalize(filters.regionOrDepartment)
-    : undefined
+  const city = filters.city ? normalize(filters.city) : undefined
 
   return sessions.filter((session) => {
-    if (filters.trainingId) {
-      const trainingId: TrainingId = filters.trainingId
-      if (session.trainingId !== trainingId) return false
-    }
+    if (filters.offer_id && session.offer_id !== filters.offer_id) return false
 
-    if (filters.format) {
-      if (session.location.format !== filters.format) return false
-    }
+    // offer_format filtering is handled at the query level when using Supabase joins.
 
-    if (regionOrDepartment) {
-      const region = session.location.region ? normalize(session.location.region) : ''
-      const department = session.location.department ? normalize(session.location.department) : ''
-      const city = session.location.city ? normalize(session.location.city) : ''
+    if (filters.format && session.format !== filters.format) return false
 
-      const matches =
-        region.includes(regionOrDepartment) ||
-        department.includes(regionOrDepartment) ||
-        city.includes(regionOrDepartment)
+    if (filters.region_code && session.region_code !== filters.region_code) return false
+    if (filters.department_code && session.department_code !== filters.department_code) return false
 
-      if (!matches) return false
+    if (city) {
+      const sessionCity = session.city ? normalize(session.city) : ''
+      if (!sessionCity.includes(city)) return false
     }
 
     const start = getSessionStartDate(session)
-    if (filters.startDateFrom && start && start < filters.startDateFrom) return false
-    if (filters.startDateTo && start && start > filters.startDateTo) return false
+    if (filters.start_date_from && start && start < filters.start_date_from) return false
+    if (filters.start_date_to && start && start > filters.start_date_to) return false
 
     return true
   })
 }
 
-export function collectRegions(sessions: Session[]): string[] {
-  const regions = new Set<string>()
-  for (const session of sessions) {
-    if (session.location.region) regions.add(session.location.region)
+function getFirstValue(value: string | string[] | undefined): string | undefined {
+  if (Array.isArray(value)) return value[0]
+  return value
+}
+
+export function parseSessionFilters(
+  params: Record<string, string | string[] | undefined>
+): SessionFilters {
+  const offer_id = getFirstValue(params.offer_id)
+  const offer_format = getFirstValue(params.offer_format)
+  const format = getFirstValue(params.format)
+  const region_code = getFirstValue(params.region_code)
+  const department_code = getFirstValue(params.department_code)
+  const city = getFirstValue(params.city)
+  const start_date_from = getFirstValue(params.start_date_from)
+  const start_date_to = getFirstValue(params.start_date_to)
+
+  return {
+    offer_id: offer_id || undefined,
+    offer_format: offer_format || undefined,
+    format: format === 'presentiel' || format === 'distanciel' ? format : undefined,
+    region_code: region_code || undefined,
+    department_code: department_code || undefined,
+    city: city || undefined,
+    start_date_from: start_date_from || undefined,
+    start_date_to: start_date_to || undefined,
   }
-  return Array.from(regions).sort((a, b) => a.localeCompare(b, 'fr'))
 }

@@ -4,19 +4,22 @@ import { createSupabaseServerClient } from '@/lib/supabase/server'
 
 type SessionRow = {
   id: string
-  training_id: string
-  dates: string[] | null
+  offer_id: string
+  start_date: string | null
+  end_date: string | null
   format: 'presentiel' | 'distanciel'
   city: string | null
-  department: string | null
-  region: string | null
+  department_code: string | null
+  region_code: string | null
   publication_status: 'draft' | 'pending_review' | 'published' | 'rejected' | 'archived'
   created_at: string
+  offers?: { title: string | null } | null
 }
 
-function firstDate(dates: string[] | null): string {
-  if (!dates?.length) return '—'
-  return dates.slice().sort()[0] ?? '—'
+function firstDate(startDate: string | null, endDate: string | null): string {
+  if (startDate) return startDate
+  if (endDate) return endDate
+  return '—'
 }
 
 export default async function AdminReviewPage() {
@@ -43,7 +46,7 @@ export default async function AdminReviewPage() {
 
   const { data: sessions, error } = await supabase
     .from('sessions')
-    .select('id, training_id, dates, format, city, department, region, publication_status, created_at')
+    .select('id, offer_id, start_date, end_date, format, city, department_code, region_code, publication_status, created_at, offers (title)')
     .eq('publication_status', 'pending_review')
     .order('created_at', { ascending: true })
     .limit(200)
@@ -79,12 +82,12 @@ export default async function AdminReviewPage() {
             <tbody className="divide-y divide-black/5">
               {(sessions ?? []).map((s: SessionRow) => (
                 <tr key={s.id} className="hover:bg-black/[0.015]">
-                  <td className="px-6 py-4 text-black/80">{s.training_id}</td>
-                  <td className="px-6 py-4 text-black/70">{firstDate(s.dates)}</td>
+                  <td className="px-6 py-4 text-black/80">{s.offers?.title || s.offer_id}</td>
+                  <td className="px-6 py-4 text-black/70">{firstDate(s.start_date, s.end_date)}</td>
                   <td className="px-6 py-4 text-black/70">
                     {s.format === 'distanciel'
                       ? 'Distanciel'
-                      : [s.city, s.department, s.region].filter(Boolean).join(' · ') || '—'}
+                      : [s.city, s.department_code, s.region_code].filter(Boolean).join(' · ') || '—'}
                   </td>
                   <td className="px-6 py-4">
                     <div className="flex flex-wrap gap-2">

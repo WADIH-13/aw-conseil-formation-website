@@ -3,19 +3,21 @@
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { CityAutocomplete } from '@/components/admin/CityAutocomplete'
 
 export default function AdminNewSessionPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const [trainingId, setTrainingId] = useState('decouvrir-charge-mentale')
+  const [offerId, setOfferId] = useState('decouvrir-charge-mentale')
   const [format, setFormat] = useState<'presentiel' | 'distanciel'>('presentiel')
   const [date1, setDate1] = useState('')
   const [date2, setDate2] = useState('')
-  const [region, setRegion] = useState('')
-  const [department, setDepartment] = useState('')
+  const [regionCode, setRegionCode] = useState('')
+  const [departmentCode, setDepartmentCode] = useState('')
   const [city, setCity] = useState('')
+  const [cityInseeCode, setCityInseeCode] = useState<string | null>(null)
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -28,12 +30,13 @@ export default function AdminNewSessionPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          trainingId,
+          offerId,
           format,
           dates,
-          region: format === 'presentiel' ? region || null : null,
-          department: format === 'presentiel' ? department || null : null,
+          region_code: format === 'presentiel' ? regionCode || null : null,
+          department_code: format === 'presentiel' ? departmentCode || null : null,
           city: format === 'presentiel' ? city || null : null,
+          city_insee_code: format === 'presentiel' ? cityInseeCode || null : null,
         }),
       })
 
@@ -60,7 +63,7 @@ export default function AdminNewSessionPage() {
       <form onSubmit={onSubmit} className="bg-white border border-black/5 rounded-2xl p-6 aw-card-surface space-y-5">
         <div>
           <label className="block text-xs tracking-[0.24em] uppercase text-black/60 mb-2">Formation</label>
-          <select className="w-full rounded-xl border border-black/10 bg-white px-4 py-3 text-sm" value={trainingId} onChange={(e) => setTrainingId(e.target.value)}>
+          <select className="w-full rounded-xl border border-black/10 bg-white px-4 py-3 text-sm" value={offerId} onChange={(e) => setOfferId(e.target.value)}>
             <option value="decouvrir-charge-mentale">Découvrir la charge mentale (7h)</option>
             <option value="mieux-gerer-charge-mentale">Mieux gérer sa charge mentale (7h)</option>
             <option value="devenir-referent-charge-mentale">Devenir référent charge mentale (28h)</option>
@@ -90,15 +93,24 @@ export default function AdminNewSessionPage() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
               <label className="block text-xs tracking-[0.24em] uppercase text-black/60 mb-2">Région</label>
-              <input className="w-full rounded-xl border border-black/10 bg-white px-4 py-3 text-sm" value={region} onChange={(e) => setRegion(e.target.value)} />
+              <input className="w-full rounded-xl border border-black/10 bg-white px-4 py-3 text-sm" value={regionCode} onChange={(e) => setRegionCode(e.target.value)} />
             </div>
             <div>
               <label className="block text-xs tracking-[0.24em] uppercase text-black/60 mb-2">Département</label>
-              <input className="w-full rounded-xl border border-black/10 bg-white px-4 py-3 text-sm" value={department} onChange={(e) => setDepartment(e.target.value)} />
+              <input className="w-full rounded-xl border border-black/10 bg-white px-4 py-3 text-sm" value={departmentCode} onChange={(e) => setDepartmentCode(e.target.value)} />
             </div>
             <div>
               <label className="block text-xs tracking-[0.24em] uppercase text-black/60 mb-2">Ville</label>
-              <input className="w-full rounded-xl border border-black/10 bg-white px-4 py-3 text-sm" value={city} onChange={(e) => setCity(e.target.value)} />
+              <CityAutocomplete
+                valueLabel={city}
+                valueInseeCode={cityInseeCode}
+                departmentCode={departmentCode || undefined}
+                regionCode={regionCode || undefined}
+                onPick={({ inseeCode, name }) => {
+                  setCity(name)
+                  setCityInseeCode(inseeCode)
+                }}
+              />
             </div>
           </div>
         )}

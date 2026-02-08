@@ -83,6 +83,16 @@ NEXT_PUBLIC_SHOW_MAHI_BAHI=false
 - `false` (ou absent) : page et liens masqués (404)
 - `true` : page et liens visibles
 
+## 🔐 Supabase (côté serveur)
+
+Le catalogue utilise un client Supabase côté serveur. Pour les opérations serveur, vous pouvez fournir :
+
+```bash
+SUPABASE_SERVICE_ROLE_KEY=
+```
+
+> La clé service role doit rester côté serveur uniquement. En l'absence de cette clé, le client utilise `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
+
 ## 📝 Contraintes éditoriales respectées
 
 - Ton professionnel, clair et direct

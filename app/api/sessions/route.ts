@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
-import { SESSIONS } from '@/lib/sessions/sampleData'
 import type { SessionFilters } from '@/lib/sessions/types'
-import { filterSessions } from '@/lib/sessions/filter'
+import { parseSessionFilters } from '@/lib/sessions/filter'
+import { getPublicSessions } from '@/lib/sessions/publicSessions'
 import { isSupabaseConfigured } from '@/lib/supabase/env'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
 
@@ -11,103 +11,101 @@ function clampInt(value: string | null, fallback: number, min: number, max: numb
   return Math.min(max, Math.max(min, Math.trunc(n)))
 }
 
-function sessionPrimaryDate(session: { dates: string[] }): string {
-  return session.dates.slice().sort()[0] ?? '9999-12-31'
+function sessionPrimaryDate(session: { start_date: string | null }): string {
+  return session.start_date ?? '9999-12-31'
 }
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
 
-  const filters: SessionFilters = {
-    trainingId: (searchParams.get('trainingId') as any) || undefined,
-    regionOrDepartment: searchParams.get('q') || undefined,
-    format: (searchParams.get('format') as any) || undefined,
-    startDateFrom: searchParams.get('from') || undefined,
-    startDateTo: searchParams.get('to') || undefined,
-  }
+  const filters: SessionFilters = parseSessionFilters(Object.fromEntries(searchParams.entries()))
+  const debug = searchParams.get('debug') === '1'
 
   const limit = clampInt(searchParams.get('limit'), 50, 1, 200)
   const offset = clampInt(searchParams.get('offset'), 0, 0, 100000)
 
-  // Mode scalable : si Supabase est branché, lire les sessions publiées depuis la DB.
-  if (isSupabaseConfigured()) {
-    try {
-      const supabase = createSupabaseServerClient()
-
-      let query = supabase
-        .from('sessions')
-        .select('id, training_id, dates, start_date, end_date, format, region, department, city, publication_status, availability_status, organized_by_label, duration_hours')
-        .eq('publication_status', 'published')
-
-      if (filters.trainingId) query = query.eq('training_id', String(filters.trainingId))
-      if (filters.format) query = query.eq('format', String(filters.format))
-
-      const q = filters.regionOrDepartment?.trim()
-      if (q) {
-        const safe = q.replace(/,/g, ' ').trim()
-        query = query.or(
-          `region.ilike.%${safe}%,department.ilike.%${safe}%,city.ilike.%${safe}%`
-        )
-      }
-
-      if (filters.startDateFrom) query = query.gte('start_date', filters.startDateFrom)
-      if (filters.startDateTo) query = query.lte('start_date', filters.startDateTo)
-
-      // On récupère un ensemble raisonnable, puis on pagine côté API.
-      const { data, error } = await query
-        .order('start_date', { ascending: true })
-        .limit(5000)
-
-      if (error) throw new Error(error.message)
-
-      const mapped = (data ?? []).map((row: any) => ({
-        id: row.id,
-        trainingId: row.training_id,
-        dates: (row.dates ?? []).map((d: any) => String(d)),
-        durationHours:
-          typeof row.duration_hours === 'number'
-            ? row.duration_hours
-            : row.training_id === 'devenir-referent-charge-mentale'
-              ? 28
-              : 7,
-        location: {
-          format: row.format,
-          region: row.region ?? undefined,
-          department: row.department ?? undefined,
-          city: row.city ?? undefined,
-        },
-        organizedByLabel: row.organized_by_label ?? 'Réseau national',
-        status: row.availability_status ?? 'sur_demande',
-      }))
-
-      // NOTE: le modèle DB est volontairement minimal ici.
-      // La durée/organisateur/statut seront enrichis quand on finalise le BO.
-
-      const page = mapped.slice(offset, offset + limit)
-
-      return NextResponse.json({
-        sessions: page,
-        total: mapped.length,
-        limit,
-        offset,
-        nextOffset: offset + limit < mapped.length ? offset + limit : null,
-      })
-    } catch {
-      // Fallback silencieux sur les données fictives.
-    }
+  if (!isSupabaseConfigured()) {
+    return NextResponse.json({ error: 'Supabase non configuré' }, { status: 501 })
   }
 
-  const all = filterSessions(SESSIONS, filters).sort((a, b) =>
-    sessionPrimaryDate(a).localeCompare(sessionPrimaryDate(b))
-  )
+  const all = await getPublicSessions(filters)
+  const sorted = all.slice().sort((a, b) => sessionPrimaryDate(a).localeCompare(sessionPrimaryDate(b)))
+  const page = sorted.slice(offset, offset + limit)
 
-  const page = all.slice(offset, offset + limit)
+  if (debug) {
+    const supabase = createSupabaseServerClient()
+
+    const publishedSessions = await supabase
+      .from('sessions')
+      .select('id', { count: 'exact', head: true })
+      .eq('publication_status', 'published')
+
+    const activeOffers = await supabase
+      .from('offers')
+      .select('id', { count: 'exact', head: true })
+      .eq('is_active', true)
+
+    const publishedWithActiveOffers = await supabase
+      .from('sessions')
+      .select('id, offers!inner (id, is_active)', { count: 'exact', head: true })
+      .eq('publication_status', 'published')
+      .eq('offers.is_active', true)
+
+    const sessionsWithRegion = await supabase
+      .from('sessions')
+      .select('id', { count: 'exact', head: true })
+      .eq('publication_status', 'published')
+      .not('region_code', 'is', null)
+
+    const sessionsWithDepartment = await supabase
+      .from('sessions')
+      .select('id', { count: 'exact', head: true })
+      .eq('publication_status', 'published')
+      .not('department_code', 'is', null)
+
+    const regionsCount = await supabase
+      .from('regions')
+      .select('code', { count: 'exact', head: true })
+
+    const departmentsCount = await supabase
+      .from('departments')
+      .select('code', { count: 'exact', head: true })
+
+    return NextResponse.json({
+      sessions: page,
+      total: sorted.length,
+      limit,
+      offset,
+      nextOffset: offset + limit < sorted.length ? offset + limit : null,
+      meta: {
+        filters,
+        counts: {
+          publishedSessions: publishedSessions.count ?? 0,
+          activeOffers: activeOffers.count ?? 0,
+          publishedWithActiveOffers: publishedWithActiveOffers.count ?? 0,
+          sessionsWithRegion: sessionsWithRegion.count ?? 0,
+          sessionsWithDepartment: sessionsWithDepartment.count ?? 0,
+          regions: regionsCount.count ?? 0,
+          departments: departmentsCount.count ?? 0,
+        },
+        errors: {
+          publishedSessions: publishedSessions.error?.message ?? null,
+          activeOffers: activeOffers.error?.message ?? null,
+          publishedWithActiveOffers: publishedWithActiveOffers.error?.message ?? null,
+          sessionsWithRegion: sessionsWithRegion.error?.message ?? null,
+          sessionsWithDepartment: sessionsWithDepartment.error?.message ?? null,
+          regions: regionsCount.error?.message ?? null,
+          departments: departmentsCount.error?.message ?? null,
+        },
+      },
+    })
+  }
 
   return NextResponse.json({
     sessions: page,
-    total: all.length,
+    total: sorted.length,
     limit,
     offset,
-    nextOffset: offset + limit < all.length ? offset + limit : null,
+    nextOffset: offset + limit < sorted.length ? offset + limit : null,
   })
 }

@@ -23,6 +23,7 @@ export default function Header() {
   const navigation = [
     { name: 'Accueil', href: '/' },
     { name: 'Formations', href: '/formations' },
+    { name: 'Catalogue', href: '/catalogue' },
     { name: 'Partenaires', href: '/partenaires' },
     { name: 'Veille', href: '/veille-charge-mentale' },
     { name: 'Blog', href: '/blog' },
@@ -53,18 +54,6 @@ export default function Header() {
                   Conseil et Formation
                 </span>
               </div>
-            </Link>
-            <Link
-              href="/barometre"
-              className="hidden md:flex items-center px-4 py-2 rounded-xl bg-gradient-to-r from-red-50 to-red-100 hover:from-red-100 hover:to-red-200 transition-all duration-300 border border-red-200/50"
-            >
-              <Image
-                src="/logo aw score.png"
-                alt="AW Score - Baromètre de charge mentale"
-                width={120}
-                height={40}
-                className="h-8 w-auto"
-              />
             </Link>
           </div>
           
