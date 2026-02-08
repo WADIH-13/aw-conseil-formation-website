@@ -15,9 +15,21 @@ export default function TestReportPage() {
     // no-op
   };
 
+  const userAnswers: Record<number, number> = {
+    1: 3,
+    2: 2,
+    3: 4,
+  };
+
   return (
     <div className="p-8">
-      <Results awScore={42} rawScore={123} dimensionScores={sampleDimensions} onRestart={onRestart} />
+      <Results
+        awScore={42}
+        rawScore={123}
+        dimensionScores={sampleDimensions}
+        userAnswers={userAnswers}
+        onRestart={onRestart}
+      />
       {/* ensure radar has class for PDF export */}
       <div style={{ display: 'none' }} className="report-radar" aria-hidden />
     </div>

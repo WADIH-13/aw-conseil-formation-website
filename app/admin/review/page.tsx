@@ -82,7 +82,7 @@ export default async function AdminReviewPage() {
             <tbody className="divide-y divide-black/5">
               {(sessions ?? []).map((s) => (
                 <tr key={s.id} className="hover:bg-black/[0.015]">
-                  <td className="px-6 py-4 text-black/80">{s.offers?.[0]?.title || s.offer_id}</td>
+                  <td className="px-6 py-4 text-black/80">{s.offers?.[0]?.title ?? s.offer_id}</td>
                   <td className="px-6 py-4 text-black/70">{firstDate(s.start_date, s.end_date)}</td>
                   <td className="px-6 py-4 text-black/70">
                     {s.format === 'distanciel'
