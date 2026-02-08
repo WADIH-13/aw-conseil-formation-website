@@ -1,5 +1,6 @@
 import React from "react";
 import Head from "next/head";
+import { notFound } from "next/navigation";
 
 export const metadata = {
   title: "Dr Yacine Mahi Bahi Amar - Référent Scientifique | AW Conseil Formation",
@@ -10,7 +11,13 @@ export const metadata = {
   robots: "index, follow",
 };
 
+const showMahiBahi = process.env.NEXT_PUBLIC_SHOW_MAHI_BAHI === "true";
+
 export default function DrMahiBahiPage() {
+  if (!showMahiBahi) {
+    notFound();
+  }
+
   return (
     <>
       <Head>
@@ -21,13 +28,11 @@ export default function DrMahiBahiPage() {
         <meta name="robots" content={metadata.robots} />
       </Head>
       <main className="min-h-screen bg-white text-black px-4 sm:px-6 lg:px-8">
-        {/* Hero Section */}
         <section className="pt-16 pb-12 text-center border-b border-gray-300">
           <h1 className="text-4xl font-extrabold mb-2">Dr Yacine Mahi Bahi Amar</h1>
           <p className="text-xl font-semibold text-red-600">Référent Scientifique</p>
         </section>
 
-        {/* Présentation de son rôle */}
         <section className="max-w-4xl mx-auto py-12">
           <h2 className="text-2xl font-bold mb-4">Son rôle</h2>
           <p className="text-base leading-relaxed">
@@ -35,7 +40,6 @@ export default function DrMahiBahiPage() {
           </p>
         </section>
 
-        {/* Parcours et formation */}
         <section className="max-w-4xl mx-auto py-12 border-t border-gray-300">
           <h2 className="text-2xl font-bold mb-4">Parcours et formation</h2>
           <ul className="list-disc list-inside space-y-2 text-base leading-relaxed">
@@ -48,7 +52,6 @@ export default function DrMahiBahiPage() {
           </ul>
         </section>
 
-        {/* Expertise et spécialisations */}
         <section className="max-w-4xl mx-auto py-12 border-t border-gray-300">
           <h2 className="text-2xl font-bold mb-4">Expertise et spécialisations</h2>
           <ul className="list-disc list-inside space-y-2 text-base leading-relaxed">
@@ -57,7 +60,6 @@ export default function DrMahiBahiPage() {
           </ul>
         </section>
 
-        {/* Disclaimer important */}
         <section className="max-w-4xl mx-auto py-12 border-t border-gray-300 bg-gray-50 p-6 rounded">
           <h2 className="text-xl font-semibold mb-2 text-red-600">Important</h2>
           <p className="text-sm leading-relaxed">
@@ -65,13 +67,11 @@ export default function DrMahiBahiPage() {
           </p>
         </section>
 
-        {/* Interventions et vidéos (à venir) */}
         <section className="max-w-4xl mx-auto py-12 border-t border-gray-300 text-center">
           <h2 className="text-2xl font-bold mb-4">Interventions et vidéos (à venir)</h2>
           <p className="text-base leading-relaxed text-gray-600">Contenu en cours de préparation.</p>
         </section>
 
-        {/* CTA Prendre un temps d'échange */}
         <section className="max-w-4xl mx-auto py-12 border-t border-gray-300 text-center">
           <button className="bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded focus:outline-none focus:ring-2 focus:ring-red-500">
             Prendre un temps d'échange

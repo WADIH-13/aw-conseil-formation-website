@@ -35,7 +35,7 @@ export default function Header() {
     <header className="aw-diagonal-surface border-b border-black/5">
       <nav className="container-custom" aria-label="Navigation principale">
         <div className="flex items-center justify-between gap-8 py-10 md:py-12">
-          <div className="flex items-center">
+          <div className="flex items-center gap-4">
             <Link
               href="/"
               className="flex items-center gap-6 px-2 py-2 rounded-2xl transition-all duration-300 hover:opacity-90"
@@ -53,6 +53,18 @@ export default function Header() {
                   Conseil et Formation
                 </span>
               </div>
+            </Link>
+            <Link
+              href="/barometre"
+              className="hidden md:flex items-center px-4 py-2 rounded-xl bg-gradient-to-r from-red-50 to-red-100 hover:from-red-100 hover:to-red-200 transition-all duration-300 border border-red-200/50"
+            >
+              <Image
+                src="/logo aw score.png"
+                alt="AW Score - Baromètre de charge mentale"
+                width={120}
+                height={40}
+                className="h-8 w-auto"
+              />
             </Link>
           </div>
           

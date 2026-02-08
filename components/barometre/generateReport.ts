@@ -1,5 +1,4 @@
 import jsPDF from "jspdf";
-import html2canvas from "html2canvas";
 
 interface DimensionScore {
   key: string;
@@ -14,19 +13,35 @@ interface ReportData {
   dimensionScores?: DimensionScore[];
 }
 
-// Couleurs sobres, désaturées — adaptées à la charte AW
-const AW_COLOR: {
-  primary: [number, number, number]
-  accent: [number, number, number]
-  soft: [number, number, number]
-} = {
-  primary: [34, 40, 49], // foncé
-  accent: [88, 101, 115], // secondaire désaturée
-  soft: [244, 245, 247], // fond clair
+// Couleurs sobres — charte AW
+const AW_COLOR = {
+  primary: [139, 29, 29] as [number, number, number],   // Rouge AW
+  dark: [34, 40, 49] as [number, number, number],       // Texte foncé
+  accent: [88, 101, 115] as [number, number, number],   // Secondaire
+  soft: [244, 245, 247] as [number, number, number],    // Fond clair
 };
 
-function degToRad(deg: number) {
-  return (deg * Math.PI) / 180;
+function getInterpretation(score: number) {
+  if (score >= 75) return {
+    level: "Charge légère",
+    message: "Votre charge mentale semble bien maîtrisée. Vous avez développé de bonnes stratégies d'organisation et de récupération.",
+    advice: "Maintenez vos bonnes habitudes et restez vigilant(e) aux premiers signes de surcharge."
+  };
+  if (score >= 50) return {
+    level: "Charge modérée",
+    message: "Votre charge mentale est présente mais gérable. Certains signaux méritent votre attention.",
+    advice: "Identifiez les sources de tension principales et accordez-vous des temps de récupération."
+  };
+  if (score >= 25) return {
+    level: "Charge élevée",
+    message: "Votre charge mentale est significative. Il est important d'agir pour éviter l'épuisement.",
+    advice: "Priorisez, déléguez si possible, et n'hésitez pas à demander du soutien."
+  };
+  return {
+    level: "Charge critique",
+    message: "Votre charge mentale est très élevée. Prenez soin de vous et agissez rapidement.",
+    advice: "Consultez un professionnel si vous ressentez une détresse importante. Votre bien-être est prioritaire."
+  };
 }
 
 export async function generatePdfReport(data: ReportData) {
@@ -36,8 +51,16 @@ export async function generatePdfReport(data: ReportData) {
   const margin = 48;
 
   const date = data.date || new Date().toISOString().slice(0, 10);
+  const formattedDate = new Date(date).toLocaleDateString('fr-FR', { 
+    day: 'numeric', 
+    month: 'long', 
+    year: 'numeric' 
+  });
 
-  // Helper to load images (logo) from public
+  const normalized = Math.max(0, Math.min(100, data.awScore));
+  const interpretation = getInterpretation(normalized);
+
+  // Helper pour charger une image
   async function loadImageAsDataUrl(path: string) {
     try {
       const resp = await fetch(path);
@@ -54,252 +77,211 @@ export async function generatePdfReport(data: ReportData) {
     }
   }
 
-  // --- PAGE 1 : COMPRENDRE ---
-  // Header: logo left, title center, date right
-  const logoData = await loadImageAsDataUrl("/logo-aw.png");
-  const headerY = 40;
-  if (logoData) {
-    doc.addImage(logoData, "PNG", margin, headerY, 140, 42);
-  }
-
-  doc.setFontSize(12);
-  doc.setFont("helvetica", "normal");
-  doc.text(date, pageWidth - margin, headerY + 14, { align: "right" });
-
-  // Title centered
-  doc.setFontSize(18);
-  doc.setFont("helvetica", "bold");
-  doc.text("Votre lecture de charge mentale — AW Score", pageWidth / 2, headerY + 60, { align: "center" });
-
-  // Sous-titre discret
-  doc.setFontSize(10);
-  doc.setFont("helvetica", "normal");
-  doc.setTextColor(...AW_COLOR.accent);
-  doc.text("Une photographie de votre charge mentale à l'instant T", pageWidth / 2, headerY + 78, { align: "center" });
-  doc.setTextColor(0, 0, 0);
-
-  // Jauge AW Score (centrale)
-  const gaugeCenterX = pageWidth / 2;
-  const gaugeCenterY = 220;
-  const gaugeRadius = 110;
-
-  // Arc de la jauge — demi-cercle légèrement ouvert (from 200deg to -20deg)
-  const startDeg = 200;
-  const endDeg = -20 + 360; // js degrees
-
-  // Draw background arc (subtle, thin)
-  doc.setDrawColor(...AW_COLOR.accent);
-  doc.setLineWidth(6);
-  (doc as any).circle(gaugeCenterX, gaugeCenterY, gaugeRadius, "S");
-  // Instead of full circle, we draw arc by constructing path of many small lines
-  const steps = 120;
-  doc.setLineWidth(6);
-  doc.setDrawColor(200, 204, 209);
-  for (let i = 0; i <= steps; i++) {
-    const t1 = startDeg + ((endDeg - startDeg) * i) / steps;
-    const t2 = startDeg + ((endDeg - startDeg) * (i + 1)) / steps;
-    const x1 = gaugeCenterX + Math.cos(degToRad(t1)) * gaugeRadius;
-    const y1 = gaugeCenterY + Math.sin(degToRad(t1)) * gaugeRadius;
-    const x2 = gaugeCenterX + Math.cos(degToRad(t2)) * gaugeRadius;
-    const y2 = gaugeCenterY + Math.sin(degToRad(t2)) * gaugeRadius;
-    doc.setLineWidth(4);
-    doc.line(x1, y1, x2, y2);
-  }
-
-  // Active arc based on score — thin, desaturated color (no loud greens/reds)
-  const normalized = Math.max(0, Math.min(100, data.awScore));
-  const scoreAngle = startDeg + ((endDeg - startDeg) * normalized) / 100;
-  const stepsActive = Math.round((steps * normalized) / 100);
-  doc.setDrawColor(...AW_COLOR.primary);
-  for (let i = 0; i <= stepsActive; i++) {
-    const t1 = startDeg + ((endDeg - startDeg) * i) / steps;
-    const t2 = startDeg + ((endDeg - startDeg) * (i + 1)) / steps;
-    const x1 = gaugeCenterX + Math.cos(degToRad(t1)) * gaugeRadius;
-    const y1 = gaugeCenterY + Math.sin(degToRad(t1)) * gaugeRadius;
-    const x2 = gaugeCenterX + Math.cos(degToRad(t2)) * gaugeRadius;
-    const y2 = gaugeCenterY + Math.sin(degToRad(t2)) * gaugeRadius;
-    doc.setLineWidth(6);
-    doc.line(x1, y1, x2, y2);
-  }
-
-  // Needle (fine, horlogerie)
-  const needleLength = gaugeRadius - 18;
-  const needleAngleRad = degToRad(scoreAngle);
-  const nx = gaugeCenterX + Math.cos(needleAngleRad) * needleLength;
-  const ny = gaugeCenterY + Math.sin(needleAngleRad) * needleLength;
-  doc.setDrawColor(...AW_COLOR.primary);
-  doc.setLineWidth(1.2);
-  doc.line(gaugeCenterX, gaugeCenterY, nx, ny);
-  // Needle pivot (small circle)
+  // =====================
+  // EN-TÊTE
+  // =====================
   doc.setFillColor(...AW_COLOR.primary);
-  doc.circle(gaugeCenterX, gaugeCenterY, 3, "F");
+  doc.rect(0, 0, pageWidth, 90, "F");
 
-  // AW Score text above the gauge (CAPS fine)
-  doc.setFontSize(10);
-  doc.setFont("helvetica", "normal");
-  const awTitle = "AW SCORE";
-  doc.text(awTitle, gaugeCenterX, gaugeCenterY - gaugeRadius - 14, { align: "center" });
+  // Logo AW Score centré
+  const logoData = await loadImageAsDataUrl("/logo aw score.png");
+  if (logoData) {
+    const logoW = 180;
+    const logoH = 60;
+    doc.addImage(logoData, "PNG", (pageWidth - logoW) / 2, 15, logoW, logoH);
+  }
 
-  // Numeric score positioned to the right of pivot (never under needle)
-  const scoreStr = String(Math.round(normalized));
-  const scoreX = gaugeCenterX + (needleLength / 2) * Math.cos(needleAngleRad) + 18;
-  const scoreY = gaugeCenterY + (needleLength / 2) * Math.sin(needleAngleRad) - 6;
-  // subtle white pastel capsule behind number
-  doc.setFillColor(255, 255, 255, 0.9 as any);
-  const capsuleW = 56;
-  const capsuleH = 28;
-  doc.roundedRect(scoreX - 8, scoreY - 14, capsuleW, capsuleH, 6, 6, "F");
-  doc.setTextColor(...AW_COLOR.primary);
-  doc.setFontSize(24);
-  doc.setFont("helvetica", "bold");
-  doc.text(scoreStr, scoreX + 10, scoreY + 6);
-  doc.setFontSize(10);
+  doc.setTextColor(255, 255, 255);
+  doc.setFontSize(11);
   doc.setFont("helvetica", "normal");
-  doc.text("/ 100", scoreX + 36, scoreY + 6);
+  doc.text("aw-formation.fr", pageWidth / 2, 82, { align: "center" });
+
   doc.setTextColor(0, 0, 0);
 
-  // Interpretation block below gauge
-  const interpY = gaugeCenterY + gaugeRadius + 28;
+  // =====================
+  // DISCLAIMER IMPORTANT
+  // =====================
+  let y = 120;
+  doc.setFillColor(255, 248, 240);
+  doc.roundedRect(margin, y, pageWidth - margin * 2, 70, 6, 6, "F");
+  doc.setDrawColor(255, 180, 100);
+  doc.setLineWidth(1);
+  doc.roundedRect(margin, y, pageWidth - margin * 2, 70, 6, 6, "S");
+
+  doc.setFontSize(10);
+  doc.setFont("helvetica", "bold");
+  doc.setTextColor(180, 100, 50);
+  doc.text("IMPORTANT", margin + 12, y + 18);
+
+  doc.setFont("helvetica", "normal");
+  doc.setTextColor(...AW_COLOR.dark);
+  const disclaimer = "Ce baromètre est un outil d'auto-réflexion et n'a aucune valeur médicale ou diagnostique. Il ne remplace en aucun cas l'avis d'un professionnel de santé. En cas de difficulté importante ou persistante, consultez un médecin ou un psychologue.";
+  const disclaimerLines = doc.splitTextToSize(disclaimer, pageWidth - margin * 2 - 24);
+  doc.text(disclaimerLines, margin + 12, y + 34);
+
+  // =====================
+  // OBJECTIF DU TEST
+  // =====================
+  y = 200;
   doc.setFontSize(12);
   doc.setFont("helvetica", "bold");
-  const interpretation = data.levelLabel || "Lecture";
-  doc.text("Votre niveau actuel : " + interpretation, margin, interpY);
+  doc.setTextColor(...AW_COLOR.primary);
+  doc.text("Objectif de ce baromètre", margin, y);
 
   doc.setFontSize(10);
   doc.setFont("helvetica", "normal");
-  const noteText = "Ce score ne vous définit pas. Il reflète un état de charge mentale à un moment donné, influencé par votre contexte, votre organisation et vos sollicitations actuelles.";
-  const split = doc.splitTextToSize(noteText, pageWidth - margin * 2);
-  doc.text(split, margin, interpY + 18);
+  doc.setTextColor(...AW_COLOR.dark);
+  const objectif = "Ce test a pour but de vous inviter à vous poser des questions sur votre quotidien, votre organisation et votre ressenti. Il s'agit d'une photographie à un instant T, qui peut évoluer. L'objectif est de vous aider à prendre du recul et à identifier d'éventuels points d'attention.";
+  const objectifLines = doc.splitTextToSize(objectif, pageWidth - margin * 2);
+  doc.text(objectifLines, margin, y + 18);
 
-  // Discrete mention under gauge
-  doc.setFontSize(9);
-  doc.text("Outil d'auto-évaluation — ne constitue pas un diagnostic médical.", margin, interpY + 68);
+  // =====================
+  // VOTRE SCORE
+  // =====================
+  y = 280;
+  doc.setFillColor(...AW_COLOR.soft);
+  doc.roundedRect(margin, y, pageWidth - margin * 2, 100, 8, 8, "F");
 
-  // --- PAGE 2 : AGIR ---
-  doc.addPage();
+  doc.setFontSize(14);
+  doc.setFont("helvetica", "bold");
+  doc.setTextColor(...AW_COLOR.dark);
+  doc.text("Votre AW Score", margin + 20, y + 30);
 
-  // Page 2 header
+  // Score number
+  doc.setFontSize(48);
+  doc.setFont("helvetica", "bold");
+  doc.setTextColor(...AW_COLOR.primary);
+  doc.text(String(Math.round(normalized)), margin + 20, y + 75);
+  doc.setFontSize(14);
+  doc.setTextColor(...AW_COLOR.accent);
+  doc.text("/ 100", margin + 80, y + 75);
+
+  // Level label
   doc.setFontSize(16);
   doc.setFont("helvetica", "bold");
-  doc.text("Agir — Reprendre du contrôle", margin, 64);
+  doc.setTextColor(...AW_COLOR.dark);
+  doc.text(data.levelLabel || interpretation.level, margin + 160, y + 45);
 
-  // Section 1: Lecture détaillée (dimensions)
-  doc.setFontSize(12);
-  doc.setFont("helvetica", "bold");
-  doc.text("Les dimensions qui composent votre charge mentale", margin, 96);
-
+  // Interpretation
   doc.setFontSize(10);
   doc.setFont("helvetica", "normal");
-  const dims = data.dimensionScores && data.dimensionScores.length ? data.dimensionScores : [
-    { key: 'cognitive', label: 'Charge cognitive', value: 0 },
-    { key: 'emotionnelle', label: 'Charge émotionnelle', value: 0 },
-    { key: 'organisationnelle', label: 'Charge organisationnelle', value: 0 },
-    { key: 'temporelle', label: 'Pression temporelle', value: 0 },
-    { key: 'ressources', label: 'Ressources & récupération', value: 0 },
-  ];
+  const msgLines = doc.splitTextToSize(interpretation.message, pageWidth - margin * 2 - 180);
+  doc.text(msgLines, margin + 160, y + 62);
 
-  // Try to render a radar chart DOM element if present (kept secondary)
-  if (typeof window !== "undefined") {
-    const el = document.querySelector('.report-radar');
-    if (el) {
-      try {
-        const canvas = await html2canvas(el as HTMLElement, { scale: 2 });
-        const imgData = canvas.toDataURL('image/png');
-        const imgProps = (doc as any).getImageProperties(imgData);
-        const imgW = 240;
-        const imgH = (imgProps.height * imgW) / imgProps.width;
-        doc.addImage(imgData, 'PNG', pageWidth - margin - imgW, 100, imgW, imgH);
-      } catch (e) {
-        // ignore and fallback to textual list
-      }
-    }
-  }
+  // =====================
+  // VOS DIMENSIONS
+  // =====================
+  y = 400;
+  doc.setFontSize(12);
+  doc.setFont("helvetica", "bold");
+  doc.setTextColor(...AW_COLOR.primary);
+  doc.text("Vos dimensions de charge mentale", margin, y);
 
-  // Render list of dimensions with simple bars
-  let listY = 120;
-  const barMaxW = 260;
+  const dims = data.dimensionScores && data.dimensionScores.length ? data.dimensionScores : [];
+  
+  y += 20;
+  const barMaxW = 200;
   dims.forEach((d) => {
     doc.setFontSize(10);
-    doc.setFont("helvetica", "bold");
-    doc.text(d.label, margin, listY);
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(...AW_COLOR.dark);
+    doc.text(d.label, margin, y + 10);
 
-    // Modern gauge design with reduced size and red-to-green gradient
-    const barX = margin;
-    const barY = listY + 6;
-    const value = typeof d.value === 'number' && !isNaN(d.value) ? d.value : 0; // Ensure valid value
-    const clampedValue = Math.max(0, Math.min(100, value)); // Clamp value between 0 and 100
+    // Background bar
+    doc.setFillColor(230, 230, 230);
+    doc.roundedRect(margin + 160, y + 2, barMaxW, 12, 3, 3, "F");
 
-    // Draw modern arc-based gauge
-    const centerX = barX + barMaxW / 2;
-    const centerY = barY + 10; // Reduced size
-    const radius = 7.5; // Half the original radius
-    const startAngle = Math.PI; // 180 degrees
-    const endAngle = startAngle + (Math.PI * clampedValue) / 100; // Map value to angle
-
-    // Background arc
-    doc.setDrawColor(220, 220, 220);
-    doc.setLineWidth(2);
-    (doc as any).arc(centerX, centerY, radius, startAngle, Math.PI * 2, false);
-
-    // Value arc
-    if (clampedValue > 0) {
-      const gradientColor: [number, number, number] = clampedValue < 50 ? [255, 0, 0] : [0, 128, 0]; // Red to green
-      doc.setDrawColor(gradientColor[0], gradientColor[1], gradientColor[2]);
-      (doc as any).arc(centerX, centerY, radius, startAngle, endAngle, false);
+    // Value bar with color based on value
+    const value = Math.max(0, Math.min(100, d.value));
+    const barW = (value / 100) * barMaxW;
+    
+    // Color: green if low, red if high (inverse logic for mental load)
+    const r = Math.round(34 + (value / 100) * (180 - 34));
+    const g = Math.round(139 - (value / 100) * 100);
+    doc.setFillColor(r, g, 50);
+    if (barW > 0) {
+      doc.roundedRect(margin + 160, y + 2, barW, 12, 3, 3, "F");
     }
 
     // Value text
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(8); // Smaller font size
-    doc.setTextColor(0, 128, 0);
-    doc.text(`${clampedValue}%`, centerX, centerY + 3, { align: 'center' });
-    doc.setTextColor(0, 0, 0);
+    doc.setFontSize(9);
+    doc.setFont("helvetica", "bold");
+    doc.text(`${Math.round(value)}%`, margin + 160 + barMaxW + 10, y + 11);
 
-    listY += 20; // Adjust spacing for reduced size
+    y += 22;
   });
 
-  // Section 2: Actions concrètes
+  // =====================
+  // CONSEIL PERSONNALISÉ
+  // =====================
+  y += 20;
+  doc.setFillColor(240, 248, 255);
+  doc.roundedRect(margin, y, pageWidth - margin * 2, 50, 6, 6, "F");
+
+  doc.setFontSize(10);
+  doc.setFont("helvetica", "bold");
+  doc.setTextColor(...AW_COLOR.primary);
+  doc.text("Conseil personnalisé", margin + 12, y + 18);
+
+  doc.setFont("helvetica", "normal");
+  doc.setTextColor(...AW_COLOR.dark);
+  const adviceLines = doc.splitTextToSize(interpretation.advice, pageWidth - margin * 2 - 24);
+  doc.text(adviceLines, margin + 12, y + 34);
+
+  // =====================
+  // PISTES D'ACTION
+  // =====================
+  y += 70;
   doc.setFontSize(12);
   doc.setFont("helvetica", "bold");
-  doc.text("Premières pistes simples et accessibles", margin, listY + 6);
+  doc.setTextColor(...AW_COLOR.primary);
+  doc.text("Premières pistes de réflexion", margin, y);
+
   doc.setFontSize(10);
   doc.setFont("helvetica", "normal");
+  doc.setTextColor(...AW_COLOR.dark);
   const actions = [
-    "Identifier une sollicitation à alléger",
-    "Clarifier une priorité réelle",
-    "Introduire un temps de récupération",
-    "Mettre des mots sur une difficulté",
+    "Identifier une sollicitation que vous pourriez alléger",
+    "Clarifier une priorité qui vous tient vraiment à cœur",
+    "Vous accorder un temps de récupération, même court",
+    "Mettre des mots sur une difficulté, à l'écrit ou à l'oral",
   ];
-  let ay = listY + 28;
-  actions.slice(0, 5).forEach((a, i) => {
-    doc.text(`- ${a}`, margin, ay);
-    ay += 18;
+  y += 18;
+  actions.forEach((a) => {
+    doc.text(`• ${a}`, margin + 10, y);
+    y += 16;
   });
 
-  // Section 3: Continuité AW (valeur, non commerciale agressive)
-  doc.setFontSize(11);
-  doc.setFont("helvetica", "bold");
-  doc.text("Continuité AW", margin, ay + 8);
-  doc.setFontSize(10);
-  doc.setFont("helvetica", "normal");
-  const cont = "AW Conseil et Formation accompagne les personnes et les organisations dans la compréhension, la prévention et la réduction durable de la charge mentale, à travers le conseil, la formation, les ateliers et des outils structurants.";
-  const chunks = doc.splitTextToSize(cont, pageWidth - margin * 2);
-  doc.text(chunks, margin, ay + 28);
+  // =====================
+  // FOOTER
+  // =====================
+  const footerY = pageHeight - 100;
+  
+  // Ligne de séparation
+  doc.setDrawColor(...AW_COLOR.accent);
+  doc.setLineWidth(0.5);
+  doc.line(margin, footerY, pageWidth - margin, footerY);
 
-  // Footer: mentions légales + contacts
-  const footerY = pageHeight - 88;
-  doc.setFontSize(9);
+  // Rappel disclaimer
+  doc.setFontSize(8);
   doc.setTextColor(...AW_COLOR.accent);
-  doc.text("Ce test est un outil d'auto-évaluation. Il ne remplace pas un avis médical. En cas de détresse importante ou persistante, consultez un professionnel de santé.", margin, footerY, { maxWidth: pageWidth - margin * 2 });
-  doc.setTextColor(0, 0, 0);
+  const footerDisclaimer = "Rappel : Ce document est fourni à titre informatif uniquement. Il n'a pas de valeur médicale et ne constitue pas un diagnostic. Pour toute préoccupation de santé, consultez un professionnel qualifié.";
+  const footerLines = doc.splitTextToSize(footerDisclaimer, pageWidth - margin * 2);
+  doc.text(footerLines, margin, footerY + 16);
 
-  doc.setFontSize(10);
-  doc.text("AW Conseil et Formation", margin, footerY + 30);
-  doc.text("Tél : ", margin + 220, footerY + 30);
-  doc.text("Email : contact@aw-conseil-formation.fr", margin, footerY + 46);
-  doc.text("Site : https://aw-conseil-formation.fr", margin, footerY + 62);
+  // Coordonnées
+  doc.setFontSize(9);
+  doc.setTextColor(...AW_COLOR.dark);
+  doc.text("AW Conseil et Formation", margin, footerY + 50);
+  doc.text("Site : aw-formation.fr", margin, footerY + 64);
+  doc.text("Email : contact@aw-formation.fr", margin + 180, footerY + 64);
 
-  const fileName = `AW_Score_Rapport_Charge_Mentale_${date}.pdf`;
+  // Date discrète
+  doc.setFontSize(8);
+  doc.setTextColor(...AW_COLOR.accent);
+  doc.text(`Généré le ${formattedDate}`, pageWidth - margin, footerY + 64, { align: "right" });
+
+  const fileName = `AW_Score_${formattedDate.replace(/\s/g, '_')}.pdf`;
   const blob = doc.output("blob");
   return { blob, fileName };
 }

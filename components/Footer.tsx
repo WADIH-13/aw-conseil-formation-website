@@ -31,6 +31,8 @@ const socials = [
   },
 ]
 
+const showMahiBahi = process.env.NEXT_PUBLIC_SHOW_MAHI_BAHI === 'true'
+
 const Footer = () => {
   return (
     <footer className="bg-gray-100 border-t border-gray-200 mt-12">
@@ -50,6 +52,9 @@ const Footer = () => {
             <Link href="/blog" className="hover:text-aw-red">Blog</Link>
             <Link href="/demarche-qualite" className="hover:text-aw-red">Démarche qualité</Link>
             <Link href="/mentions-legales" className="hover:text-aw-red">Mentions légales</Link>
+            {showMahiBahi ? (
+              <Link href="/dr-mahi-bahi" className="hover:text-aw-red">Dr Mahi Bahi</Link>
+            ) : null}
           </div>
         </div>
         <div className="space-y-3">
@@ -71,7 +76,9 @@ const Footer = () => {
               </a>
             ))}
           </div>
-          <div className="text-xs text-gray-500">Dr Mahi Bahi, référent scientifique.</div>
+          {showMahiBahi ? (
+            <div className="text-xs text-gray-500">Dr Mahi Bahi, référent scientifique.</div>
+          ) : null}
         </div>
       </div>
     </footer>

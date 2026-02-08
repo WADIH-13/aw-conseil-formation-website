@@ -155,3 +155,44 @@ end $$;
 create policy "sessions_delete" on sessions
 for delete to authenticated
 using (exists (select 1 from profiles p where p.id = auth.uid() and p.role = 'national_admin'));
+
+-- Table pour les réponses du baromètre de charge mentale (anonyme)
+create table if not exists survey_responses (
+  id uuid primary key default gen_random_uuid(),
+  
+  -- Données préliminaires (anonymes)
+  civility text not null check (civility in ('M.', 'Mme', 'Autre')),
+  age_range text not null check (age_range in ('18-25', '26-35', '36-45', '46-55', '56-65', '65+')),
+  professional_status text not null check (professional_status in ('salarié', 'indépendant', 'non-salarié', 'autre')),
+  
+  -- Score du baromètre
+  raw_score int not null check (raw_score >= 10 and raw_score <= 40),
+  aw_score int not null check (aw_score >= 0 and aw_score <= 100),
+  
+  -- Scores par dimension
+  dimension_scores jsonb not null,
+  
+  -- ⭐ Toutes les réponses détaillées (question_id -> réponse)
+  answers jsonb not null,
+  
+  -- Timestamps
+  created_at timestamptz not null default now(),
+  
+  -- Index pour les statistiques
+  indexed_at date generated always as (created_at::date) stored
+);
+
+create index if not exists survey_responses_civility_idx on survey_responses(civility);
+create index if not exists survey_responses_age_range_idx on survey_responses(age_range);
+create index if not exists survey_responses_professional_status_idx on survey_responses(professional_status);
+create index if not exists survey_responses_indexed_at_idx on survey_responses(indexed_at);
+create index if not exists survey_responses_created_at_idx on survey_responses(created_at);
+
+-- Policy : lecture anonyme (pour les statistiques du dashboard)
+create policy "survey_responses_insert" on survey_responses
+for insert with check (true);
+
+-- Policy : lecture pour authentifiés uniquement (dashboard d'admin)
+create policy "survey_responses_select" on survey_responses
+for select to authenticated
+using (true);

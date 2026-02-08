@@ -1,8 +1,9 @@
 "use client";
 
 import React from "react";
-import Barometer from "./Barometer";
+import AWScoreResultCard from "./AWScoreResultCard";
 import RadarChart from "./RadarChart";
+import SurveyComparison from "./SurveyComparison";
 import { DimensionScore } from "./quizData";
 import { generatePdfReport } from "./generateReport";
 
@@ -10,6 +11,7 @@ interface ResultsProps {
   awScore: number;
   rawScore: number;
   dimensionScores: DimensionScore[];
+  userAnswers: Record<number, number>;
   onRestart: () => void;
 }
 
@@ -17,7 +19,6 @@ const getResultContent = (awScore: number) => {
   if (awScore >= 80) {
     return {
       title: "Charge légère",
-      emoji: "✨",
       message:
         "Félicitations ! Votre charge mentale semble bien maîtrisée. Vous avez développé de bonnes stratégies d'organisation et de récupération. Continuez à cultiver cet équilibre précieux.",
       advice:
@@ -33,7 +34,6 @@ const getResultContent = (awScore: number) => {
   if (awScore >= 55) {
     return {
       title: "Charge modérée",
-      emoji: "💡",
       message:
         "Votre charge mentale est présente mais gérable. Quelques ajustements pourraient vous aider à gagner en sérénité. C'est le bon moment pour développer de nouvelles compétences organisationnelles.",
       advice:
@@ -49,7 +49,6 @@ const getResultContent = (awScore: number) => {
   if (awScore >= 30) {
     return {
       title: "Charge élevée",
-      emoji: "⚠️",
       message:
         "Attention, votre charge mentale atteint un niveau préoccupant. Vous portez beaucoup sur vos épaules et les signaux d'alerte sont là. Il est temps d'agir pour éviter l'épuisement.",
       advice:
@@ -64,7 +63,6 @@ const getResultContent = (awScore: number) => {
   }
   return {
     title: "Surcharge critique",
-    emoji: "🚨",
     message:
       "Alerte ! Votre charge mentale est à un niveau critique. Votre bien-être et votre santé sont en jeu. Une action immédiate est nécessaire.",
     advice:
@@ -82,6 +80,7 @@ export default function Results({
   awScore,
   rawScore,
   dimensionScores,
+  userAnswers,
   onRestart,
 }: ResultsProps) {
   const content = getResultContent(awScore);
@@ -103,27 +102,19 @@ export default function Results({
         </p>
       </div>
 
-      {/* Score principal avec baromètre */}
-      <div
-        className={`bg-gradient-to-br ${content.bgGradient} rounded-3xl p-8 mb-8 border ${content.borderColor}`}
-      >
-        <div className="flex flex-col lg:flex-row items-center gap-8">
-          <div className="flex-shrink-0">
-            <Barometer value={awScore} animated={true} />
-          </div>
-          <div className="flex-1 text-center lg:text-left">
-            <div className="text-4xl mb-2">{content.emoji}</div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
-              {content.title}
-            </h2>
-            <p className="text-gray-700 mb-4">{content.message}</p>
-            <div className="bg-white/60 rounded-xl p-4">
-              <p className="text-sm text-gray-600">
-                <strong>Notre conseil :</strong> {content.advice}
-              </p>
-            </div>
-          </div>
-        </div>
+      {/* Score principal */}
+      <div className="mb-10">
+        <AWScoreResultCard
+          score={awScore}
+          title={content.title}
+          message={content.message}
+          advice={content.advice}
+        />
+      </div>
+
+      {/* Comparaison avec autres répondants */}
+      <div className="mb-8">
+        <SurveyComparison userAnswers={userAnswers} />
       </div>
 
       {/* Profil détaillé */}
@@ -264,12 +255,6 @@ export default function Results({
         </button>
       </div>
 
-      {/* Disclaimer */}
-      <p className="text-xs text-gray-400 text-center mt-8">
-        Ce test est un outil d’auto-évaluation et ne constitue pas un diagnostic
-        médical. En cas de détresse importante, consultez un professionnel de
-        santé.
-      </p>
     </div>
   );
 }

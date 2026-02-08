@@ -3,9 +3,10 @@
 import React, { useState } from "react";
 import Quiz from "./Quiz";
 import Results from "./Results";
+import PreliminaryQuestions, { PreliminariesData } from "./PreliminaryQuestions";
 import { DimensionScore } from "./quizData";
 
-type Step = "intro" | "quiz" | "results";
+type Step = "preliminaries" | "intro" | "quiz" | "results";
 
 interface AssessmentResults {
   dimensionScores: DimensionScore[];
@@ -14,27 +15,81 @@ interface AssessmentResults {
   answers: Record<number, number>;
 }
 
+interface FullAssessmentData extends AssessmentResults {
+  preliminaries: PreliminariesData;
+}
+
 export default function MentalLoadAssessment() {
-  const [step, setStep] = useState<Step>("intro");
+  const [step, setStep] = useState<Step>("preliminaries");
   const [results, setResults] = useState<AssessmentResults | null>(null);
+  const [preliminaries, setPreliminary] = useState<PreliminariesData | null>(null);
+
+  const handlePreliminaresComplete = (data: PreliminariesData) => {
+    setPreliminary(data);
+    setStep("intro");
+  };
 
   const handleStartQuiz = () => {
     setStep("quiz");
   };
 
-  const handleQuizComplete = (quizResults: AssessmentResults) => {
+  const handleQuizComplete = async (quizResults: AssessmentResults) => {
     setResults(quizResults);
-    setStep("results");
+    setStep("results"); // ⭐ Afficher les résultats IMMÉDIATEMENT
+
+    // Sauvegarder dans Supabase en arrière-plan
+    if (preliminaries) {
+      try {
+        const payload = {
+          civility: preliminaries.civility,
+          age_range: preliminaries.age_range,
+          professional_status: preliminaries.professional_status,
+          raw_score: quizResults.rawScore,
+          aw_score: quizResults.awScore,
+          dimension_scores: quizResults.dimensionScores,
+          answers: quizResults.answers,
+        };
+
+        const response = await fetch('/api/survey/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+
+        if (!response.ok) {
+          console.error('Erreur lors de la sauvegarde:', await response.text());
+        }
+      } catch (error) {
+        console.error('Erreur:', error);
+      }
+    }
   };
 
   const handleRestart = () => {
     setResults(null);
-    setStep("intro");
+    setPreliminary(null);
+    setStep("preliminaries");
   };
 
   return (
     <div className="min-h-screen aw-hero-surface">
       <div className="container-custom py-12">
+        {/* Logo AW Score en haut */}
+        <div className="flex justify-center mb-8">
+          <div className="bg-white rounded-2xl shadow-lg px-8 py-6 border border-gray-100">
+            <img
+              src="/logo aw score.png"
+              alt="AW Score - Baromètre de charge mentale"
+              className="h-16 w-auto"
+            />
+          </div>
+        </div>
+
+        {/* Préliminaires */}
+        {step === "preliminaries" && (
+          <PreliminaryQuestions onComplete={handlePreliminaresComplete} />
+        )}
+
         {/* Intro */}
         {step === "intro" && (
           <div className="max-w-3xl mx-auto text-center">
@@ -245,6 +300,7 @@ export default function MentalLoadAssessment() {
               awScore={results.awScore}
               rawScore={results.rawScore}
               dimensionScores={results.dimensionScores}
+              userAnswers={results.answers}
               onRestart={handleRestart}
             />
           </div>

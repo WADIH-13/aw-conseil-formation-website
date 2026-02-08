@@ -72,6 +72,17 @@ CONTACT_TO=ahmed.wadih@gmail.com
 
 > Sans ces variables, l’API retournera une erreur de configuration.
 
+## 🔒 Activation de la page Dr Mahi Bahi
+
+La page du référent scientifique et ses liens sont pilotés par un flag d’environnement.
+
+```bash
+NEXT_PUBLIC_SHOW_MAHI_BAHI=false
+```
+
+- `false` (ou absent) : page et liens masqués (404)
+- `true` : page et liens visibles
+
 ## 📝 Contraintes éditoriales respectées
 
 - Ton professionnel, clair et direct

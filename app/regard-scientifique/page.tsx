@@ -4,6 +4,7 @@ export const metadata = {
   title: 'Regard scientifique - AW Conseil et Formation',
   description: 'Un regard scientifique au service de l’humain. Comprendre et donner du recul avec une approche pédagogique.',
 }
+const showMahiBahi = process.env.NEXT_PUBLIC_SHOW_MAHI_BAHI === 'true'
 
 export default function RegardScientifiquePage() {
   return (
@@ -62,15 +63,21 @@ export default function RegardScientifiquePage() {
             <p className="text-lg text-gray-700 mb-8 leading-relaxed">
               Des questions sur notre approche scientifique ?
             </p>
-            <p className="text-gray-600 mb-8">
-              En savoir plus sur notre{' '}
-              <Link 
-                href="/dr-mahi-bahi" 
-                className="text-aw-red-deep hover:text-[#7C1818] transition-colors"
-              >
-                référent scientifique
-              </Link>
-            </p>
+              {showMahiBahi ? (
+                <p className="text-gray-600 mb-8">
+                  En savoir plus sur notre{' '}
+                  <Link 
+                    href="/dr-mahi-bahi" 
+                    className="text-aw-red-deep hover:text-[#7C1818] transition-colors"
+                  >
+                    référent scientifique
+                  </Link>
+                </p>
+              ) : (
+                <p className="text-gray-600 mb-8">
+                  En savoir plus sur notre référent scientifique.
+                </p>
+              )}
             <Link
               href="/contact"
               className="inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-white bg-aw-red-deep hover:bg-[#7C1818] rounded-[10px] transition-colors shadow-[0_12px_30px_rgba(139,29,29,0.18)]"
