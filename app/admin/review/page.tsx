@@ -13,7 +13,7 @@ type SessionRow = {
   region_code: string | null
   publication_status: 'draft' | 'pending_review' | 'published' | 'rejected' | 'archived'
   created_at: string
-  offers?: { title: string | null } | null
+  offers?: { title: string | null }[] | null
 }
 
 function firstDate(startDate: string | null, endDate: string | null): string {
@@ -80,9 +80,9 @@ export default async function AdminReviewPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-black/5">
-              {(sessions ?? []).map((s: SessionRow) => (
+              {(sessions ?? []).map((s) => (
                 <tr key={s.id} className="hover:bg-black/[0.015]">
-                  <td className="px-6 py-4 text-black/80">{s.offers?.title || s.offer_id}</td>
+                  <td className="px-6 py-4 text-black/80">{s.offers?.[0]?.title || s.offer_id}</td>
                   <td className="px-6 py-4 text-black/70">{firstDate(s.start_date, s.end_date)}</td>
                   <td className="px-6 py-4 text-black/70">
                     {s.format === 'distanciel'
