@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import type { City, Department, Offer, Region, SessionFilters, SessionWithRelations } from '@/lib/sessions/types'
+import CtaGroup, { PrimaryCTA } from '@/components/cta/CtaGroup'
 import { CityAutocomplete } from '@/components/sessions/CityAutocomplete'
 
 function formatDateFr(iso: string): string {
@@ -12,10 +13,10 @@ function formatDateFr(iso: string): string {
 }
 
 function formatDateRange(startDate: string | null, endDate: string | null): string {
-  if (!startDate && !endDate) return 'Dates a confirmer'
+  if (!startDate && !endDate) return 'Dates à confirmer'
   if (startDate && (!endDate || endDate === startDate)) return formatDateFr(startDate)
   if (!startDate && endDate) return formatDateFr(endDate)
-  return `${formatDateFr(startDate!)} -> ${formatDateFr(endDate!)}`
+  return `${formatDateFr(startDate!)} → ${formatDateFr(endDate!)}`
 }
 
 function formatLocation(session: SessionWithRelations): string {
@@ -25,7 +26,7 @@ function formatLocation(session: SessionWithRelations): string {
     session.department?.name || session.department_code,
     session.region?.name || session.region_code,
   ].filter(Boolean)
-  return parts.join(' · ') || 'Lieu a confirmer'
+  return parts.join(' · ') || 'Lieu à confirmer'
 }
 
 function statusLabel(value: string | null): { text: string; tone: 'good' | 'neutral' } {
@@ -41,6 +42,36 @@ function collectOffers(sessions: SessionWithRelations[]): Offer[] {
     }
   }
   return Array.from(map.values()).sort((a, b) => a.title.localeCompare(b.title, 'fr'))
+}
+
+function excerpt(value: string | null | undefined, max = 160): string | null {
+  const raw = value?.trim()
+  if (!raw) return null
+  if (raw.length <= max) return raw
+  return `${raw.slice(0, max).trimEnd()}…`
+}
+
+function groupSessionsByOffer(sessions: SessionWithRelations[]): Array<{ offer: Offer; sessions: SessionWithRelations[] }> {
+  const map = new Map<string, { offer: Offer; sessions: SessionWithRelations[] }>()
+
+  for (const session of sessions) {
+    const offer = session.offer
+    if (!offer) continue
+
+    const current = map.get(offer.id)
+    if (current) {
+      current.sessions.push(session)
+    } else {
+      map.set(offer.id, { offer, sessions: [session] })
+    }
+  }
+
+  return Array.from(map.values())
+    .map((group) => ({
+      offer: group.offer,
+      sessions: group.sessions.slice().sort((a, b) => (a.start_date ?? '9999-12-31').localeCompare(b.start_date ?? '9999-12-31')),
+    }))
+    .sort((a, b) => a.offer.title.localeCompare(b.offer.title, 'fr'))
 }
 
 export default function PublicSessionsView({
@@ -60,6 +91,7 @@ export default function PublicSessionsView({
 }) {
   const router = useRouter()
   const offers = collectOffers(sessions)
+  const grouped = groupSessionsByOffer(sessions)
   const totalLabel = sessions.length
   const filteredDepartments = filters.region_code
     ? departments.filter((department) => department.region_code === filters.region_code)
@@ -112,7 +144,7 @@ export default function PublicSessionsView({
               <h2 className="text-2xl md:text-3xl font-light text-black mt-2">Affiner la recherche</h2>
             </div>
             <Link href={basePath} className="btn-secondary">
-              Reinitialiser
+              Réinitialiser
             </Link>
           </div>
 
@@ -150,7 +182,7 @@ export default function PublicSessionsView({
             </div>
 
             <div>
-              <label className="block text-xs tracking-[0.24em] uppercase text-black/60 mb-2">Region</label>
+              <label className="block text-xs tracking-[0.24em] uppercase text-black/60 mb-2">Région</label>
               <select
                 name="region_code"
                 className="w-full rounded-xl border border-black/10 bg-white px-4 py-3 text-sm text-black/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-aw-red focus-visible:ring-offset-2"
@@ -167,7 +199,7 @@ export default function PublicSessionsView({
             </div>
 
             <div>
-              <label className="block text-xs tracking-[0.24em] uppercase text-black/60 mb-2">Departement</label>
+              <label className="block text-xs tracking-[0.24em] uppercase text-black/60 mb-2">Département</label>
               <select
                 name="department_code"
                 className="w-full rounded-xl border border-black/10 bg-white px-4 py-3 text-sm text-black/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-aw-red focus-visible:ring-offset-2"
@@ -192,13 +224,13 @@ export default function PublicSessionsView({
                 onChange={(event) => updateParam('format', event.target.value)}
               >
                 <option value="">Tous</option>
-                <option value="presentiel">Presentiel</option>
+                <option value="presentiel">Présentiel</option>
                 <option value="distanciel">Distanciel</option>
               </select>
             </div>
 
             <div className="lg:col-span-2">
-              <label className="block text-xs tracking-[0.24em] uppercase text-black/60 mb-2">Periode</label>
+              <label className="block text-xs tracking-[0.24em] uppercase text-black/60 mb-2">Période</label>
               <div className="grid grid-cols-2 gap-3">
                 <input
                   type="date"
@@ -250,100 +282,123 @@ export default function PublicSessionsView({
           <div className="flex flex-wrap items-center gap-3 text-sm text-black/60">
             <span className="inline-flex items-center gap-2">
               <span className="inline-block w-2 h-2 rounded-full bg-aw-red" />
-              {totalLabel} session{totalLabel > 1 ? 's' : ''} dans cette zone
+              {totalLabel} session{totalLabel > 1 ? 's' : ''} publiée{totalLabel > 1 ? 's' : ''} dans cette zone
             </span>
             {!sessions.length && (
-              <span className="text-black/45">(Essayez d'elargir la zone ou la periode)</span>
+              <span className="text-black/45">(Essayez d’élargir la zone ou la période)</span>
             )}
           </div>
         </form>
       </section>
 
-      <section aria-label="Resultats" className="space-y-5">
+      <section aria-label="Résultats" className="space-y-5">
         <div className="flex items-end justify-between gap-6">
           <div>
-            <p className="text-sm tracking-[0.22em] uppercase text-black/50">Resultats</p>
-            <h2 className="text-2xl md:text-3xl font-light text-black mt-2">Sessions disponibles</h2>
+            <p className="text-sm tracking-[0.22em] uppercase text-black/50">Résultats</p>
+            <h2 className="text-2xl md:text-3xl font-light text-black mt-2">Calendrier des sessions</h2>
           </div>
-          <Link href="/contact" className="btn-secondary">
-            Demander un devis (intra / sur mesure)
-          </Link>
+          <PrimaryCTA context="sessions" variant="secondary" />
         </div>
 
         {sessions.length ? (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {sessions.map((session) => {
-              const status = statusLabel(session.availability_status)
-
-              return (
-                <div key={session.id} className="bg-white border border-black/5 rounded-2xl p-6 md:p-7 aw-card-surface">
-                  <div className="flex items-start justify-between gap-4">
-                    <div>
-                      <p className="text-xs tracking-[0.24em] uppercase text-black/50">Formation</p>
-                      <h3 className="text-xl font-light text-black mt-2">{session.offer?.title ?? 'Formation'}</h3>
-                      {session.family?.name && (
-                        <p className="mt-2 text-sm text-black/60">Famille : {session.family.name}</p>
-                      )}
-                    </div>
-                    <span
-                      className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold border ${
-                        status.tone === 'good'
-                          ? 'text-green-700 bg-green-50 border-green-100'
-                          : 'text-black/70 bg-black/[0.03] border-black/10'
-                      }`}
-                    >
-                      {status.text}
-                    </span>
-                  </div>
-
-                  <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-black/70">
-                    <div>
-                      <p className="text-xs tracking-[0.22em] uppercase text-black/45">Date(s)</p>
-                      <p className="mt-1 text-black/80">{formatDateRange(session.start_date, session.end_date)}</p>
-                    </div>
-                    <div>
-                      <p className="text-xs tracking-[0.22em] uppercase text-black/45">Lieu / Format</p>
-                      <p className="mt-1 text-black/80">{formatLocation(session)}</p>
-                    </div>
-                    <div>
-                      <p className="text-xs tracking-[0.22em] uppercase text-black/45">Duree</p>
-                      <p className="mt-1 text-black/80">{session.duration_hours ? `${session.duration_hours}h` : 'A confirmer'}</p>
-                    </div>
-                    <div>
-                      <p className="text-xs tracking-[0.22em] uppercase text-black/45">Organise par</p>
-                      <p className="mt-1 text-black/80">
-                        {session.organized_by_label || 'Reseau national'}
-                        {session.trainer?.full_name ? ` — ${session.trainer.full_name}` : ''}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="mt-6 flex flex-wrap gap-3">
-                    <Link href={`/sessions/${session.id}`} className="btn-primary">
-                      Voir la session
-                    </Link>
-                    <Link href={`/contact?session=${encodeURIComponent(session.id)}`} className="btn-secondary">
-                      Contacter l'organisateur
-                    </Link>
-                    {session.offer?.slug && session.offer.slug !== '#' && (
-                      <Link href={session.offer.slug} className="btn-secondary">
-                        Voir la formation
-                      </Link>
-                    )}
-                  </div>
+          <div className="space-y-10">
+            {grouped.map(({ offer, sessions: offerSessions }) => (
+              <section key={offer.id} aria-label={offer.title} className="space-y-5">
+                <div className="bg-white border border-black/5 rounded-2xl p-6 md:p-7 aw-card-surface">
+                  <p className="text-xs tracking-[0.24em] uppercase text-black/50">Formation</p>
+                  <h3 className="text-2xl font-light text-black mt-2">{offer.title}</h3>
+                  {excerpt(offer.modalities, 220) ? (
+                    <p className="mt-3 text-sm text-black/70 leading-relaxed">
+                      <span className="text-black/60">Modalités :</span> {excerpt(offer.modalities, 220)}
+                    </p>
+                  ) : null}
                 </div>
-              )
-            })}
+
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  {offerSessions.map((session) => {
+                    const status = statusLabel(session.availability_status)
+                    const formatPill = session.format === 'presentiel' ? 'Présentiel' : 'Distanciel'
+
+                    return (
+                      <div key={session.id} className="bg-white border border-black/5 rounded-2xl p-6 md:p-7 aw-card-surface">
+                        <div className="flex items-start justify-between gap-4">
+                          <div>
+                            <p className="text-xs tracking-[0.24em] uppercase text-black/50">Session</p>
+                            <p className="mt-2 text-black/80 text-lg font-light">
+                              {formatDateRange(session.start_date, session.end_date)}
+                            </p>
+                            <p className="mt-2 text-sm text-black/65">{formatLocation(session)}</p>
+                          </div>
+
+                          <div className="flex flex-col items-end gap-2">
+                            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold border text-black/70 bg-black/[0.03] border-black/10">
+                              {formatPill}
+                            </span>
+                            <span
+                              className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold border ${
+                                status.tone === 'good'
+                                  ? 'text-green-700 bg-green-50 border-green-100'
+                                  : 'text-black/70 bg-black/[0.03] border-black/10'
+                              }`}
+                            >
+                              {status.text}
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-black/70">
+                          <div>
+                            <p className="text-xs tracking-[0.22em] uppercase text-black/45">Durée</p>
+                            <p className="mt-1 text-black/80">
+                              {session.duration_hours ? `${session.duration_hours}h` : 'À confirmer'}
+                            </p>
+                          </div>
+                          <div>
+                            <p className="text-xs tracking-[0.22em] uppercase text-black/45">Organisé par</p>
+                            <p className="mt-1 text-black/80">
+                              {session.organized_by_label || 'Réseau national'}
+                              {session.trainer?.full_name ? ` — ${session.trainer.full_name}` : ''}
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="mt-6 flex flex-wrap gap-3">
+                          <Link href={`/sessions/${session.id}`} className="btn-primary">
+                            Voir la session
+                          </Link>
+                          <Link href={`/contact?session=${encodeURIComponent(session.id)}`} className="btn-secondary">
+                            Contacter l’organisateur
+                          </Link>
+                          {offer.slug && offer.slug !== '#' ? (
+                            <Link href={`/catalogue/${offer.slug}`} className="btn-secondary">
+                              Voir la formation
+                            </Link>
+                          ) : null}
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              </section>
+            ))}
           </div>
         ) : (
           <div className="bg-white border border-black/5 rounded-2xl p-7 md:p-10 aw-card-surface">
-            <p className="text-lg md:text-xl font-light text-black">
-              Aucune session programmee pour le moment dans votre zone. Les formations peuvent etre
-              organisees sur demande, partout en France.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Link href="/contact" className="btn-primary">Demander un devis</Link>
-              <Link href="/contact?type=info-sessions" className="btn-secondary">Etre informe des prochaines sessions</Link>
+            <p className="text-xs tracking-[0.24em] uppercase text-black/50">Sessions en construction</p>
+            <h3 className="mt-2 text-2xl md:text-3xl font-light text-black">Ouverture progressive</h3>
+            <div className="mt-4 space-y-2 text-black/70 leading-relaxed">
+              <p>Des sessions inter-entreprises sont publiées par vagues.</p>
+              <p>L’intra et le sur-mesure restent disponibles partout en France.</p>
+            </div>
+            <div className="mt-7">
+              <CtaGroup
+                context="sessions"
+                showMicroText
+                showProgram
+                showSessionsOrModalities={false}
+                primaryVariant="primary"
+                secondaryVariant="secondary"
+              />
             </div>
           </div>
         )}

@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import PublicSessionsView from '@/components/sessions/PublicSessionsView'
 import { getCities, getDepartments, getPublicSessions, getRegions } from '@/lib/sessions/publicSessions'
 import { parseSessionFilters } from '@/lib/sessions/filter'
+import { PrimaryCTA } from '@/components/cta/CtaGroup'
 
 export const metadata: Metadata = {
   title: 'Sessions de formation - AW Conseil et Formation',
@@ -32,12 +32,12 @@ export default async function SessionsPage({
               Sessions de formation ouvertes
             </h1>
             <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-              Consultez les sessions disponibles, filtrez par region ou format, et contactez-nous pour organiser
-              une session adaptee a votre equipe.
+              Consultez les sessions disponibles, filtrez par région ou format, et contactez-nous pour organiser
+              une session adaptée à votre équipe.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-              <a href="#sessions" className="btn-primary">Voir les sessions</a>
-              <Link href="/contact" className="btn-secondary">Demander un devis (intra / sur mesure)</Link>
+              <PrimaryCTA context="sessions" variant="primary" showMicroText />
+              <a href="#sessions" className="btn-secondary">Voir les sessions</a>
             </div>
           </div>
         </div>

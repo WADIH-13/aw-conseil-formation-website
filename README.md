@@ -93,6 +93,32 @@ SUPABASE_SERVICE_ROLE_KEY=
 
 > La clé service role doit rester côté serveur uniquement. En l'absence de cette clé, le client utilise `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
 
+## 🌱 Seed des sessions (vitrine)
+
+Pour afficher un calendrier non vide sur `/sessions` en environnement de dev/staging, vous pouvez insérer 3–6 sessions « vitrines » (publiées) liées à des offres actives.
+
+### Prérequis
+
+Variables d’environnement :
+
+```bash
+SUPABASE_URL=
+SUPABASE_SERVICE_ROLE_KEY=
+
+# Optionnel : si vous voulez forcer l'auteur (UUID) utilisé comme created_by
+SEED_CREATED_BY=
+```
+
+> Attention : `SUPABASE_SERVICE_ROLE_KEY` contourne les politiques RLS. Ne l’exposez jamais côté client.
+
+### Exécution
+
+```bash
+node scripts/seed-sessions.mjs
+```
+
+Le script essaie d’abord de trouver des offres par slug (charge mentale / référent). Si aucune ne correspond, il se rabat sur des offres actives récentes.
+
 ## 📝 Contraintes éditoriales respectées
 
 - Ton professionnel, clair et direct
