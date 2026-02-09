@@ -2,6 +2,14 @@ import Link from 'next/link'
 
 const posts = [
   {
+    title: 'Charge mentale et RPS : pourquoi la prévention doit se mettre à jour',
+    excerpt:
+      "Les repères évoluent. Un décryptage organisationnel pour éviter les approches obsolètes et renforcer une prévention collective, utile et durable.",
+    category: 'Analyses & décryptages',
+    readingTime: '9 min',
+    href: '/blog/charge-mentale-rps-prevention-se-mettre-a-jour',
+  },
+  {
     title: 'Le poids mental des transitions',
     excerpt: 'Comment accompagner une équipe quand les priorités changent sans cesse ? Quelques repères simples.',
     category: 'Gestion du changement',
@@ -45,8 +53,11 @@ export default function BlogPage() {
               </div>
               <div className="flex items-center justify-between mt-6">
                 <span className="text-sm text-gray-600">{post.readingTime}</span>
-                <Link href="/contact" className="text-sm font-medium text-aw-red hover:text-red-700">
-                  Organiser une conversation →
+                <Link
+                  href={'href' in post && post.href ? post.href : '/contact'}
+                  className="text-sm font-medium text-aw-red hover:text-red-700"
+                >
+                  {'href' in post && post.href ? 'Lire l’article →' : 'Organiser une conversation →'}
                 </Link>
               </div>
             </article>
