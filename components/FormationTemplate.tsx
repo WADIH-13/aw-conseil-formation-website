@@ -130,6 +130,22 @@ export default function FormationTemplate({
           <p className="text-gray-700 leading-relaxed">{context}</p>
         </section>
 
+        <section aria-label="Adaptation aux contextes métiers">
+          <div className="rounded-2xl border border-black/5 bg-black/[0.02] p-6">
+            <h2 className="text-base font-medium text-black">Adaptation aux contextes métiers</h2>
+            <p className="mt-2 text-sm text-gray-700 leading-relaxed">
+              Les exemples, études de cas et mises en situation peuvent être adaptés, lorsque cela est pertinent, à votre secteur et à vos
+              branches d’activités. Cette adaptation s’inscrit dans une approche structurée, alignée avec des repères institutionnels et
+              scientifiques.
+            </p>
+            <p className="mt-3 text-sm">
+              <Link href="/regard-scientifique" className="underline underline-offset-4 text-black/80 hover:text-black">
+                Consulter nos repères (Regards scientifiques)
+              </Link>
+            </p>
+          </div>
+        </section>
+
         <section>
           <h2 className="text-2xl font-light text-black mb-4">À qui s’adresse cette formation</h2>
           <ul className="list-disc list-inside text-gray-700 space-y-2">
