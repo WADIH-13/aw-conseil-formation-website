@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import CtaGroup, { PrimaryCTA } from '@/components/cta/CtaGroup'
 
 export const metadata = {
   title: 'Formations - AW Conseil et Formation',
@@ -46,7 +47,13 @@ export default function FormationsPage() {
                 </div>
                 <div className="mt-4 flex flex-wrap gap-3">
                   <Link href="/formations/decouvrir-charge-mentale" className="btn-primary">Découvrir cette formation →</Link>
-                  <Link href="/contact" className="btn-secondary">Demander un devis</Link>
+                  <PrimaryCTA
+                    context="formations"
+                    offerHref="/formations/decouvrir-charge-mentale"
+                    offerSlug="/formations/decouvrir-charge-mentale"
+                    offerLabel="Découvrir la charge mentale"
+                    variant="secondary"
+                  />
                 </div>
               </div>
 
@@ -60,7 +67,13 @@ export default function FormationsPage() {
                 </div>
                 <div className="mt-4 flex flex-wrap gap-3">
                   <Link href="/formations/mieux-gerer-sa-charge-mentale" className="btn-primary">Découvrir cette formation →</Link>
-                  <Link href="/contact" className="btn-secondary">Demander un devis</Link>
+                  <PrimaryCTA
+                    context="formations"
+                    offerHref="/formations/mieux-gerer-sa-charge-mentale"
+                    offerSlug="/formations/mieux-gerer-sa-charge-mentale"
+                    offerLabel="Mieux gérer sa charge mentale"
+                    variant="secondary"
+                  />
                 </div>
               </div>
 
@@ -74,7 +87,13 @@ export default function FormationsPage() {
                 </div>
                 <div className="mt-4 flex flex-wrap gap-3">
                   <Link href="/formations/devenir-referent" className="btn-primary">Découvrir cette formation →</Link>
-                  <Link href="/contact" className="btn-secondary">Demander un devis</Link>
+                  <PrimaryCTA
+                    context="formations"
+                    offerHref="/formations/devenir-referent"
+                    offerSlug="/formations/devenir-referent"
+                    offerLabel="Devenir référent charge mentale"
+                    variant="secondary"
+                  />
                 </div>
               </div>
             </div>
@@ -105,9 +124,18 @@ export default function FormationsPage() {
             <li>Contactez-nous pour un programme détaillé ou une demande spécifique</li>
           </ul>
           <div className="mt-8 flex justify-center">
-            <Link href="/contact" className="btn-primary">
-              Demander un devis ou un programme
-            </Link>
+            <CtaGroup
+              context="formations"
+              offerHref="/formations"
+              offerSlug="/formations"
+              offerLabel="Formations"
+              showMicroText
+              showProgram
+              showSessionsOrModalities
+              hasSessions={false}
+              primaryVariant="primary"
+              secondaryVariant="secondary"
+            />
           </div>
         </div>
       </section>

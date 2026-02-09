@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Indicators from './Indicators'
+import CtaGroup from '@/components/cta/CtaGroup'
 
 type Module = {
   title: string
@@ -23,6 +24,8 @@ type Props = {
   plus: string[]
   financing: string[]
   ctaContactHref?: string
+  ctaOfferSlug?: string
+  ctaOfferLabel?: string
   indicators?: {
     year?: number | string
     satisfaction?: number | string | null
@@ -47,6 +50,8 @@ export default function FormationTemplate({
   plus,
   financing,
   ctaContactHref = '/contact',
+  ctaOfferSlug,
+  ctaOfferLabel,
   indicators,
 }: Props) {
   return (
@@ -60,13 +65,19 @@ export default function FormationTemplate({
               {subtitle && (
                 <p className="text-xl text-gray-600 leading-relaxed">{subtitle}</p>
               )}
-              <div className="mt-6 flex justify-center gap-4">
-                <Link href="#dates" className="btn-secondary text-sm">
-                  Voir les dates
-                </Link>
-                <Link href={ctaContactHref} className="btn-primary text-sm">
-                  Demander un devis
-                </Link>
+              <div className="mt-6 flex justify-center">
+                <CtaGroup
+                  context="formation"
+                  offerHref={ctaOfferSlug}
+                  offerSlug={ctaOfferSlug}
+                  offerLabel={ctaOfferLabel ?? title}
+                  showMicroText
+                  showProgram
+                  showSessionsOrModalities
+                  hasSessions={false}
+                  primaryVariant="primary"
+                  secondaryVariant="secondary"
+                />
               </div>
             </div>
             <div className="aw-card-surface p-6 rounded-2xl border border-black/5">
@@ -179,7 +190,7 @@ export default function FormationTemplate({
           </ul>
         </section>
 
-        <section>
+        <section id="modalites">
           <h2 className="text-2xl font-light text-black mb-4">Financement & modalités</h2>
           <ul className="text-gray-700 space-y-2">
             {financing.map((f, i) => (
@@ -205,12 +216,17 @@ export default function FormationTemplate({
           <h2 className="text-2xl font-light text-black mb-4">Dates & sessions</h2>
           <p className="text-gray-700 mb-6">Contactez-nous pour les sessions programmées ou une session intra-entreprise.</p>
           <div className="flex gap-4">
-            <Link href={ctaContactHref} className="inline-flex items-center px-6 py-3 text-base font-medium text-white bg-aw-red hover:bg-[#7C1818] rounded-[10px]">
-              Demander un devis
-            </Link>
-            <Link href="/contact" className="inline-flex items-center px-6 py-3 text-base font-medium text-black border border-black/5 rounded-[10px]">
-              Voir les dates
-            </Link>
+              <CtaGroup
+                context="formation"
+                offerHref={ctaOfferSlug}
+                offerSlug={ctaOfferSlug}
+                offerLabel={ctaOfferLabel ?? title}
+                showProgram
+                showSessionsOrModalities
+                hasSessions={false}
+                primaryVariant="primary"
+                secondaryVariant="secondary"
+              />
           </div>
         </section>
       </main>

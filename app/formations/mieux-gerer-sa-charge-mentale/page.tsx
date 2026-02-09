@@ -13,6 +13,8 @@ export default async function MieuxGererChargeMentale() {
   return (
     <FormationTemplate
       title="Mieux gérer sa charge mentale et agir concrètement"
+      ctaOfferSlug="/formations/mieux-gerer-sa-charge-mentale"
+      ctaOfferLabel="Mieux gérer sa charge mentale"
       subtitle="Transformer la prise de conscience en actions réalistes et soutenables."
       duration="7 heures"
       format="Présentiel ou distanciel"
@@ -48,7 +50,7 @@ export default async function MieuxGererChargeMentale() {
         },
       ]}
       methods={[
-        'Exercices pratiques et auto-diagnostic',
+        'Exercices pratiques et auto-analyse',
         'Mises en situation et analyses de cas',
         'Échanges d’expérience et plan d’action individuel',
       ]}

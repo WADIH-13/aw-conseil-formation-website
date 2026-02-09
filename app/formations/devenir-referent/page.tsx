@@ -12,6 +12,8 @@ export default async function DevenirReferentPage() {
   return (
     <FormationTemplate
       title="Devenir référent charge mentale"
+      ctaOfferSlug="/formations/devenir-referent"
+      ctaOfferLabel="Devenir référent charge mentale"
       subtitle="Acquérir les outils et la posture pour soutenir vos collègues."
       duration="28 heures"
       format="Présentiel ou distanciel"

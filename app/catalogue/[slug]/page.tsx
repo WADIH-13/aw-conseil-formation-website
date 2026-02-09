@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { supabaseServer } from "@/lib/supabaseServer";
+import CtaGroup from "@/components/cta/CtaGroup";
 
 export default async function OfferDetailPage({
   params,
@@ -35,13 +36,21 @@ export default async function OfferDetailPage({
 
   const format = (offer.formats?.[0] ?? "offre").toString();
   const familyName = offer.families?.[0]?.name ?? "—";
+  const offerHref = `/catalogue/${offer.slug}`;
+
+  const { count: sessionsCount, error: sessionsCountError } = await supabase
+    .from("sessions")
+    .select("id", { count: "exact", head: true })
+    .eq("publication_status", "published")
+    .eq("offer_id", offer.id);
+
+  const hasSessions = !sessionsCountError && (sessionsCount ?? 0) > 0;
 
   return (
     <div className="mx-auto max-w-4xl px-6 py-12">
       <div className="text-xs uppercase tracking-wide text-neutral-500">
         {format} • {familyName}
       </div>
-     const familyName = offer.families?.[0]?.name ?? "—";
       <h1 className="mt-3 text-4xl font-semibold tracking-tight text-neutral-900">
         {offer.title}
       </h1>
@@ -50,26 +59,24 @@ export default async function OfferDetailPage({
         <p className="mt-4 text-neutral-700 leading-relaxed">{offer.summary}</p>
       )}
 
-      <div className="mt-8 flex flex-wrap gap-3">
-        <Link
-          href={`/contact?motif=programme&offre=${encodeURIComponent(
-            offer.title
-          )}`}
-          className="inline-flex items-center justify-center rounded-xl bg-neutral-900 px-5 py-3 text-white text-sm font-medium hover:opacity-90"
-        >
-          Recevoir le programme
-        </Link>
-
-        <Link
-          href={`/contact?motif=echange&offre=${encodeURIComponent(offer.title)}`}
-          className="inline-flex items-center justify-center rounded-xl border border-neutral-300 px-5 py-3 text-sm font-medium text-neutral-900 hover:bg-neutral-50"
-        >
-          Demander un échange
-        </Link>
+      <div className="mt-8 flex flex-wrap items-start gap-3">
+        <CtaGroup
+          context="offer"
+          offerId={String(offer.id)}
+          offerSlug={offer.slug}
+          offerHref={offerHref}
+          offerLabel={offer.title}
+          showMicroText
+          showProgram
+          showSessionsOrModalities
+          hasSessions={hasSessions}
+          primaryVariant="primary"
+          secondaryVariant="secondary"
+        />
 
         <Link
           href="/catalogue"
-          className="inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-medium text-neutral-600 hover:text-neutral-900"
+          className="text-sm font-medium text-neutral-600 underline hover:text-neutral-900"
         >
           Retour au catalogue
         </Link>
@@ -99,7 +106,7 @@ export default async function OfferDetailPage({
         )}
 
         {offer.modalities && (
-          <section className="rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm">
+          <section id="modalites" className="rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm">
             <h2 className="text-lg font-semibold text-neutral-900">
               Modalités et cadre d’intervention
             </h2>

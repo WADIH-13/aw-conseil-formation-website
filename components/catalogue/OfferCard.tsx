@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { PrimaryCTA } from "@/components/cta/CtaGroup";
 
 type Offer = {
   id: string;
@@ -23,8 +23,7 @@ export function OfferCard({ offer }: { offer: Offer }) {
   const familyName = offer.families?.name ?? "—";
 
   // Destination: detail page if it exists, otherwise contact with a query param.
-  const href = `/contact?offre=${encodeURIComponent(offer.title)}`;
-  const sessionsHref = `/sessions?offer_id=${encodeURIComponent(offer.id)}`;
+  const offerHref = `/catalogue/${offer.slug}`;
 
   return (
     <div className="rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm hover:shadow-md transition">
@@ -42,27 +41,16 @@ export function OfferCard({ offer }: { offer: Offer }) {
         {offer.summary || "—"}
       </p>
 
-      <div className="mt-6 flex items-center gap-3">
-        <Link
-          href={href}
-          className="inline-flex items-center justify-center rounded-xl bg-neutral-900 px-4 py-2 text-white text-sm font-medium hover:opacity-90"
-        >
-          Recevoir le programme
-        </Link>
-
-        <Link
-          href={sessionsHref}
-          className="inline-flex items-center justify-center rounded-xl border border-neutral-900 px-4 py-2 text-sm font-medium text-neutral-900 hover:bg-neutral-50"
-        >
-          Voir les sessions
-        </Link>
-
-        <Link
-          href={`/contact?motif=echange&offre=${encodeURIComponent(offer.title)}`}
-          className="inline-flex items-center justify-center rounded-xl border border-neutral-300 px-4 py-2 text-sm font-medium text-neutral-900 hover:bg-neutral-50"
-        >
-          Demander un echange
-        </Link>
+      {/* Cartes catalogue: 1 seul CTA (principal) */}
+      <div className="mt-6">
+        <PrimaryCTA
+          context="catalogue"
+          offerId={offer.id}
+          offerSlug={offer.slug}
+          offerHref={offerHref}
+          offerLabel={offer.title}
+          variant="primary"
+        />
       </div>
     </div>
   );

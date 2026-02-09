@@ -12,6 +12,8 @@ export default async function DecouvrirChargeMentalePage() {
   return (
     <FormationTemplate
       title="Découvrir la charge mentale"
+      ctaOfferSlug="/formations/decouvrir-charge-mentale"
+      ctaOfferLabel="Découvrir la charge mentale"
       subtitle="Comprendre ces mécanismes invisibles et apprendre à les reconnaître."
       duration="7 heures"
       format="Présentiel ou distanciel"
