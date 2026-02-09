@@ -76,7 +76,7 @@ if (offErr || !offersRaw) {
     formats: normalizeFormats(o.formats),
   }));
 
-  // DEBUG visuel (temporaire) : tu verras si le fetch retourne bien des offres
+  // Compteur (interne) utile au contrôle du fetch
   const rawCount = offersEnriched.length;
 
   // Filtre final
@@ -121,11 +121,6 @@ if (offErr || !offersRaw) {
           Des formations structurées et des ateliers opérationnels pour réduire la charge mentale,
           sécuriser la performance humaine et renforcer les pratiques terrain.
         </p>
-
-        {/* DEBUG TEMPORAIRE */}
-        <div className="mt-3 text-xs text-neutral-500">
-          Debug: offres brutes = {rawCount} / offres affichées = {offers.length}
-        </div>
       </div>
 
       <div className="mt-8">

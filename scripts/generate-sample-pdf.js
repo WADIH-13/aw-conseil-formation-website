@@ -103,7 +103,7 @@ const puppeteer = require('puppeteer');
 
         // discrete mention
         doc.setFontSize(9);
-        doc.text("Outil d'auto-évaluation — ne constitue pas un diagnostic médical.", margin, gaugeCenterY + gaugeRadius + 120);
+        doc.text("Outil d'auto-évaluation — ne constitue pas une analyse médicale.", margin, gaugeCenterY + gaugeRadius + 120);
 
         // page 2
         doc.addPage();

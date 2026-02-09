@@ -6,9 +6,10 @@
     "dev": "next dev",
     "fetch-fonts": "node scripts/fetch-inter-font.js",
     "test:headless": "node scripts/headless-test.js",
-    "build": "next build",
+    "build": "node --max_old_space_size=8192 node_modules/next/dist/bin/next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "check:copy": "node scripts/check-copy.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.8.0",

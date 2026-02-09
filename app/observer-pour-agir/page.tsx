@@ -27,7 +27,7 @@ export default function ObserverPourAgirPage() {
           <div className="max-w-5xl mx-auto">
             <h2 className="text-3xl font-light text-black mb-6">Pourquoi observer</h2>
             <p className="text-gray-700 leading-relaxed">
-              L&apos;observation collective permet de partager un diagnostic de fonctionnement, de rendre
+              L&apos;observation collective permet de partager un état des lieux de fonctionnement, de rendre
               visibles les points d&apos;appui et les zones d&apos;amélioration, et de prioriser les actions
               avec les acteurs concernés. Elle constitue un point d&apos;entrée rigoureux dans des démarches
               progressives, évolutives et finançables dans la durée.

@@ -63,7 +63,7 @@ export default function DrMahiBahiPage() {
         <section className="max-w-4xl mx-auto py-12 border-t border-gray-300 bg-gray-50 p-6 rounded">
           <h2 className="text-xl font-semibold mb-2 text-red-600">Important</h2>
           <p className="text-sm leading-relaxed">
-            Cette page ne propose pas de soins, de diagnostics ou de suivi individuel. Pour toute prise en charge médicale, veuillez consulter un professionnel de santé.
+            Cette page ne propose pas de soins, d’analyse médicale ou de suivi individuel. Pour toute prise en charge médicale, veuillez consulter un professionnel de santé.
           </p>
         </section>
 

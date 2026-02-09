@@ -94,7 +94,7 @@ export function Filters({ families }: { families: Family[] }) {
         </div>
 
         <div className="text-xs text-neutral-500">
-          Tarification sur demande. Programmes transmis apres echange.
+          Tarification sur demande. Programmes transmis après échange.
         </div>
       </div>
     </div>

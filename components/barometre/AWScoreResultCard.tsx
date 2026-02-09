@@ -39,7 +39,7 @@ export default function AWScoreResultCard({
           </p>
 
           <div className="inline-block text-xs text-gray-500 bg-gray-50 border border-gray-200 rounded-md px-3 py-2 mb-6">
-            Outil d’auto-évaluation — ne constitue pas un diagnostic médical.
+            Outil d’auto-évaluation — ne constitue pas une analyse médicale.
           </div>
 
           <p className="text-base text-gray-700 leading-relaxed mb-4">{message}</p>

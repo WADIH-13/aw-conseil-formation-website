@@ -80,7 +80,7 @@ export function SessionEditForm({ id, initial }: Props) {
       <div>
         <label className="block text-xs tracking-[0.24em] uppercase text-black/60 mb-2">Format</label>
         <select className="w-full rounded-xl border border-black/10 bg-white px-4 py-3 text-sm" value={format} onChange={(e) => setFormat(e.target.value as any)}>
-          <option value="presentiel">Presentiel</option>
+          <option value="presentiel">Présentiel</option>
           <option value="distanciel">Distanciel</option>
         </select>
       </div>
@@ -99,11 +99,11 @@ export function SessionEditForm({ id, initial }: Props) {
       {format === 'presentiel' && (
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
-            <label className="block text-xs tracking-[0.24em] uppercase text-black/60 mb-2">Region</label>
+            <label className="block text-xs tracking-[0.24em] uppercase text-black/60 mb-2">Région</label>
             <input className="w-full rounded-xl border border-black/10 bg-white px-4 py-3 text-sm" value={regionCode} onChange={(e) => setRegionCode(e.target.value)} />
           </div>
           <div>
-            <label className="block text-xs tracking-[0.24em] uppercase text-black/60 mb-2">Departement</label>
+            <label className="block text-xs tracking-[0.24em] uppercase text-black/60 mb-2">Département</label>
             <input className="w-full rounded-xl border border-black/10 bg-white px-4 py-3 text-sm" value={departmentCode} onChange={(e) => setDepartmentCode(e.target.value)} />
           </div>
           <div>

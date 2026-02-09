@@ -116,7 +116,7 @@ export default function Barometer({
             fontSize: '10px',
             lineHeight: '1.4'
           }}
-          title="Outil d'auto-évaluation — ne constitue pas un diagnostic médical"
+          title="Outil d'auto-évaluation — ne constitue pas une analyse médicale"
         >
           <div className="flex items-start gap-1.5">
             <span className="text-amber-500 text-sm flex-shrink-0 mt-0.5">⚠️</span>
@@ -125,7 +125,7 @@ export default function Barometer({
             </p>
           </div>
           <p className="text-gray-500 text-[9px] mt-1 pl-5" style={{fontFamily:'Inter, sans-serif'}}>
-            Ne constitue pas un diagnostic médical
+            Ne constitue pas une analyse médicale
           </p>
         </div>
 

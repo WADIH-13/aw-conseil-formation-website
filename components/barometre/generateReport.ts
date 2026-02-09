@@ -265,7 +265,7 @@ export async function generatePdfReport(data: ReportData) {
   // Rappel disclaimer
   doc.setFontSize(8);
   doc.setTextColor(...AW_COLOR.accent);
-  const footerDisclaimer = "Rappel : Ce document est fourni à titre informatif uniquement. Il n'a pas de valeur médicale et ne constitue pas un diagnostic. Pour toute préoccupation de santé, consultez un professionnel qualifié.";
+  const footerDisclaimer = "Rappel : Ce document est fourni à titre informatif uniquement. Il n'a pas de valeur médicale et ne constitue pas une analyse. Pour toute préoccupation de santé, consultez un professionnel qualifié.";
   const footerLines = doc.splitTextToSize(footerDisclaimer, pageWidth - margin * 2);
   doc.text(footerLines, margin, footerY + 16);
 

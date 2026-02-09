@@ -95,7 +95,7 @@ export default function Home() {
                 <div className="text-sm text-aw-red font-medium mb-3">Conseil</div>
                 <h3 className="text-xl font-medium text-black mb-3">Structurer en amont</h3>
                 <p className="text-gray-700">
-                  Diagnostic, recommandations et plan d&apos;action pour inscrire la prévention
+                  Analyse, recommandations et plan d&apos;action pour inscrire la prévention
                   dans le fonctionnement quotidien de l&apos;organisation.
                 </p>
               </div>
