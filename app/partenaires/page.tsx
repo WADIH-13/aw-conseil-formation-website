@@ -19,6 +19,13 @@ export default function PartenairesPage() {
             Nous avançons avec des structures qui partagent la même exigence de respect et de sobriété.
             Chaque collaboration est pensée pour préserver la confiance des équipes accompagnées.
           </p>
+          <div className="mt-8 max-w-3xl rounded-2xl border border-black/5 bg-black/[0.02] p-5">
+            <p className="text-sm tracking-[0.22em] uppercase text-black/50">Information</p>
+            <p className="mt-2 text-sm text-gray-700 leading-relaxed">
+              Cette page est en cours de construction. La présentation du réseau et des collaborations sera mise à jour
+              progressivement.
+            </p>
+          </div>
         </div>
       </section>
 

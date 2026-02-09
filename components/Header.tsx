@@ -34,10 +34,10 @@ export default function Header() {
         { name: 'Formations professionnelles', href: '/formations' },
       ],
     },
-    { name: 'Partenaires', href: '/partenaires' },
     { name: 'Veille', href: '/veille-charge-mentale' },
     { name: 'Blog', href: '/blog' },
     { name: 'Écosystème', href: '/ecosysteme' },
+    { name: 'Partenaires', href: '/partenaires' },
     { name: 'Regards scientifiques', href: '/regard-scientifique' },
     { name: 'Démarches', href: '/demarche-qualite' },
   ]
