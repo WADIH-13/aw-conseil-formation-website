@@ -16,6 +16,10 @@ export default function ArticleChargeMentaleRpsPage() {
             <h1 className="mt-4 text-4xl md:text-5xl font-light text-black leading-tight">
               Charge mentale et RPS : pourquoi la prévention doit se mettre à jour
             </h1>
+            <p className="mt-6 text-lg md:text-xl text-gray-600 leading-relaxed">
+              Sous-titre — Les repères de prévention évoluent. Rester à jour permet de relier les situations de travail,
+              les contraintes et les leviers d’action, sans réduire les enjeux à des interprétations individuelles.
+            </p>
             <p className="mt-7 text-lg md:text-xl text-gray-600 leading-relaxed">
               Les organisations changent vite. Les risques psychosociaux aussi — pas parce que les personnes « changent »,
               mais parce que les contraintes, les arbitrages et les formes de coopération évoluent.
