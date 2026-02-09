@@ -54,8 +54,13 @@ export async function POST(req: Request) {
         date: payload.date,
         levelLabel: payload.levelLabel,
         dimensionScores: payload.dimensionScores,
+        reportType: payload.reportType,
       },
-      { showMedicalNotice: payload.showMedicalNotice }
+      {
+        showDisclaimer: payload.showDisclaimer,
+        showNonIndividualNotice: payload.showNonIndividualNotice,
+        includeNoDataStoredNotice: payload.includeNoDataStoredNotice,
+      }
     )
     return new NextResponse(new Uint8Array(buffer), {
       status: 200,

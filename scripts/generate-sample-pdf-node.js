@@ -78,11 +78,22 @@ function generateSync(data, options = {}){
       doc.addImage(logoData, logoType === '.png' ? 'PNG' : 'JPEG', rx, 18, logoW, logoH);
     }catch(e){ }
   }
+  const reportType = (data && data.reportType) ? String(data.reportType) : 'aw-score';
+  const title = reportType === 'meteo-collective'
+    ? 'Météo collective — observation collective'
+    : 'Votre lecture de charge mentale — AW Score';
+
   doc.setFontSize(18); doc.setFont(undefined, 'bold');
-  doc.text('Votre lecture de charge mentale — AW Score', pageWidth/2, 74, { align: 'center' });
+  doc.text(title, pageWidth/2, 74, { align: 'center' });
   doc.setFontSize(10); doc.setFont(undefined,'normal');
   doc.setTextColor(AW_ACC[0],AW_ACC[1],AW_ACC[2]);
-  doc.text("Une photographie de votre charge mentale à l'instant T", pageWidth/2, 92, { align: 'center' });
+  doc.text(reportType === 'meteo-collective'
+    ? "Un repère simple pour objectiver une tendance collective"
+    : "Une photographie de votre charge mentale à l'instant T",
+    pageWidth/2,
+    92,
+    { align: 'center' }
+  );
   doc.setTextColor(0,0,0);
 
   const gaugeCenterX = pageWidth/2; const gaugeCenterY = 220; const gaugeRadius=110;
@@ -133,25 +144,68 @@ function generateSync(data, options = {}){
   doc.text('/ 100', gaugeCenterX + 48, gaugeCenterY + 8);
   doc.setTextColor(0,0,0);
 
-  // interpretation
-  // visible non-medical disclaimer under header if provided in options
-  if(options.showMedicalNotice===undefined || options.showMedicalNotice){
-    doc.setFontSize(9); doc.setFont(undefined,'normal'); doc.setTextColor(180,30,30);
-    doc.text("Ce document n'est pas un avis médical. En cas de problème de santé, consultez un professionnel.", pageWidth - margin, 54, { align: 'right' });
+  // Notices (neutral vocabulary)
+  const showDisclaimer = (typeof options.showDisclaimer === 'boolean')
+    ? options.showDisclaimer
+    : (typeof options.showMedicalNotice === 'boolean' ? options.showMedicalNotice : true);
+
+  const showNonIndividualNotice = !!options.showNonIndividualNotice;
+  const includeNoDataStoredNotice = !!options.includeNoDataStoredNotice;
+
+  if(showDisclaimer || showNonIndividualNotice || includeNoDataStoredNotice){
+    const boxX = margin;
+    const boxY = 100;
+    const boxW = pageWidth - margin*2;
+    const lines = [];
+    if(showNonIndividualNotice){
+      lines.push("Observation collective — ce document n'est pas une évaluation individuelle.");
+    }
+    if(includeNoDataStoredNotice){
+      lines.push("Aucune donnée personnelle n'est collectée ni stockée.");
+    }
+    if(showDisclaimer && !showNonIndividualNotice){
+      lines.push("Document d'information : il sert de repère, pas de verdict.");
+    }
+
+    doc.setFillColor(248, 248, 248);
+    doc.setDrawColor(210,210,210);
+    doc.setLineWidth(1);
+    const text = doc.splitTextToSize(lines.join(' '), boxW - 24);
+    const boxH = Math.max(44, 18 + (text.length * 12) + 10);
+    doc.roundedRect(boxX, boxY, boxW, boxH, 6, 6, 'FD');
+    doc.setFontSize(9); doc.setFont(undefined,'normal');
+    doc.setTextColor(34,40,49);
+    doc.text(text, boxX + 12, boxY + 18);
     doc.setTextColor(0,0,0);
   }
   doc.setFontSize(12); doc.setFont(undefined,'bold');
   doc.text('Votre niveau actuel : ' + (data.levelLabel||'Lecture'), margin, gaugeCenterY + gaugeRadius + 28);
   doc.setFontSize(10); doc.setFont(undefined,'normal');
-  const note = "Ce score ne vous définit pas. Il reflète un état de charge mentale à un moment donné, influencé par votre contexte, votre organisation et vos sollicitations actuelles.";
+  const note = reportType === 'meteo-collective'
+    ? "Ce repère aide à ouvrir une discussion collective sur l'organisation et les sollicitations."
+    : "Ce score ne vous définit pas. Il reflète un état de charge mentale à un moment donné, influencé par votre contexte, votre organisation et vos sollicitations actuelles.";
   doc.text(doc.splitTextToSize(note, pageWidth - margin*2), margin, gaugeCenterY + gaugeRadius + 46);
   doc.setFontSize(10);
-  doc.text("Avertissement : cet outil n'est pas un diagnostic médical. Si vous ressentez une détresse importante, contactez un professionnel de santé.", margin, gaugeCenterY + gaugeRadius + 120, { maxWidth: pageWidth - margin*2 });
+  doc.text(
+    reportType === 'meteo-collective'
+      ? "Rappel : ce document n'est pas une évaluation individuelle."
+      : "Rappel : ce document est un outil de repérage et de réflexion. Il ne remplace pas un échange professionnel.",
+    margin,
+    gaugeCenterY + gaugeRadius + 120,
+    { maxWidth: pageWidth - margin*2 }
+  );
 
   // page 2
   const footerY = pageHeight - 88;
   doc.setFontSize(9); doc.setTextColor(AW_ACC[0],AW_ACC[1],AW_ACC[2]);
-  doc.text('Ce test est un outil d\'auto-évaluation. Il ne remplace pas un avis médical. En cas de détresse importante ou persistante, consultez un professionnel de santé.', margin, footerY, { maxWidth: pageWidth - margin*2 });
+  doc.text(
+    reportType === 'meteo-collective'
+      ? "Aucune donnée personnelle n'est collectée ni stockée."
+      : "Outil d'auto-évaluation : il sert de repère et de réflexion.",
+    margin,
+    footerY,
+    { maxWidth: pageWidth - margin*2 }
+  );
   doc.setTextColor(0,0,0);
   doc.setFontSize(10);
   doc.text('AW Conseil et Formation', margin, footerY + 30);
@@ -170,6 +224,7 @@ if(require.main === module){
     awScore: 37,
     date: new Date().toISOString().slice(0,10),
     levelLabel: 'Modéré',
+    reportType: 'aw-score',
     dimensionScores: [
       {label:'Charge cognitive', value:37},
       {label:'Charge émotionnelle', value:42},
@@ -178,7 +233,7 @@ if(require.main === module){
       {label:'Ressources & récupération', value:33}
     ]
   };
-  const buffer = generateSync(sample);
+  const buffer = generateSync(sample, { showDisclaimer: true });
   const outPath = path.join(process.cwd(), 'AW_Score_Sample_Node.pdf');
   fs.writeFileSync(outPath, buffer);
   console.log('PDF généré (node):', outPath);

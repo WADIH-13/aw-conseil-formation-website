@@ -10,7 +10,7 @@ describe('Payload Validation', () => {
         { label: 'Cognitif', value: 75 },
         { label: 'Émotionnel', value: 50 },
       ],
-      showMedicalNotice: true,
+      showDisclaimer: true,
     };
 
     const result = validateReportPayload(payload)

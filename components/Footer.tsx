@@ -48,6 +48,7 @@ const Footer = () => {
           <div className="grid grid-cols-2 gap-2 text-sm text-gray-700">
             <Link href="/formations" className="hover:text-aw-red">Formations</Link>
             <Link href="/partenaires" className="hover:text-aw-red">Partenaires</Link>
+            <Link href="/meteo-collective" className="hover:text-aw-red">Petit soleil</Link>
             <Link href="/veille-charge-mentale" className="hover:text-aw-red">Veille</Link>
             <Link href="/blog" className="hover:text-aw-red">Blog</Link>
             <Link href="/demarche-qualite" className="hover:text-aw-red">Démarche qualité</Link>
