@@ -18,7 +18,7 @@ export default function CoverImage({ src, alt, ratio = '21:9', priority = false 
           alt={alt}
           fill
           priority={priority}
-          sizes="(max-width: 768px) 100vw, 896px"
+          sizes="(max-width: 768px) 100vw, 1152px"
           className="object-cover"
         />
       </div>

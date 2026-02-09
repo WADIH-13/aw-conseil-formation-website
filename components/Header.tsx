@@ -43,10 +43,10 @@ export default function Header() {
   ]
 
   const desktopItemClass =
-    'group relative text-sm lg:text-base font-light tracking-[0.08em] text-black/75 transition-all duration-300 hover:text-aw-red-deep'
+    'group relative text-xs xl:text-sm 2xl:text-base font-light tracking-[0.08em] text-black/75 transition-all duration-300 hover:text-aw-red-deep'
 
   const desktopPillClass =
-    'inline-flex items-center rounded-xl px-3 py-2 transition-all duration-300 group-hover:-translate-y-[1px] hover:bg-white hover:shadow-[0_12px_30px_rgba(0,0,0,0.08)]'
+    'inline-flex items-center whitespace-nowrap rounded-xl px-3 py-2 transition-all duration-300 group-hover:-translate-y-[1px] hover:bg-white hover:shadow-[0_12px_30px_rgba(0,0,0,0.08)]'
 
   return (
     <header className="aw-diagonal-surface border-b border-black/5">
@@ -73,7 +73,7 @@ export default function Header() {
             </Link>
           </div>
           
-          <div className="-mr-2 -my-2 md:hidden">
+          <div className="-mr-2 -my-2 xl:hidden">
             <button
               type="button"
               className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-aw-red"
@@ -98,7 +98,7 @@ export default function Header() {
             </button>
           </div>
 
-          <div className="hidden md:flex items-center justify-center flex-1 space-x-10">
+          <div className="hidden xl:flex items-center justify-center flex-1 gap-1 2xl:gap-6">
             {navigation.map((item) => {
               if (item.children && item.children.length > 0) {
                 return (
@@ -145,13 +145,13 @@ export default function Header() {
               )
             })}
           </div>
-          <div className="hidden md:flex items-center justify-end">
+          <div className="hidden xl:flex items-center justify-end">
             {/* Qualiopi logo removed from header per design decision */}
           </div>
         </div>
 
         {isMenuOpen && (
-          <div className="md:hidden">
+          <div className="xl:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t border-gray-100">
               {navigation.map((item) => {
                 if (item.children && item.children.length > 0) {

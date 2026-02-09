@@ -1,13 +1,60 @@
 import Link from 'next/link'
 
+import { createSupabaseServerClient } from '@/lib/supabase/server'
+import { isSupabaseConfigured } from '@/lib/supabase/env'
+
+export const dynamic = 'force-dynamic'
+
 type BlogPost = {
   title: string
-  subtitle: string
-  excerpt: string
+  subtitle?: string
+  excerpt?: string
   category: string
-  readingTime: string
+  readingTime?: string
   href: string
   badge?: string
+}
+
+type DbPostRow = {
+  title: string
+  slug: string
+  excerpt: string | null
+  content: string | null
+  published_at: string | null
+  category: string
+}
+
+function estimateReadingTimeMinutes(content: string | null | undefined): number {
+  const text = (content ?? '').trim()
+  if (!text) return 5
+  const words = text.split(/\s+/).filter(Boolean).length
+  return Math.max(3, Math.round(words / 200))
+}
+
+async function getPublishedDbPosts(): Promise<BlogPost[]> {
+  if (!isSupabaseConfigured()) return []
+
+  const supabase = createSupabaseServerClient()
+  const { data, error } = await supabase
+    .from('posts')
+    .select('title, slug, excerpt, content, published_at, category')
+    .eq('status', 'published')
+    .order('published_at', { ascending: false })
+    .limit(50)
+
+  if (error || !data) return []
+
+  return (data as DbPostRow[]).map((row) => {
+    const mins = estimateReadingTimeMinutes(row.content)
+    return {
+      title: row.title,
+      subtitle: row.excerpt ?? undefined,
+      excerpt: row.excerpt ?? undefined,
+      category: row.category || 'Analyses & décryptages · Charge mentale & RPS',
+      readingTime: `${mins} min`,
+      href: `/blog/${row.slug}`,
+    }
+  })
 }
 
 const seriesPosts: BlogPost[] = [
@@ -77,12 +124,12 @@ function PostCard({ post }: { post: BlogPost }) {
           )}
         </div>
         <h2 className="text-2xl md:text-3xl font-light text-black leading-snug">{post.title}</h2>
-        <p className="text-base text-black/70 leading-relaxed">{post.subtitle}</p>
-        <p className="text-gray-700 leading-relaxed text-base">{post.excerpt}</p>
+        {post.subtitle && <p className="text-base text-black/70 leading-relaxed">{post.subtitle}</p>}
+        {post.excerpt && <p className="text-gray-700 leading-relaxed text-base">{post.excerpt}</p>}
       </div>
 
       <div className="mt-6 flex items-center justify-between">
-        <span className="text-sm text-gray-600">{post.readingTime}</span>
+        <span className="text-sm text-gray-600">{post.readingTime ?? ''}</span>
         <Link href={post.href} className="text-sm font-medium text-aw-red hover:text-red-700">
           Lire l’article →
         </Link>
@@ -91,7 +138,9 @@ function PostCard({ post }: { post: BlogPost }) {
   )
 }
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  const publishedDbPosts = await getPublishedDbPosts()
+
   return (
     <div className="bg-white">
       <section className="aw-hero-surface py-16 md:py-24">
@@ -138,6 +187,9 @@ export default function BlogPage() {
             </div>
 
             <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
+              {publishedDbPosts.map((post) => (
+                <PostCard key={post.href} post={post} />
+              ))}
               {reperePosts.map((post) => (
                 <PostCard key={post.href} post={post} />
               ))}
