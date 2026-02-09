@@ -1,5 +1,7 @@
 import Link from 'next/link'
 
+import CoverImage from '@/components/blog/CoverImage'
+
 export const metadata = {
   title:
     'Langage commun et prévention : mettre des mots utiles sur la charge mentale et les RPS - AW Conseil et Formation',
@@ -40,6 +42,14 @@ export default function ArticleLangagePreventionPage() {
               situations de travail, les contraintes et les arbitrages, sans réduire les enjeux à des interprétations
               individuelles.
             </p>
+          </div>
+
+          <div className="mt-8 max-w-6xl mx-auto">
+            <CoverImage
+              src="/blog-covers/organisation-travail.svg"
+              alt="Illustration sobre : organisation du travail, flux et coordination"
+              ratio="21:9"
+            />
           </div>
         </div>
       </section>

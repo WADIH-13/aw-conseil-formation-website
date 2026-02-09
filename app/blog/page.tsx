@@ -53,6 +53,15 @@ const reperePosts: BlogPost[] = [
     readingTime: '9 min',
     href: '/blog/charge-mentale-rps-prevention-se-mettre-a-jour',
   },
+  {
+    title: 'Organisation du travail et charge mentale : repères pour une prévention RPS collective',
+    subtitle: 'Rendre lisibles flux, arbitrages et interfaces pour agir sans personnaliser.',
+    excerpt:
+      'Un cadrage sobre pour relier la charge mentale aux mécanismes du travail réel, puis stabiliser des règles de fonctionnement.',
+    category: 'Repères · Organisation du travail',
+    readingTime: '8 min',
+    href: '/blog/organisation-travail-charge-mentale-rps',
+  },
 ]
 
 function PostCard({ post }: { post: BlogPost }) {

@@ -1,5 +1,7 @@
 import Link from 'next/link'
 
+import CoverImage from '@/components/blog/CoverImage'
+
 export const metadata = {
   title:
     'Rituels et micro-ajustements : stabiliser la coopération pour prévenir la charge mentale et les RPS - AW Conseil et Formation',
@@ -40,6 +42,14 @@ export default function ArticleRituelsMicroAjustementsPage() {
               informations dispersées, arbitrages tardifs. Des rituels de travail bien conçus peuvent redonner de la
               continuité, sans rigidifier l’organisation.
             </p>
+          </div>
+
+          <div className="mt-8 max-w-6xl mx-auto">
+            <CoverImage
+              src="/blog-covers/organisation-travail.svg"
+              alt="Illustration sobre : organisation du travail, flux et coordination"
+              ratio="21:9"
+            />
           </div>
         </div>
       </section>

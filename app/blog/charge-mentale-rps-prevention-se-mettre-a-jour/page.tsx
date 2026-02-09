@@ -1,5 +1,7 @@
 import Link from 'next/link'
 
+import CoverImage from '@/components/blog/CoverImage'
+
 export const metadata = {
   title: 'Charge mentale et RPS : pourquoi la prévention doit se mettre à jour - AW Conseil et Formation',
   description:
@@ -20,6 +22,16 @@ export default function ArticleChargeMentaleRpsPage() {
               Sous-titre — Les repères de prévention évoluent. Rester à jour permet de relier les situations de travail,
               les contraintes et les leviers d’action, sans réduire les enjeux à des interprétations individuelles.
             </p>
+
+            <div className="mt-8 max-w-6xl mx-auto">
+              <CoverImage
+                src="/blog-covers/organisation-travail.svg"
+                alt="Illustration sobre : organisation du travail, flux et coordination"
+                ratio="21:9"
+                priority
+              />
+            </div>
+
             <p className="mt-7 text-lg md:text-xl text-gray-600 leading-relaxed">
               Les organisations changent vite. Les risques psychosociaux aussi — pas parce que les personnes « changent »,
               mais parce que les contraintes, les arbitrages et les formes de coopération évoluent.

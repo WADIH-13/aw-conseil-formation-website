@@ -1,5 +1,7 @@
 import Link from 'next/link'
 
+import CoverImage from '@/components/blog/CoverImage'
+
 export const metadata = {
   title:
     'Transitions et priorités mouvantes : un repère pour prévenir la charge mentale et les RPS - AW Conseil et Formation',
@@ -40,6 +42,15 @@ export default function ArticleTransitionsPrioritesPage() {
               tenir » : c’est de stabiliser les arbitrages, les interfaces et la coopération, afin que la charge mentale
               ne devienne pas un mode de fonctionnement.
             </p>
+          </div>
+
+          <div className="mt-8 max-w-6xl mx-auto">
+            <CoverImage
+              src="/blog-covers/organisation-travail.svg"
+              alt="Illustration sobre : organisation du travail, flux et coordination"
+              ratio="21:9"
+              priority
+            />
           </div>
         </div>
       </section>
