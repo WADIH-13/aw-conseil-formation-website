@@ -1,4 +1,5 @@
 import ContactForm from '@/components/ContactForm'
+import { getLegalConfig, isPlaceholder } from '@/content/legal'
 
 export const metadata = {
   title: 'Contact - AW Conseil et Formation',
@@ -6,6 +7,9 @@ export const metadata = {
 }
 
 export default function ContactPage() {
+  const { legal } = getLegalConfig()
+  const phoneHref = legal.phone ? legal.phone.replace(/\s+/g, '') : undefined
+
   return (
     <div className="bg-white">
       <section className="aw-hero-surface py-16 md:py-24">
@@ -50,7 +54,13 @@ export default function ContactPage() {
 
             <div className="aw-card-surface p-8 rounded-2xl border border-black/5">
               <h2 className="text-2xl font-light text-black mb-6">Formulaire de contact</h2>
-              <ContactForm />
+              <ContactForm
+                privacy={{
+                  controllerName: legal.companyName,
+                  email: isPlaceholder(legal.email) ? 'contact@aw-conseil-formation.fr' : legal.email,
+                  retentionMonths: legal.contactDataRetentionMonths,
+                }}
+              />
             </div>
           </div>
         </div>
@@ -67,14 +77,18 @@ export default function ContactPage() {
               du lundi au vendredi, de 9h à 18h.
             </p>
             <div className="space-y-3 text-gray-700">
-              <p>
-                Téléphone :{' '}
-                <a href="tel:+33651455083" className="text-aw-red hover:text-red-700">06 51 45 50 83</a>
-              </p>
-              <p>
-                Email :{' '}
-                <a href="mailto:ahmed.wadih@gmail.com" className="text-aw-red hover:text-red-700">ahmed.wadih@gmail.com</a>
-              </p>
+              {legal.phone && (
+                <p>
+                  Téléphone :{' '}
+                  <a href={`tel:${phoneHref}`} className="text-aw-red hover:text-red-700">{legal.phone}</a>
+                </p>
+              )}
+              {!isPlaceholder(legal.email) && (
+                <p>
+                  Email :{' '}
+                  <a href={`mailto:${legal.email}`} className="text-aw-red hover:text-red-700">{legal.email}</a>
+                </p>
+              )}
             </div>
           </div>
         </div>

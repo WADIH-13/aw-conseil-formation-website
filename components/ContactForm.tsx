@@ -3,6 +3,12 @@
 import { useState } from 'react'
 import type { ChangeEvent, FormEvent } from 'react'
 
+export type ContactPrivacyNotice = {
+  controllerName: string
+  email: string
+  retentionMonths: number
+}
+
 const initialState = {
   nom: '',
   organisation: '',
@@ -13,7 +19,7 @@ const initialState = {
   consent: false,
 }
 
-export default function ContactForm() {
+export default function ContactForm({ privacy }: { privacy: ContactPrivacyNotice }) {
   const [formData, setFormData] = useState(initialState)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle')
@@ -196,6 +202,25 @@ export default function ContactForm() {
       >
         {isSubmitting ? 'Envoi en cours…' : 'Envoyer ma demande'}
       </button>
+
+      <div className="text-xs text-gray-500 leading-relaxed">
+        <p>
+          Responsable de traitement : <span className="text-gray-700">{privacy.controllerName}</span>.
+          Finalité : répondre à votre demande et organiser un échange.
+          Base légale : mesures précontractuelles et intérêt légitime.
+        </p>
+        <p className="mt-2">
+          Durée de conservation : <span className="text-gray-700">{privacy.retentionMonths} mois</span>. Droits : accès,
+          rectification, effacement, opposition. Contact :{' '}
+          <a href={`mailto:${privacy.email}`} className="text-aw-red hover:text-red-700">
+            {privacy.email}
+          </a>
+          .
+        </p>
+        <p className="mt-2">
+          Merci de ne pas indiquer d’informations sensibles dans ce formulaire.
+        </p>
+      </div>
     </form>
   )
 }

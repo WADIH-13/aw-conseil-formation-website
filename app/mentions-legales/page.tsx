@@ -1,9 +1,22 @@
+import { getLegalConfig, isPlaceholder, PLACEHOLDER } from '@/content/legal'
+
 export const metadata = {
   title: 'Mentions légales - AW Conseil et Formation',
   description: 'Mentions légales et informations légales du site AW Conseil et Formation.',
 }
 
+function LegalValue({ value }: { value?: string }) {
+  const missing = isPlaceholder(value)
+  return (
+    <span className={missing ? 'text-black/50 italic' : 'text-black/80'}>
+      {missing ? PLACEHOLDER : value}
+    </span>
+  )
+}
+
 export default function MentionsLegalesPage() {
+  const { legal, missingKeys } = getLegalConfig()
+
   return (
     <div className="bg-white">
       <section className="aw-hero-surface py-16 md:py-24">
@@ -14,27 +27,73 @@ export default function MentionsLegalesPage() {
             </h1>
 
             <div className="aw-card-surface rounded-2xl border border-black/5 p-8 md:p-10 space-y-12 text-gray-700">
+              {missingKeys.length > 0 && (
+                <div className="rounded-2xl border border-black/5 bg-black/[0.02] p-4 text-sm text-black/60">
+                  Certaines informations légales sont en cours de mise à jour.
+                </div>
+              )}
+
               <section>
                 <h2 className="text-2xl font-medium text-black mb-4">Informations légales</h2>
                 <div className="space-y-2">
-                  <p><strong>Dénomination sociale :</strong> AW Conseil et Formation</p>
-                  <p><strong>Forme juridique :</strong> [À compléter]</p>
-                  <p><strong>Siège social :</strong> [Adresse à compléter]</p>
-                  <p><strong>SIRET :</strong> [Numéro à compléter]</p>
-                  <p><strong>Code APE :</strong> [Code à compléter]</p>
-                  <p><strong>Numéro de déclaration d’activité :</strong> [Numéro à compléter]</p>
+                  <p>
+                    <strong>Dénomination sociale :</strong>{' '}
+                    <LegalValue value={legal.companyName} />
+                  </p>
+                  <p>
+                    <strong>Forme juridique :</strong>{' '}
+                    <LegalValue value={legal.legalForm} />
+                  </p>
+                  <p>
+                    <strong>Adresse :</strong>{' '}
+                    <LegalValue value={legal.address} />
+                  </p>
+                  <p>
+                    <strong>SIRET :</strong>{' '}
+                    <LegalValue value={legal.siret} />
+                  </p>
+                  <p>
+                    <strong>Numéro de déclaration d’activité (NDA) :</strong>{' '}
+                    <LegalValue value={legal.nda} />
+                  </p>
                 </div>
               </section>
 
               <section>
                 <h2 className="text-2xl font-medium text-black mb-4">Direction de la publication</h2>
-                <p>Le directeur de la publication est [Nom à compléter], en qualité de [Fonction à compléter].</p>
+                <p>
+                  Directeur de la publication : <LegalValue value={legal.publicationDirector} />
+                </p>
               </section>
 
               <section>
                 <h2 className="text-2xl font-medium text-black mb-4">Hébergement</h2>
-                <p>Ce site est hébergé par [Hébergeur à compléter]</p>
-                <p>Adresse : [Adresse hébergeur à compléter]</p>
+                <div className="space-y-2">
+                  <p>
+                    Ce site est hébergé par <LegalValue value={legal.hostName} />
+                  </p>
+                  <p>
+                    Adresse : <LegalValue value={legal.hostAddress} />
+                  </p>
+                  {legal.hostPhone && (
+                    <p>
+                      Téléphone : <span className="text-black/80">{legal.hostPhone}</span>
+                    </p>
+                  )}
+                  {legal.hostWebsite && (
+                    <p>
+                      Site web :{' '}
+                      <a
+                        href={legal.hostWebsite}
+                        className="text-aw-red-deep hover:text-[#7C1818]"
+                        rel="noreferrer"
+                        target="_blank"
+                      >
+                        {legal.hostWebsite}
+                      </a>
+                    </p>
+                  )}
+                </div>
               </section>
 
               <section>
@@ -57,9 +116,16 @@ export default function MentionsLegalesPage() {
                 </p>
                 <p className="mt-4">
                   Pour exercer ces droits, vous pouvez nous contacter à l’adresse :
-                  <a href="mailto:ahmed.wadih@gmail.com" className="text-aw-red-deep hover:text-[#7C1818] ml-1">
-                    ahmed.wadih@gmail.com
-                  </a>
+                  {isPlaceholder(legal.email) ? (
+                    <span className="ml-1 text-black/50 italic">{PLACEHOLDER}</span>
+                  ) : (
+                    <a
+                      href={`mailto:${legal.email}`}
+                      className="text-aw-red-deep hover:text-[#7C1818] ml-1"
+                    >
+                      {legal.email}
+                    </a>
+                  )}
                 </p>
               </section>
 
@@ -68,6 +134,9 @@ export default function MentionsLegalesPage() {
                 <p>
                   Ce site utilise des cookies techniques nécessaires au bon fonctionnement 
                   du site.
+                </p>
+                <p className="mt-3">
+                  Pour en savoir plus : <a href="/cookies" className="text-aw-red-deep hover:text-[#7C1818]">Cookies</a>
                 </p>
               </section>
 
