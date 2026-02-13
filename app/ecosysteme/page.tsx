@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 export const metadata = {
   title: 'Écosystème — AW Conseil et Formation',
@@ -23,6 +24,18 @@ export default function EcosystemePage() {
             </p>
           </div>
         </div>
+      </section>
+
+      {/* BANDEAU */}
+      <section className="relative h-[280px] w-full overflow-hidden border-y border-black/5">
+        <Image
+          src="/ecosysteme-banner.jpg"
+          alt="Écosystème — AW Conseil et Formation"
+          fill
+          className="object-cover"
+          style={{ objectPosition: '50% 33%' }}
+          priority
+        />
       </section>
 
       {/* INTRODUCTION */}

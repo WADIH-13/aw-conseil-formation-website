@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 
 export const metadata = {
@@ -14,7 +15,8 @@ export default function DemarcheQualitePage() {
             <h1 className="text-4xl md:text-5xl font-light text-black mb-6 leading-tight">
               Des démarches structurées au service de la performance humaine
             </h1>
-            <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+            <div className="h-[2px] w-16 bg-aw-red-deep/80 mx-auto mb-8" aria-hidden="true" />
+            <p className="text-xl text-gray-600 leading-relaxed">
               AW Conseil &amp; Formation intervient par démarches progressives, durables et
               finançables dans la durée, pour renforcer la qualité de fonctionnement des organisations.
             </p>
@@ -22,35 +24,47 @@ export default function DemarcheQualitePage() {
         </div>
       </section>
 
+      {/* BANDEAU PANORAMIQUE */}
+      <section className="aw-diagonal-surface py-10">
+        <div className="container-custom">
+          <div className="relative overflow-hidden rounded-3xl border border-black/5 shadow-[0_18px_45px_rgba(0,0,0,0.12)]">
+            <div className="relative h-[280px]">
+              <Image
+                src="/demarche-banner.jpg"
+                alt="Bandeau démarche structurée"
+                fill
+                sizes="100vw"
+                className="object-cover grayscale"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="py-16">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-light text-black mb-6">
-              Pourquoi une logique de démarche
-            </h2>
-            <p className="text-gray-700 leading-relaxed mb-6">
+            <div className="flex items-center gap-4 mb-6">
+              <h2 className="text-3xl font-light text-black">Pourquoi une logique de démarche</h2>
+              <span className="h-[2px] w-10 bg-aw-red-deep/60" aria-hidden="true" />
+            </div>
+            <p className="text-gray-700 leading-relaxed mb-8">
               Les enjeux humains et organisationnels nécessitent de la structuration, de la continuité
               et de l&apos;adaptation au contexte. Nous privilégions des démarches cohérentes, articulées
               dans le temps, plutôt que des actions isolées.
             </p>
-            <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
-              <li className="flex items-start">
-                <span className="text-aw-red mr-3 mt-1">•</span>
-                <span>Structuration et progressivité des étapes.</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-aw-red mr-3 mt-1">•</span>
-                <span>Continuité et ajustements dans la durée.</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-aw-red mr-3 mt-1">•</span>
-                <span>Adaptation aux réalités opérationnelles.</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-aw-red mr-3 mt-1">•</span>
-                <span>Évaluation dans le temps et lisibilité des actions.</span>
-              </li>
-            </ul>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {[
+                'Structuration et progressivité des étapes.',
+                'Continuité et ajustements dans la durée.',
+                'Adaptation aux réalités opérationnelles.',
+                'Évaluation dans le temps et lisibilité des actions.',
+              ].map((item) => (
+                <div key={item} className="border-l border-aw-red-deep/30 pl-4 py-2 text-gray-700">
+                  {item}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -58,33 +72,27 @@ export default function DemarcheQualitePage() {
       <section className="py-16 aw-diagonal-surface">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-light text-black mb-6">Principes transversaux</h2>
-            <p className="text-gray-700 leading-relaxed mb-6">
+            <div className="flex items-center gap-4 mb-6">
+              <h2 className="text-3xl font-light text-black">Principes transversaux</h2>
+              <span className="h-[2px] w-10 bg-aw-red-deep/60" aria-hidden="true" />
+            </div>
+            <p className="text-gray-700 leading-relaxed mb-8">
               Ces principes constituent le cadre de nos démarches, indépendamment des secteurs et des
               contextes d&apos;intervention.
             </p>
-            <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
-              <li className="flex items-start">
-                <span className="text-aw-red mr-3 mt-1">•</span>
-                <span>Progressivité et adaptabilité des parcours.</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-aw-red mr-3 mt-1">•</span>
-                <span>Co-construction avec les acteurs internes.</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-aw-red mr-3 mt-1">•</span>
-                <span>Ancrage terrain et réalisme opérationnel.</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-aw-red mr-3 mt-1">•</span>
-                <span>Évaluation dans le temps et amélioration continue.</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-aw-red mr-3 mt-1">•</span>
-                <span>Compatibilité avec les cadres financeurs.</span>
-              </li>
-            </ul>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {[
+                'Progressivité et adaptabilité des parcours.',
+                'Co-construction avec les acteurs internes.',
+                'Ancrage terrain et réalisme opérationnel.',
+                'Évaluation dans le temps et amélioration continue.',
+                'Compatibilité avec les cadres financeurs.',
+              ].map((item) => (
+                <div key={item} className="border-l border-aw-red-deep/30 pl-4 py-2 text-gray-700">
+                  {item}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -92,33 +100,27 @@ export default function DemarcheQualitePage() {
       <section className="py-16">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-light text-black mb-6">Leviers mobilisables</h2>
-            <p className="text-gray-700 leading-relaxed mb-6">
+            <div className="flex items-center gap-4 mb-6">
+              <h2 className="text-3xl font-light text-black">Leviers mobilisables</h2>
+              <span className="h-[2px] w-10 bg-aw-red-deep/60" aria-hidden="true" />
+            </div>
+            <p className="text-gray-700 leading-relaxed mb-8">
               Nos démarches peuvent combiner plusieurs leviers, selon les objectifs et la maturité
               de l&apos;organisation.
             </p>
-            <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
-              <li className="flex items-start">
-                <span className="text-aw-red mr-3 mt-1">•</span>
-                <span>Conseil et cadrage.</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-aw-red mr-3 mt-1">•</span>
-                <span>Observation collective.</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-aw-red mr-3 mt-1">•</span>
-                <span>Formation.</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-aw-red mr-3 mt-1">•</span>
-                <span>Ateliers de mise en pratique.</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-aw-red mr-3 mt-1">•</span>
-                <span>Accompagnement dans la durée.</span>
-              </li>
-            </ul>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {[
+                'Conseil et cadrage.',
+                'Observation collective.',
+                'Formation.',
+                'Ateliers de mise en pratique.',
+                'Accompagnement dans la durée.',
+              ].map((item) => (
+                <div key={item} className="border-l border-aw-red-deep/30 pl-4 py-2 text-gray-700">
+                  {item}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -126,29 +128,26 @@ export default function DemarcheQualitePage() {
       <section className="py-16 aw-diagonal-surface">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-light text-black mb-6">Cadre institutionnel et qualité</h2>
-            <p className="text-gray-700 leading-relaxed mb-6">
+            <div className="flex items-center gap-4 mb-6">
+              <h2 className="text-3xl font-light text-black">Cadre institutionnel et qualité</h2>
+              <span className="h-[2px] w-10 bg-aw-red-deep/60" aria-hidden="true" />
+            </div>
+            <p className="text-gray-700 leading-relaxed mb-8">
               Nos démarches répondent aux exigences de qualité, de traçabilité et de professionnalisme,
               et s&apos;inscrivent dans le respect des cadres OPCO et des partenaires publics.
             </p>
-            <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
-              <li className="flex items-start">
-                <span className="text-aw-red mr-3 mt-1">•</span>
-                <span>Qualité, traçabilité, lisibilité des actions.</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-aw-red mr-3 mt-1">•</span>
-                <span>Confidentialité et professionnalisme.</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-aw-red mr-3 mt-1">•</span>
-                <span>Compatibilité avec les cadres financeurs.</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-aw-red mr-3 mt-1">•</span>
-                <span>Cohérence avec les responsabilités internes.</span>
-              </li>
-            </ul>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {[
+                'Qualité, traçabilité, lisibilité des actions.',
+                'Confidentialité et professionnalisme.',
+                'Compatibilité avec les cadres financeurs.',
+                'Cohérence avec les responsabilités internes.',
+              ].map((item) => (
+                <div key={item} className="border-l border-aw-red-deep/30 pl-4 py-2 text-gray-700">
+                  {item}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
