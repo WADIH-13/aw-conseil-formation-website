@@ -3,7 +3,16 @@ const nextConfig = {
   trailingSlash: true,
   images: {
     unoptimized: true
-  }
+  },
+  async redirects() {
+    return [
+      {
+        source: '/limova',
+        destination: 'https://limova.ai/?linkId=lp_079563&sourceId=aw-conseil-et-formation&tenantId=limova',
+        permanent: false,
+      },
+    ]
+  },
 }
 
 module.exports = nextConfig

@@ -46,7 +46,7 @@ export default function ArticleLangagePreventionPage() {
 
           <div className="mt-8 max-w-6xl mx-auto">
             <CoverImage
-              src="/blog-covers/organisation-travail.svg"
+              src="/blog-covers/organisation-travail.jpg"
               alt="Illustration sobre : organisation du travail, flux et coordination"
               ratio="21:9"
             />

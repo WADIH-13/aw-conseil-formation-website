@@ -27,19 +27,42 @@ export default function Header() {
   }> = [
     { name: 'Accueil', href: '/' },
     {
-      name: 'Catalogue',
+      name: 'Formations',
       href: '/catalogue',
       children: [
-        { name: 'Voir le catalogue', href: '/catalogue' },
+        { name: 'Catalogue des formations', href: '/catalogue' },
         { name: 'Formations professionnelles', href: '/formations' },
+        { name: 'Trouver une session', href: '/trouver-une-session' },
       ],
     },
-    { name: 'Veille', href: '/veille-charge-mentale' },
-    { name: 'Blog', href: '/blog' },
-    { name: 'Écosystème', href: '/ecosysteme' },
-    { name: 'Partenaires', href: '/partenaires' },
-    { name: 'Regards scientifiques', href: '/regard-scientifique' },
-    { name: 'Démarches', href: '/demarche-qualite' },
+    {
+      name: 'Démarches',
+      href: '/demarche-qualite',
+      children: [
+        { name: 'Démarche qualité', href: '/demarche-qualite' },
+        { name: 'Notre approche', href: '/notre-approche' },
+        { name: 'Observer pour agir', href: '/observer-pour-agir' },
+      ],
+    },
+    {
+      name: 'Ressources',
+      href: '/veille-actualites-scientifiques',
+      children: [
+        { name: 'Veille scientifique', href: '/veille-actualites-scientifiques' },
+        { name: 'Veille charge mentale', href: '/veille-charge-mentale' },
+        { name: 'Blog', href: '/blog' },
+        { name: 'Regards scientifiques', href: '/regard-scientifique' },
+      ],
+    },
+    {
+      name: 'Écosystème',
+      href: '/ecosysteme',
+      children: [
+        { name: 'Écosystème', href: '/ecosysteme' },
+        { name: 'Réseau de partenaires', href: '/partenaires' },
+        { name: 'Le Guide d’Essor', href: '/guide-essor' },
+      ],
+    },
   ]
 
   const desktopItemClass =
@@ -66,9 +89,10 @@ export default function Header() {
                 priority
               />
               <div className="hidden lg:flex flex-col leading-tight">
-                <span className="text-xs tracking-[0.32em] uppercase text-black/55">
-                  Conseil et Formation
+                <span className="text-[15px] font-medium tracking-[0.24em] uppercase text-black/55">
+                  Conseil <span className="text-[17px] font-semibold tracking-[0.14em] text-aw-red-deep opacity-80">&</span> Formation
                 </span>
+                <span className="mt-2 h-[2px] w-12 bg-aw-red-deep/80" aria-hidden="true" />
               </div>
             </Link>
           </div>
