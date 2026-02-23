@@ -1,13 +1,20 @@
-import { createClient } from '@supabase/supabase-js';
 import { NextRequest, NextResponse } from 'next/server';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
-const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
-
-const supabase = createClient(supabaseUrl, supabaseKey);
+import { supabaseServer } from '@/lib/supabaseServer';
 
 export async function POST(request: NextRequest) {
   try {
+    let supabase;
+    try {
+      supabase = supabaseServer();
+    } catch (e) {
+      console.error('Supabase is not configured (missing env vars).', e);
+      return NextResponse.json(
+        { error: 'Service non configuré.', valid: false },
+        { status: 500 }
+      );
+    }
+
     const body = await request.json();
     const { code } = body;
 
@@ -23,7 +30,7 @@ export async function POST(request: NextRequest) {
       .from('invitation_codes')
       .select('*')
       .eq('code', code.trim())
-      .single();
+      .maybeSingle();
 
     if (error) {
       return NextResponse.json(
@@ -40,7 +47,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if code has been used
-    if (data.used_at) {
+    if ((data as any).used_at) {
       return NextResponse.json(
         { error: 'Ce code a déjà été utilisé', valid: false },
         { status: 400 }
@@ -48,7 +55,15 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if code has expired
-    const expiresAt = new Date(data.expires_at);
+    const expiresAtRaw = (data as any).expires_at;
+    if (!expiresAtRaw) {
+      return NextResponse.json(
+        { error: 'Code invalide ou expiré', valid: false },
+        { status: 404 }
+      );
+    }
+
+    const expiresAt = new Date(expiresAtRaw);
     const now = new Date();
     if (now > expiresAt) {
       return NextResponse.json(
