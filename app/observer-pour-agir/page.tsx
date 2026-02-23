@@ -43,37 +43,37 @@ export default function ObserverPourAgirPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="aw-card-surface p-6 rounded-2xl border border-black/5">
                 <h3 className="text-lg font-medium text-black mb-3">Ce que l&apos;on observe</h3>
-                <ul className="space-y-3 text-gray-700">
-                  <li className="flex items-start">
-                    <span className="text-aw-red mr-3 mt-1">•</span>
-                    <span>Des tendances de fonctionnement collectif.</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-aw-red mr-3 mt-1">•</span>
-                    <span>Des facteurs organisationnels et des conditions d&apos;activité.</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-aw-red mr-3 mt-1">•</span>
-                    <span>Des indicateurs utiles au pilotage des actions.</span>
-                  </li>
-                </ul>
+                <div className="space-y-3 text-gray-700">
+                  <div className="flex items-start gap-3">
+                    <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                    <p>Des tendances de fonctionnement collectif.</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                    <p>Des facteurs organisationnels et des conditions d&apos;activité.</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                    <p>Des indicateurs utiles au pilotage des actions.</p>
+                  </div>
+                </div>
               </div>
               <div className="aw-card-surface p-6 rounded-2xl border border-black/5">
                 <h3 className="text-lg font-medium text-black mb-3">Ce que l&apos;on n&apos;observe pas</h3>
-                <ul className="space-y-3 text-gray-700">
-                  <li className="flex items-start">
-                    <span className="text-aw-red mr-3 mt-1">•</span>
-                    <span>Aucune évaluation individuelle ou notation de personnes.</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-aw-red mr-3 mt-1">•</span>
-                    <span>Aucun élément médical ou thérapeutique.</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-aw-red mr-3 mt-1">•</span>
-                    <span>Aucun jugement ou interprétation subjective.</span>
-                  </li>
-                </ul>
+                <div className="space-y-3 text-gray-700">
+                  <div className="flex items-start gap-3">
+                    <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                    <p>Aucune évaluation individuelle ou notation de personnes.</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                    <p>Aucun élément médical ou thérapeutique.</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                    <p>Aucun jugement ou interprétation subjective.</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -89,24 +89,24 @@ export default function ObserverPourAgirPage() {
               privilégient des formats collectifs, simples à déployer et compatibles avec les exigences
               de qualité et de traçabilité.
             </p>
-            <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
-              <li className="flex items-start">
-                <span className="text-aw-red mr-3 mt-1">•</span>
-                    <span>Questionnaires collectifs anonymisés.</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-aw-red mr-3 mt-1">•</span>
-                    <span>Entretiens de fonctionnement et retours d&apos;expérience.</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-aw-red mr-3 mt-1">•</span>
-                <span>Ateliers d&apos;observation et de mise en commun.</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-aw-red mr-3 mt-1">•</span>
-                    <span>Indicateurs partagés pour le pilotage des actions.</span>
-              </li>
-            </ul>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
+              <div className="flex items-start gap-3">
+                <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                <p>Questionnaires collectifs anonymisés.</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                <p>Entretiens de fonctionnement et retours d&apos;expérience.</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                <p>Ateliers d&apos;observation et de mise en commun.</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                <p>Indicateurs partagés pour le pilotage des actions.</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -119,24 +119,24 @@ export default function ObserverPourAgirPage() {
               L&apos;observation collective vise à rendre l&apos;action plus lisible et plus efficiente, en
               soutenant des décisions basées sur des faits partagés.
             </p>
-            <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
-              <li className="flex items-start">
-                <span className="text-aw-red mr-3 mt-1">•</span>
-                    <span>Objectiver les priorités d&apos;action.</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-aw-red mr-3 mt-1">•</span>
-                <span>Structurer le dialogue interne et externe.</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-aw-red mr-3 mt-1">•</span>
-                    <span>Assurer la cohérence et le suivi des actions dans le temps.</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-aw-red mr-3 mt-1">•</span>
-                <span>Renforcer la traçabilité pour les financeurs.</span>
-              </li>
-            </ul>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
+              <div className="flex items-start gap-3">
+                <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                <p>Objectiver les priorités d&apos;action.</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                <p>Structurer le dialogue interne et externe.</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                <p>Assurer la cohérence et le suivi des actions dans le temps.</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                <p>Renforcer la traçabilité pour les financeurs.</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>

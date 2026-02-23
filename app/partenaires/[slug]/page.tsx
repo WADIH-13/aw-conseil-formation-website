@@ -1,12 +1,10 @@
 import Link from 'next/link'
-import partners from '../../../data/partners.json'
+import { getPartnerBySlug } from '@/lib/partners/queries'
 
-export async function generateStaticParams() {
-  return partners.map((p: any) => ({ slug: p.slug }))
-}
+export const dynamic = 'force-dynamic'
 
-export default function PartnerPage({ params }: { params: { slug: string } }) {
-  const partner = partners.find((p: any) => p.slug === params.slug)
+export default async function PartnerPage({ params }: { params: { slug: string } }) {
+  const partner = await getPartnerBySlug(params.slug)
 
   if (!partner) {
     return (
@@ -23,12 +21,17 @@ export default function PartnerPage({ params }: { params: { slug: string } }) {
           <div className="max-w-3xl mx-auto text-center">
             <div className="aw-card-surface p-8 rounded-2xl border border-black/5">
               <div className="mb-4">
-                <img src={partner.logo || '/'} alt={partner.name} className="mx-auto max-h-20" />
+                <img src={partner.logo_url} alt={partner.name} className="mx-auto max-h-20" />
               </div>
               <h1 className="text-2xl font-semibold mb-2">{partner.name}</h1>
               <p className="text-gray-700 mb-4">{partner.short}</p>
-              <p className="text-gray-600 mb-4">{partner.contribution}</p>
-              <p className="text-sm text-gray-600 mb-4">Ce partenaire intervient dans le cadre de l’écosystème AW Conseil et Formation et du Guide d’Essor.</p>
+              <p className="text-gray-600 mb-4">
+                {partner.area ? `Zone d'intervention : ${partner.area}` : 'Partenaire du réseau AW Conseil & Formation.'}
+              </p>
+              <div className="mb-6">
+                <img src={partner.photo_url} alt={`Photo de ${partner.name}`} className="mx-auto max-h-64 rounded-xl" />
+              </div>
+              <p className="text-sm text-gray-600 mb-4">Ce partenaire intervient dans le cadre de l'écosystème AW Conseil et Formation et du Guide d'Essor.</p>
               <div className="space-y-2 text-sm">
                 {partner.website && (
                   <div>

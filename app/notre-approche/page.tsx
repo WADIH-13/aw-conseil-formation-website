@@ -64,24 +64,24 @@ export default function NotreApprochePage() {
               </div>
               <div className="aw-card-surface p-8 rounded-2xl border border-black/5">
                 <h3 className="text-xl font-medium text-black mb-5">Principes d&apos;intervention</h3>
-                <ul className="space-y-4 text-gray-700">
-                  <li className="flex items-start">
-                    <span className="text-aw-red mr-3 mt-0.5">•</span>
-                    <span>Co-construction avec les acteurs en place.</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-aw-red mr-3 mt-0.5">•</span>
-                    <span>Approche ancrée dans le terrain et les pratiques réelles.</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-aw-red mr-3 mt-0.5">•</span>
-                    <span>Confidentialité, rigueur et lisibilité pour les financeurs.</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-aw-red mr-3 mt-0.5">•</span>
-                    <span>Démarches progressives, évolutives et finançables dans la durée.</span>
-                  </li>
-                </ul>
+                <div className="space-y-4 text-gray-700">
+                  <div className="flex items-start gap-3">
+                    <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                    <p>Co-construction avec les acteurs en place.</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                    <p>Approche ancrée dans le terrain et les pratiques réelles.</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                    <p>Confidentialité, rigueur et lisibilité pour les financeurs.</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                    <p>Démarches progressives, évolutives et finançables dans la durée.</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -100,20 +100,20 @@ export default function NotreApprochePage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="aw-card-surface p-6 rounded-2xl border border-black/5">
                 <h3 className="text-lg font-medium text-black mb-3">Étapes typiques</h3>
-                <ul className="space-y-3 text-gray-700">
-                  <li className="flex items-start">
-                    <span className="text-aw-red mr-3 mt-0.5">•</span>
-                    <span>Cadrage et compréhension du fonctionnement.</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-aw-red mr-3 mt-0.5">•</span>
-                    <span>Observation collective et repères partagés.</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-aw-red mr-3 mt-0.5">•</span>
-                    <span>Ateliers de mise en pratique et consolidation.</span>
-                  </li>
-                </ul>
+                <div className="space-y-3 text-gray-700">
+                  <div className="flex items-start gap-3">
+                    <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                    <p>Cadrage et compréhension du fonctionnement.</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                    <p>Observation collective et repères partagés.</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                    <p>Ateliers de mise en pratique et consolidation.</p>
+                  </div>
+                </div>
               </div>
               <div className="aw-card-surface p-6 rounded-2xl border border-black/5">
                 <h3 className="text-lg font-medium text-black mb-3">Finalité</h3>
@@ -157,24 +157,24 @@ export default function NotreApprochePage() {
               confidentialité. Nos modalités sont compatibles avec les cadres OPCO et les attentes
               des partenaires publics.
             </p>
-            <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
-              <li className="flex items-start">
-                <span className="text-aw-red mr-3 mt-0.5">•</span>
-                <span>Qualité, traçabilité, lisibilité des actions.</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-aw-red mr-3 mt-0.5">•</span>
-                <span>Compatibilité avec les cadres de financement.</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-aw-red mr-3 mt-0.5">•</span>
-                <span>Respect des responsabilités internes.</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-aw-red mr-3 mt-0.5">•</span>
-                <span>Confidentialité et professionnalisme.</span>
-              </li>
-            </ul>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
+              <div className="flex items-start gap-3">
+                <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                <p>Qualité, traçabilité, lisibilité des actions.</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                <p>Compatibilité avec les cadres de financement.</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                <p>Respect des responsabilités internes.</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                <p>Confidentialité et professionnalisme.</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>

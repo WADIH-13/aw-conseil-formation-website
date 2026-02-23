@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
@@ -37,19 +38,33 @@ const Footer = () => {
   return (
     <footer className="bg-gray-100 border-t border-gray-200 mt-12">
       <div className="container-custom py-10 grid grid-cols-1 md:grid-cols-3 gap-10">
-        <div className="space-y-3">
+        <div className="space-y-4">
           <h3 className="text-lg font-semibold text-black">AW Conseil et Formation</h3>
           <p className="text-sm text-gray-700 leading-relaxed">
-            Des parcours sobres, pensés pour aider chacun à respirer et à poser ce qui pèse sans jugement.
+            Cabinet de conseil et de formation dédié à la performance humaine et à la qualité de fonctionnement des organisations.
           </p>
+          <div className="flex items-center gap-3 rounded-xl border border-gray-200 bg-white px-3 py-2 shadow-sm w-fit">
+            <div className="flex items-center gap-2">
+              <Image
+                src="/qualiopi.png"
+                alt="Certification Qualiopi"
+                width={100}
+                height={50}
+                className="h-12 w-auto object-contain drop-shadow-sm rounded-md border border-gray-100 bg-white"
+                priority
+              />
+              <span className="text-sm font-semibold text-gray-700 whitespace-nowrap">Certification Qualiopi</span>
+            </div>
+          </div>
         </div>
         <div className="space-y-3">
           <h4 className="text-sm font-semibold text-black uppercase tracking-wide">Navigation</h4>
           <div className="grid grid-cols-2 gap-2 text-sm text-gray-700">
             <Link href="/formations" className="hover:text-aw-red">Formations</Link>
+            <Link href="/avancent-avec-aw" className="hover:text-aw-red">Équipe</Link>
             <Link href="/partenaires" className="hover:text-aw-red">Partenaires</Link>
             <Link href="/meteo-collective" className="hover:text-aw-red">Petit soleil</Link>
-            <Link href="/veille-charge-mentale" className="hover:text-aw-red">Veille</Link>
+            <Link href="/observatoire-charge-mentale" className="hover:text-aw-red">Observatoire</Link>
             <Link href="/blog" className="hover:text-aw-red">Blog</Link>
             <Link href="/demarche-qualite" className="hover:text-aw-red">Démarche qualité</Link>
             <Link href="/mentions-legales" className="hover:text-aw-red">Mentions légales</Link>
@@ -61,7 +76,7 @@ const Footer = () => {
         <div className="space-y-3">
           <h4 className="text-sm font-semibold text-black uppercase tracking-wide">Suivre les nouvelles</h4>
           <p className="text-sm text-gray-700 leading-relaxed">
-            Des formats courts, sans promesse miracle. Juste des idées à tester et à adapter à ton rythme.
+            Des formats courts, sans promesse miracle. Des idées à tester et à adapter à votre rythme.
           </p>
           <div className="flex space-x-3">
             {socials.map((social) => (

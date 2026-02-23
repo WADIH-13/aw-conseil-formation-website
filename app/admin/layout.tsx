@@ -10,6 +10,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <div className="aw-fine-divider w-10" />
             <nav className="flex items-center gap-6 text-sm text-black/70">
               <Link href="/admin/sessions" className="hover:text-aw-red">Sessions</Link>
+              <Link href="/admin/call-responsibles" className="hover:text-aw-red">Appels</Link>
               <Link href="/trouver-une-session" className="hover:text-aw-red">Vue publique</Link>
             </nav>
           </div>

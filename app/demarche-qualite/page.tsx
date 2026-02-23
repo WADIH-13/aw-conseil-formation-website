@@ -60,8 +60,9 @@ export default function DemarcheQualitePage() {
                 'Adaptation aux réalités opérationnelles.',
                 'Évaluation dans le temps et lisibilité des actions.',
               ].map((item) => (
-                <div key={item} className="border-l border-aw-red-deep/30 pl-4 py-2 text-gray-700">
-                  {item}
+                <div key={item} className="flex items-start gap-3 py-2 text-gray-700">
+                  <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                  <p>{item}</p>
                 </div>
               ))}
             </div>
@@ -88,8 +89,9 @@ export default function DemarcheQualitePage() {
                 'Évaluation dans le temps et amélioration continue.',
                 'Compatibilité avec les cadres financeurs.',
               ].map((item) => (
-                <div key={item} className="border-l border-aw-red-deep/30 pl-4 py-2 text-gray-700">
-                  {item}
+                <div key={item} className="flex items-start gap-3 py-2 text-gray-700">
+                  <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                  <p>{item}</p>
                 </div>
               ))}
             </div>
@@ -116,8 +118,9 @@ export default function DemarcheQualitePage() {
                 'Ateliers de mise en pratique.',
                 'Accompagnement dans la durée.',
               ].map((item) => (
-                <div key={item} className="border-l border-aw-red-deep/30 pl-4 py-2 text-gray-700">
-                  {item}
+                <div key={item} className="flex items-start gap-3 py-2 text-gray-700">
+                  <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                  <p>{item}</p>
                 </div>
               ))}
             </div>
@@ -143,8 +146,9 @@ export default function DemarcheQualitePage() {
                 'Compatibilité avec les cadres financeurs.',
                 'Cohérence avec les responsabilités internes.',
               ].map((item) => (
-                <div key={item} className="border-l border-aw-red-deep/30 pl-4 py-2 text-gray-700">
-                  {item}
+                <div key={item} className="flex items-start gap-3 py-2 text-gray-700">
+                  <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                  <p>{item}</p>
                 </div>
               ))}
             </div>

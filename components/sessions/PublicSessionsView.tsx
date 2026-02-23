@@ -131,7 +131,7 @@ export default function PublicSessionsView({
     })
 
     const query = next.toString()
-    router.push(query ? `${basePath}?${query}` : basePath)
+    router.replace(query ? `${basePath}?${query}` : basePath, { scroll: false })
   }
 
   return (

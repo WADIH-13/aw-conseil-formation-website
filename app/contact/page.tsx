@@ -1,3 +1,4 @@
+import CallBookingForm from '@/components/CallBookingForm'
 import ContactForm from '@/components/ContactForm'
 import { getLegalConfig, isPlaceholder } from '@/content/legal'
 
@@ -12,18 +13,32 @@ export default function ContactPage() {
 
   return (
     <div className="bg-white">
+      {/* HERO & CALL BOOKING - TOP SECTION */}
       <section className="aw-hero-surface py-16 md:py-24">
         <div className="container-custom">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-light text-black mb-6 leading-tight">
-              Échangeons sur vos besoins
-            </h1>
-            <p className="text-xl text-gray-600 mb-12 leading-relaxed">
-              Conseil, formation, ateliers et solutions concrètes<br />
-              pour réduire la charge mentale et prévenir les RPS.
-            </p>
-          </div>
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-12">
+              <h1 className="text-4xl md:text-5xl font-light text-black mb-6 leading-tight">
+                Réservez un appel avec nous
+              </h1>
+              <p className="text-xl text-gray-600 leading-relaxed">
+                Prenez 20 minutes pour discuter de vos besoins en prévention RPS, formation ou conseil.
+                <br />
+                Choisissez votre région et disponibilité ci-dessous.
+              </p>
+            </div>
 
+            {/* CALL BOOKING FORM - HIGHLIGHTED */}
+            <div className="bg-white border-2 border-aw-red rounded-3xl p-8 md:p-12 shadow-lg">
+              <CallBookingForm />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* INFORMATION SECTION */}
+      <section className="py-16 md:py-24 bg-gray-50">
+        <div className="container-custom">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             <div>
               <h2 className="text-2xl font-light text-black mb-6">Pourquoi nous contacter ?</h2>
@@ -66,6 +81,7 @@ export default function ContactPage() {
         </div>
       </section>
 
+      {/* DIRECT CONTACT SECTION */}
       <section className="py-16 aw-diagonal-surface">
         <div className="container-custom">
           <div className="max-w-3xl mx-auto text-center">

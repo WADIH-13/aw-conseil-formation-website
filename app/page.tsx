@@ -9,87 +9,180 @@ export default function Home() {
       <section className="aw-hero-surface py-28 md:py-40">
         <div className="container-custom">
           <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-16 items-start">
-              <div className="text-left">
-                <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-aw-red-deep/15 bg-gradient-to-r from-white via-aw-mist to-white text-xs md:text-sm tracking-[0.24em] uppercase text-black/70 shadow-[0_10px_28px_rgba(0,0,0,0.08)] mb-12">
-                  <span>Conseil</span>
-                  <span className="h-1.5 w-1.5 rounded-full bg-aw-red-deep/50" aria-hidden="true" />
-                  <span>Formation</span>
-                  <span className="h-1.5 w-1.5 rounded-full bg-aw-red-deep/50" aria-hidden="true" />
-                  <span>Écosystème</span>
+            <div className="text-center">
+              <h1 className="text-3xl md:text-5xl lg:text-[3.2rem] xl:text-[3.4rem] 2xl:text-[3.6rem] font-light text-aw-ink leading-[1.1] tracking-[-0.01em]">
+                Performance humaine et qualité de fonctionnement des organisations.
+              </h1>
+
+              <p className="text-lg md:text-xl font-light text-black/80 leading-[1.6] mt-6 max-w-3xl mx-auto">
+                Nous accompagnons les organisations, les financeurs et les acteurs de terrain
+                dans la structuration de démarches durables de prévention et d&apos;amélioration
+                de la qualité de vie au travail. Des démarches progressives, évolutives et
+                finançables dans la durée.
+              </p>
+
+              <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-aw-red-deep/15 bg-gradient-to-r from-white via-aw-mist to-white text-xs md:text-sm tracking-[0.24em] uppercase text-black/70 shadow-[0_10px_28px_rgba(0,0,0,0.08)] mt-8">
+                <span>Conseil</span>
+                <span className="h-1.5 w-1.5 rounded-full bg-aw-red-deep/50" aria-hidden="true" />
+                <span>Formation</span>
+                <span className="h-1.5 w-1.5 rounded-full bg-aw-red-deep/50" aria-hidden="true" />
+                <span>Écosystème</span>
+              </div>
+
+              <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Bloc positionnement */}
+                <div className="relative overflow-hidden rounded-3xl border border-aw-red-deep/15 bg-gradient-to-br from-white via-aw-mist to-white p-8 md:p-9 shadow-[0_18px_45px_rgba(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(0,0,0,0.12)]">
+                  <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-aw-red-deep/70 via-aw-red/40 to-transparent" aria-hidden="true" />
+                  <div>
+                    <div className="text-xs uppercase tracking-[0.18em] text-black/55 mb-4">Structurer · Prévenir · Accompagner</div>
+                    <p className="text-lg md:text-xl font-light text-aw-ink mb-4">
+                      Un partenaire de démarche, ancré dans le terrain.
+                    </p>
+                    <div className="text-sm text-black/75 space-y-3">
+                      <div className="flex items-start gap-3">
+                        <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                        <p>Approche rigoureuse et co-construction avec les acteurs existants.</p>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                        <p>Outils d&apos;observation collective pour éclairer l&apos;action.</p>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                        <p>Indicateurs non intrusifs, lisibles et actionnables.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mt-6 text-xs text-black/55">Rigueur · Terrain · Confiance</div>
                 </div>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-aw-ink mb-6 leading-[1.06]">
-                  Performance humaine et qualité de fonctionnement des organisations.
-                </h1>
-                <div className="h-[2px] w-16 bg-aw-red-deep/80 mb-8" aria-hidden="true" />
 
-                <p className="text-lg md:text-xl font-light text-black/80 leading-[1.6] mb-10 max-w-3xl">
-                  Nous accompagnons les organisations, les financeurs et les acteurs de terrain
-                  dans la structuration de démarches durables de prévention et d&apos;amélioration
-                  de la qualité de vie au travail. Des démarches progressives, évolutives et
-                  finançables dans la durée.
-                </p>
-
-                <div className="flex flex-col sm:flex-row items-start justify-start gap-4">
-                  <Link
-                    href="/contact"
-                    className="inline-flex items-center justify-center px-8 py-3 md:px-10 md:py-4 text-base md:text-lg font-medium text-aw-red-deep border border-aw-red-deep rounded-[10px] transition-colors"
-                  >
-                    Structurer une démarche avec nous
-                  </Link>
-                  <Link
-                    href="/formations"
-                    className="inline-flex items-center justify-center px-8 py-3 md:px-10 md:py-4 text-base md:text-lg font-medium text-aw-ink border border-black/10 rounded-[10px] transition-colors"
-                  >
-                    Découvrir les leviers mobilisables
-                  </Link>
+                {/* Bloc écosystème */}
+                <div className="relative overflow-hidden rounded-3xl border border-aw-red-deep/15 bg-gradient-to-br from-white via-[#F7F3F0] to-white p-8 md:p-9 shadow-[0_18px_45px_rgba(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(0,0,0,0.12)]">
+                  <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-aw-red-deep/70 via-aw-red/40 to-transparent" aria-hidden="true" />
+                  <div>
+                    <div className="text-xs uppercase tracking-[0.18em] text-black/55 mb-4">Écosystème de compétences</div>
+                    <p className="text-lg md:text-xl font-light text-aw-ink mb-4">
+                      La formation est un levier parmi d&apos;autres.
+                    </p>
+                    <div className="text-sm text-black/75 space-y-3">
+                      <div className="flex items-start gap-3">
+                        <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                        <p>Conseil et cadrage pour aligner les parties prenantes.</p>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                        <p>Ateliers et outils terrain pour expérimenter.</p>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                        <p>Réseau de partenaires spécialisés pour compléter l’action.</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <div className="flex flex-col gap-6">
-                <div className="flex flex-col gap-6">
-                  {/* Bloc positionnement */}
-                  <div className="relative overflow-hidden rounded-3xl border border-aw-red-deep/20 ring-1 ring-aw-red-deep/10 p-8 md:p-10 flex flex-col min-h-[220px] justify-between bg-gradient-to-br from-white via-white to-aw-mist shadow-[0_20px_60px_rgba(0,0,0,0.06)] transition-transform duration-300 hover:-translate-y-1">
-                    <div>
-                      <div className="text-xs uppercase tracking-[0.18em] text-black/55 mb-4">Structurer · Prévenir · Accompagner</div>
-                      <p className="text-lg md:text-xl font-light text-aw-ink mb-4">
-                        Un partenaire de démarche, ancré dans le terrain.
-                      </p>
-                      <div className="text-sm text-black/75 space-y-2">
-                        <p className="border-l border-aw-red-deep/30 pl-3">
-                          Approche rigoureuse et co-construction avec les acteurs existants.
-                        </p>
-                        <p className="border-l border-aw-red-deep/30 pl-3">
-                          Outils d&apos;observation collective pour éclairer l&apos;action.
-                        </p>
-                        <p className="border-l border-aw-red-deep/30 pl-3">
-                          Indicateurs non intrusifs, lisibles et actionnables.
-                        </p>
-                      </div>
+              <div className="h-[2px] w-16 bg-aw-red-deep/80 mt-10 mx-auto" aria-hidden="true" />
+
+              <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center justify-center px-8 py-3 md:px-10 md:py-4 text-base md:text-lg font-medium text-aw-red-deep border border-aw-red-deep rounded-[10px] transition-colors"
+                >
+                  Structurer une démarche avec nous
+                </Link>
+                <Link
+                  href="/formations"
+                  className="inline-flex items-center justify-center px-8 py-3 md:px-10 md:py-4 text-base md:text-lg font-medium text-aw-ink border border-black/10 rounded-[10px] transition-colors"
+                >
+                  Découvrir les leviers mobilisables
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* BLOC ORIENTATION DÉCIDEUR */}
+      <section id="orientation-decideur" className="py-16 md:py-20 bg-[#F6F4F1] border-y border-black/5">
+        <div className="container-custom">
+          <div className="max-w-6xl mx-auto">
+            <div className="max-w-3xl">
+              <p className="text-xs tracking-[0.3em] uppercase text-black/50">Orientation décideurs</p>
+              <h2 className="mt-4 text-3xl md:text-4xl font-light text-black">
+                Vous êtes DG, DRH ou Financeur ?
+              </h2>
+              <p className="mt-3 text-base md:text-lg text-gray-700 leading-relaxed">
+                Une démarche structurée, pilotable et finançable.
+              </p>
+            </div>
+
+            <div className="mt-10 relative">
+              <div className="absolute left-0 right-0 top-10 h-px bg-[#C8A45D]/40 hidden md:block" aria-hidden="true" />
+              <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+                {[
+                  {
+                    num: '01',
+                    title: 'Cadrer la situation',
+                    body: 'Clarifier enjeux et responsabilités.',
+                  },
+                  {
+                    num: '02',
+                    title: 'Observer et objectiver',
+                    body: 'S\'appuyer sur des repères collectifs non intrusifs.',
+                  },
+                  {
+                    num: '03',
+                    title: 'Structurer un plan',
+                    body: 'Définir une trajectoire cohérente et finançable.',
+                  },
+                  {
+                    num: '04',
+                    title: 'Déployer avec méthode',
+                    body: 'Mobiliser les leviers dans un cadre professionnel.',
+                  },
+                  {
+                    num: '05',
+                    title: 'Évaluer et ajuster',
+                    body: 'Mesurer dans le temps et sécuriser les résultats.',
+                  },
+                ].map((step) => (
+                  <div
+                    key={step.title}
+                    className="group relative aw-card-surface rounded-2xl border border-black/5 bg-white p-6 text-left transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(0,0,0,0.08)]"
+                  >
+                    <div className="absolute right-4 top-4 text-5xl font-light text-[#C8A45D]/10" aria-hidden="true">
+                      {step.num}
                     </div>
-                    <div className="mt-6 text-xs text-black/55">Rigueur · Terrain · Confiance</div>
+                    <div className="text-sm font-semibold text-[#C8A45D] tracking-[0.2em]">{step.num}</div>
+                    <h3 className="mt-3 text-base font-semibold text-black">{step.title}</h3>
+                    <div className="mt-3 h-px w-8 bg-[#C8A45D]/50 group-hover:bg-[#C8A45D]/80 transition-colors" aria-hidden="true" />
+                    <p className="mt-3 text-sm text-gray-700 leading-relaxed">{step.body}</p>
                   </div>
-                  {/* Bloc écosystème */}
-                  <div className="relative overflow-hidden rounded-3xl border border-aw-red-deep/20 ring-1 ring-aw-red-deep/10 p-8 md:p-10 flex flex-col justify-between min-h-[180px] bg-gradient-to-br from-[#F7F3F0] via-white to-white shadow-[0_16px_40px_rgba(139,29,29,0.08)] transition-transform duration-300 hover:-translate-y-1">
-                    <div>
-                      <div className="text-xs uppercase tracking-[0.18em] text-black/55 mb-3">Écosystème de compétences</div>
-                      <p className="text-lg font-light text-aw-ink mb-4">
-                        La formation est un levier parmi d&apos;autres.
-                      </p>
-                      <div className="text-sm text-black/75 space-y-2">
-                        <p className="border-l border-aw-red-deep/30 pl-3">
-                          Conseil et cadrage pour aligner les parties prenantes.
-                        </p>
-                        <p className="border-l border-aw-red-deep/30 pl-3">
-                          Ateliers et outils terrain pour expérimenter.
-                        </p>
-                        <p className="border-l border-aw-red-deep/30 pl-3">
-                          Réseau de partenaires spécialisés pour compléter l’action.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-10 rounded-2xl border border-black/10 bg-white/70 p-6 md:p-8">
+              <div className="flex flex-col md:flex-row items-center justify-center gap-4">
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center justify-center px-6 py-3 text-sm md:text-base font-medium text-white bg-aw-red-deep rounded-[8px] hover:bg-aw-red-deep/90 transition-colors"
+                >
+                  Planifier un échange stratégique
+                </Link>
+                <Link
+                  href="/methodologie-intervention"
+                  className="inline-flex items-center justify-center px-6 py-3 text-sm md:text-base font-medium text-aw-ink border border-black/15 rounded-[8px] transition-colors"
+                >
+                  Découvrir notre méthode
+                </Link>
+                <Link
+                  href="/posture-engagement"
+                  className="inline-flex items-center justify-center px-6 py-3 text-sm md:text-base font-medium text-aw-ink border border-black/15 rounded-[8px] transition-colors"
+                >
+                  Vérifier la compatibilité financeur
+                </Link>
               </div>
             </div>
           </div>
@@ -305,24 +398,24 @@ export default function Home() {
                 </div>
                 <div className="aw-card-surface p-8 rounded-2xl border border-black/5 transition-transform duration-300 hover:-translate-y-1">
                   <h3 className="text-xl font-medium text-black mb-5">Ce que nous apportons</h3>
-                  <ul className="space-y-4 text-gray-700">
-                    <li className="flex items-start">
-                        <span className="text-black/40 mr-3 mt-0.5">•</span>
-                      <span>Une approche structurée et des méthodes éprouvées sur le terrain.</span>
-                    </li>
-                    <li className="flex items-start">
-                        <span className="text-black/40 mr-3 mt-0.5">•</span>
-                      <span>Des parcours conformes aux exigences Qualiopi et des financeurs.</span>
-                    </li>
-                    <li className="flex items-start">
-                        <span className="text-black/40 mr-3 mt-0.5">•</span>
-                      <span>Un réseau de compétences complémentaires mobilisable selon les besoins.</span>
-                    </li>
-                    <li className="flex items-start">
-                        <span className="text-black/40 mr-3 mt-0.5">•</span>
-                      <span>Un accompagnement confidentiel, professionnel et orienté résultats.</span>
-                    </li>
-                  </ul>
+                  <div className="space-y-4 text-gray-700">
+                    <div className="flex items-start gap-3">
+                      <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                      <p>Une approche structurée et des méthodes éprouvées sur le terrain.</p>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                      <p>Des parcours conformes aux exigences Qualiopi et des financeurs.</p>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                      <p>Un réseau de compétences complémentaires mobilisable selon les besoins.</p>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                      <p>Un accompagnement confidentiel, professionnel et orienté résultats.</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -350,42 +443,42 @@ export default function Home() {
               <div className="bg-white border border-black/5 p-8 rounded-2xl shadow-[0_12px_30px_rgba(0,0,0,0.04)] transition-transform duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(0,0,0,0.08)]">
                 <div className="text-sm text-black/60 font-medium mb-3">Pour les organisations</div>
                 <h3 className="text-xl font-medium text-black mb-4">Améliorer le fonctionnement au quotidien</h3>
-                <ul className="space-y-3 text-gray-700">
-                  <li className="flex items-start">
-                    <span className="text-black/40 mr-3 mt-0.5">•</span>
-                    <span>Réduction des facteurs de surcharge et prévention des risques psychosociaux.</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-black/40 mr-3 mt-0.5">•</span>
-                    <span>Montée en compétences des équipes et autonomie dans les pratiques.</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-black/40 mr-3 mt-0.5">•</span>
-                    <span>Cadre structurant pour une amélioration continue et durable.</span>
-                  </li>
-                </ul>
+                <div className="space-y-3 text-gray-700">
+                  <div className="flex items-start gap-3">
+                    <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                    <p>Réduction des facteurs de surcharge et prévention des risques psychosociaux.</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                    <p>Montée en compétences des équipes et autonomie dans les pratiques.</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                    <p>Cadre structurant pour une amélioration continue et durable.</p>
+                  </div>
+                </div>
               </div>
               <div className="bg-white border border-black/5 p-8 rounded-2xl shadow-[0_12px_30px_rgba(0,0,0,0.04)] transition-transform duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(0,0,0,0.08)]">
                 <div className="text-sm text-black/60 font-medium mb-3">Pour les financeurs et institutions</div>
                 <h3 className="text-xl font-medium text-black mb-4">Investir dans des actions à impact réel</h3>
-                <ul className="space-y-3 text-gray-700">
-                  <li className="flex items-start">
-                    <span className="text-black/40 mr-3 mt-0.5">•</span>
-                    <span>Actions ancrées dans le terrain, traçables et évaluables.</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-black/40 mr-3 mt-0.5">•</span>
-                    <span>Indicateurs non intrusifs pour un pilotage clair, sans surcharge des équipes.</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-black/40 mr-3 mt-0.5">•</span>
-                    <span>Conformité aux référentiels qualité et aux attentes des OPCO.</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-black/40 mr-3 mt-0.5">•</span>
-                    <span>Contribution à la performance économique et au développement territorial.</span>
-                  </li>
-                </ul>
+                <div className="space-y-3 text-gray-700">
+                  <div className="flex items-start gap-3">
+                    <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                    <p>Actions ancrées dans le terrain, traçables et évaluables.</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                    <p>Indicateurs non intrusifs pour un pilotage clair, sans surcharge des équipes.</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                    <p>Conformité aux référentiels qualité et aux attentes des OPCO.</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <span className="mt-2 h-1 w-8 rounded-full bg-aw-red-deep/40" aria-hidden="true" />
+                    <p>Contribution à la performance économique et au développement territorial.</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

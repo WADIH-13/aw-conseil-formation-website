@@ -4,11 +4,18 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { useCartStore } from '@/lib/universe/cartStore'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const pathname = usePathname()
   const [hasFormationSingle, setHasFormationSingle] = useState(false)
+  const { items } = useCartStore()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   useEffect(() => {
     const check = () => setHasFormationSingle(!!document.querySelector('.formation-single'))
@@ -37,11 +44,11 @@ export default function Header() {
     },
     {
       name: 'Démarches',
-      href: '/demarche-qualite',
+      href: '/posture-engagement',
       children: [
-        { name: 'Démarche qualité', href: '/demarche-qualite' },
-        { name: 'Notre approche', href: '/notre-approche' },
-        { name: 'Observer pour agir', href: '/observer-pour-agir' },
+        { name: 'Posture & engagement', href: '/posture-engagement' },
+        { name: 'Méthodologie d\'intervention', href: '/methodologie-intervention' },
+        { name: 'Observation collective stratégique', href: '/observation-collective' },
       ],
     },
     {
@@ -49,7 +56,7 @@ export default function Header() {
       href: '/veille-actualites-scientifiques',
       children: [
         { name: 'Veille scientifique', href: '/veille-actualites-scientifiques' },
-        { name: 'Veille charge mentale', href: '/veille-charge-mentale' },
+        { name: 'Observatoire charge mentale', href: '/observatoire-charge-mentale' },
         { name: 'Blog', href: '/blog' },
         { name: 'Regards scientifiques', href: '/regard-scientifique' },
       ],
@@ -59,6 +66,7 @@ export default function Header() {
       href: '/ecosysteme',
       children: [
         { name: 'Écosystème', href: '/ecosysteme' },
+        { name: 'Celles et ceux qui avancent', href: '/avancent-avec-aw' },
         { name: 'Réseau de partenaires', href: '/partenaires' },
         { name: 'Le Guide d’Essor', href: '/guide-essor' },
       ],
@@ -169,8 +177,31 @@ export default function Header() {
               )
             })}
           </div>
-          <div className="hidden xl:flex items-center justify-end">
-            {/* Qualiopi logo removed from header per design decision */}
+          <div className="hidden xl:flex items-center justify-end gap-4">
+            {/* Trajectoire */}
+            <Link
+              href="/univers-performance-liberation/panier"
+              className="relative text-black/70 hover:text-aw-red transition-colors"
+              aria-label="Votre trajectoire de performance"
+            >
+              <svg 
+                className="h-10 w-10" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="1.5" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+              >
+                <path d="M3 17l6-6 4 4 8-8"/>
+                <path d="M14 7h7v7"/>
+              </svg>
+              {mounted && items.length > 0 && (
+                <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-aw-red text-xs font-bold text-white">
+                  {items.length}
+                </span>
+              )}
+            </Link>
           </div>
         </div>
 
@@ -215,6 +246,20 @@ export default function Header() {
                   </Link>
                 )
               })}
+              
+              {/* Trajectoire dans le menu mobile */}
+              <Link
+                href="/univers-performance-liberation/panier"
+                className="flex items-center justify-between px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-aw-red hover:bg-gray-50 transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <span>Ma Trajectoire</span>
+                {mounted && items.length > 0 && (
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-aw-red text-xs font-bold text-white">
+                    {items.length}
+                  </span>
+                )}
+              </Link>
               {/* Qualiopi logo removed from mobile menu as well */}
             </div>
           </div>
