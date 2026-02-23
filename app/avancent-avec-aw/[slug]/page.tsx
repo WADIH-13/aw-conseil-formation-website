@@ -191,27 +191,56 @@ export default async function FormatorPage({ params }: PageProps) {
       </section>
 
       {/* Intentions */}
-      <section className="max-w-5xl mx-auto px-6 py-20 border-t border-gray-100 flex flex-col gap-12">
-        <h2 className="text-3xl md:text-4xl font-light text-gray-900 mb-8 md:mb-12 tracking-tight">Intentions</h2>
-        <div className="flex flex-col md:flex-row gap-8 md:gap-10">
-          <div className="flex-1 bg-white rounded-2xl border-2 border-aw-red/20 shadow-lg p-8 flex flex-col gap-4 items-start hover:shadow-2xl transition-all duration-200">
-            <p className="text-xs md:text-sm font-semibold text-aw-red uppercase tracking-wider mb-1">Ce qu'il / elle construit</p>
-            <p className="text-gray-700 leading-relaxed text-lg md:text-xl" style={{ lineHeight: '2' }}>
-              {formator.builds}
-            </p>
-          </div>
-          <div className="flex-1 bg-white rounded-2xl border-2 border-aw-red/20 shadow-lg p-8 flex flex-col gap-4 items-start hover:shadow-2xl transition-all duration-200">
-            <p className="text-xs md:text-sm font-semibold text-aw-red uppercase tracking-wider mb-1">Ce qu'il / elle protège</p>
-            <p className="text-gray-700 leading-relaxed text-lg md:text-xl" style={{ lineHeight: '2' }}>
-              {formator.protects}
-            </p>
-          </div>
-          <div className="flex-1 bg-white rounded-2xl border-2 border-aw-red/20 shadow-lg p-8 flex flex-col gap-4 items-start hover:shadow-2xl transition-all duration-200">
-            <p className="text-xs md:text-sm font-semibold text-aw-red uppercase tracking-wider mb-1">Ce qu'il / elle développe</p>
-            <p className="text-gray-700 leading-relaxed text-lg md:text-xl" style={{ lineHeight: '2' }}>
-              {formator.develops}
-            </p>
-          </div>
+      <section className="max-w-5xl mx-auto px-6 py-20 border-t border-gray-100">
+        <div className="flex flex-col gap-4 md:gap-6">
+          <h2 className="text-3xl md:text-4xl font-light text-gray-900 tracking-tight">Intentions</h2>
+          <p className="text-gray-600 text-lg md:text-xl leading-relaxed" style={{ lineHeight: '2' }}>
+            Trois repères pour comprendre ce qu'il / elle apporte.
+          </p>
+        </div>
+
+        <div className="mt-10 md:mt-12 flex flex-col gap-6 md:gap-8">
+          <article className="bg-white rounded-3xl border border-gray-100 shadow-sm p-7 md:p-10">
+            <div className="grid md:grid-cols-12 gap-6 md:gap-10 items-start">
+              <div className="md:col-span-4">
+                <p className="text-aw-red font-semibold tracking-wider">01</p>
+                <h3 className="mt-2 text-2xl md:text-3xl font-light text-gray-900">Ce qu'il / elle construit</h3>
+              </div>
+              <div className="md:col-span-8">
+                <p className="text-gray-700 leading-relaxed text-lg md:text-xl" style={{ lineHeight: '2' }}>
+                  {formator.builds}
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <article className="bg-white rounded-3xl border border-gray-100 shadow-sm p-7 md:p-10">
+            <div className="grid md:grid-cols-12 gap-6 md:gap-10 items-start">
+              <div className="md:col-span-4">
+                <p className="text-aw-red font-semibold tracking-wider">02</p>
+                <h3 className="mt-2 text-2xl md:text-3xl font-light text-gray-900">Ce qu'il / elle protège</h3>
+              </div>
+              <div className="md:col-span-8">
+                <p className="text-gray-700 leading-relaxed text-lg md:text-xl" style={{ lineHeight: '2' }}>
+                  {formator.protects}
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <article className="bg-white rounded-3xl border border-gray-100 shadow-sm p-7 md:p-10">
+            <div className="grid md:grid-cols-12 gap-6 md:gap-10 items-start">
+              <div className="md:col-span-4">
+                <p className="text-aw-red font-semibold tracking-wider">03</p>
+                <h3 className="mt-2 text-2xl md:text-3xl font-light text-gray-900">Ce qu'il / elle développe</h3>
+              </div>
+              <div className="md:col-span-8">
+                <p className="text-gray-700 leading-relaxed text-lg md:text-xl" style={{ lineHeight: '2' }}>
+                  {formator.develops}
+                </p>
+              </div>
+            </div>
+          </article>
         </div>
       </section>
 
@@ -220,14 +249,12 @@ export default async function FormatorPage({ params }: PageProps) {
         <h2 className="text-3xl md:text-4xl font-light text-gray-900 mb-8 md:mb-12 tracking-tight">Ce qui guide son action</h2>
         <div className="flex flex-wrap gap-5 md:gap-8">
           {formator.values.map((value) => (
-            <button
+            <span
               key={value}
-              className="px-8 py-4 border-2 border-aw-red text-aw-red font-semibold rounded-full bg-white shadow-md hover:bg-aw-red hover:text-white hover:scale-105 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-aw-red/40 text-lg md:text-xl tracking-wide"
-              type="button"
-              tabIndex={0}
+              className="px-8 py-4 border-2 border-aw-red text-aw-red font-semibold rounded-full bg-white shadow-sm text-lg md:text-xl tracking-wide"
             >
               {value}
-            </button>
+            </span>
           ))}
         </div>
       </section>

@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { AidDialog } from '@/components/AidDialog';
 
 export default function ContributionProfilPage() {
+  const writingAssistantUrl = process.env.NEXT_PUBLIC_WRITING_ASSISTANT_URL;
+
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
   const [codeValidated, setCodeValidated] = useState(false);
@@ -412,16 +414,19 @@ export default function ContributionProfilPage() {
         isOpen={aidOpen === 'bio'} 
         onClose={() => setAidOpen(null)} 
         section="bio"
+        assistantUrl={writingAssistantUrl}
       />
       <AidDialog 
         isOpen={aidOpen === 'intentions'} 
         onClose={() => setAidOpen(null)} 
         section="intentions"
+        assistantUrl={writingAssistantUrl}
       />
       <AidDialog 
         isOpen={aidOpen === 'closing'} 
         onClose={() => setAidOpen(null)} 
         section="closing"
+        assistantUrl={writingAssistantUrl}
       />
     </div>
   );

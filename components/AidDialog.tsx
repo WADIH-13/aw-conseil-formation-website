@@ -6,6 +6,8 @@ interface AidDialogProps {
   isOpen: boolean;
   onClose: () => void;
   section: 'bio' | 'intentions' | 'closing';
+  assistantUrl?: string;
+  assistantLabel?: string;
 }
 
 const aidContent = {
@@ -41,7 +43,13 @@ const aidContent = {
   }
 };
 
-export function AidDialog({ isOpen, onClose, section }: AidDialogProps) {
+export function AidDialog({
+  isOpen,
+  onClose,
+  section,
+  assistantUrl,
+  assistantLabel = 'Ouvrir l’assistant de rédaction',
+}: AidDialogProps) {
   if (!isOpen) return null;
 
   const content = aidContent[section];
@@ -88,6 +96,16 @@ export function AidDialog({ isOpen, onClose, section }: AidDialogProps) {
 
           {/* Footer */}
           <div className="border-t border-gray-200 pt-6">
+            {assistantUrl ? (
+              <a
+                href={assistantUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="w-full mb-3 inline-flex items-center justify-center px-6 py-3 border-2 border-aw-red text-aw-red font-light hover:bg-aw-red hover:text-white transition-colors"
+              >
+                {assistantLabel}
+              </a>
+            ) : null}
             <button
               onClick={onClose}
               className="w-full px-6 py-3 bg-aw-red text-white font-light hover:bg-red-700 transition-colors"

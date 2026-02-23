@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { supabaseServer } from '@/lib/supabaseServer';
 import crypto from 'crypto';
 
+const INVITATION_VALIDITY_DAYS = 30;
+
 // Générer un code unique alphanumérique
 function generateUniqueCode(): string {
   return crypto.randomBytes(6).toString('hex').toUpperCase();
@@ -36,6 +38,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Impossible de générer un code unique.' }, { status: 500 });
     }
 
+    const expiresAt = new Date(Date.now() + INVITATION_VALIDITY_DAYS * 24 * 60 * 60 * 1000).toISOString();
+
     // Insérer le code
     const { data, error } = await supabase
       .from('invitation_codes')
@@ -45,6 +49,7 @@ export async function POST(req: NextRequest) {
           email,
           is_used: false,
           created_by: 'admin',
+          expires_at: expiresAt,
         },
       ])
       .select()
