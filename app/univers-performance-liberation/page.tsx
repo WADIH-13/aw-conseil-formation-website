@@ -11,7 +11,17 @@ export const metadata: Metadata = {
 };
 
 export default async function UniversePage() {
-  const universeData = await getUniverseData();
+  let universeData;
+  try {
+    universeData = await getUniverseData();
+  } catch (e) {
+    console.error('UniversePage: failed to load data, rendering empty state.', e);
+    universeData = {
+      STRUCTURER: [],
+      LIBERER: [],
+      RENFORCER: [],
+    };
+  }
 
   return (
     <div className="min-h-screen bg-white">
