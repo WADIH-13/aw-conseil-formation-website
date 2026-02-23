@@ -229,7 +229,7 @@ export default function VeilleChargeMentalePage() {
                 <ul className="list-disc pl-5 space-y-1">
                   <li>Sollicitations recurrentes hors perimetre</li>
                   <li>Charge emotionnelle reportee</li>
-                  <li>Isolement dans le traitement</li>
+                  <li>Isolement dans la gestion des tâches</li>
                 </ul>
               </div>
               <p className="text-sm text-gray-700">

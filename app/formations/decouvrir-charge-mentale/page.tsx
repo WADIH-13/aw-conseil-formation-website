@@ -19,10 +19,10 @@ export default async function DecouvrirChargeMentalePage() {
       format="Présentiel ou distanciel"
       level="Tous niveaux"
       audienceShort="Tout public"
-      context={`Cette formation existe pour permettre aux participant·es de repérer la charge mentale dans leur quotidien professionnel. Elle répond au besoin concret de réduire l’épuisement, améliorer la prévention et favoriser des pratiques plus soutenables au travail.`}
+      context={`Cette formation existe pour permettre aux participant·es de repérer la charge mentale dans leur quotidien professionnel. Elle répond au besoin concret de réduire la surcharge, améliorer la prévention et favoriser des pratiques plus soutenables au travail.`}
       audience={[
         'Collaborateurs·trices constatant une fatigue durable',
-        'Managers souhaitant détecter les signes précoces',
+        'Managers souhaitant repérer les premiers signaux d’alerte',
         'Professionnels·les RH souhaitant des repères pratiques',
       ]}
       objectives={[
@@ -31,8 +31,8 @@ export default async function DecouvrirChargeMentalePage() {
         'Mettre en place des premières actions protectrices',
       ]}
       programme={[
-        { title: 'Module 1 — Comprendre la charge mentale', bullets: ['Définitions et repères', 'Impacts sur la santé et la performance'] },
-        { title: 'Module 2 — Identifier les signes', bullets: ['Signes individuels', 'Signes organisationnels'] },
+        { title: 'Module 1 — Comprendre la charge mentale', bullets: ['Définitions et repères', 'Effets sur le fonctionnement et la performance'] },
+        { title: 'Module 2 — Identifier les signaux', bullets: ['Indicateurs individuels', 'Indicateurs organisationnels'] },
         { title: 'Module 3 — Actions simples', bullets: ['Techniques immédiates', 'Petits changements durables'] },
       ]}
       methods={[

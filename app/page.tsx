@@ -222,7 +222,7 @@ export default function Home() {
                   {
                     step: '01',
                     title: 'Cadrer la démarche',
-                    body: 'Diagnostic partagé, objectifs clairs et gouvernance adaptée au terrain.',
+                    body: 'État des lieux partagé, objectifs clairs et gouvernance adaptée au terrain.',
                   },
                   {
                     step: '02',

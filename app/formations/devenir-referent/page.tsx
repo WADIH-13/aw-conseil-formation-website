@@ -3,7 +3,7 @@ import { getIndicators } from '@/lib/getIndicators'
 
 export const metadata = {
   title: 'Devenir référent charge mentale - 28h - AW Conseil et Formation',
-  description: 'Formation pour devenir référent charge mentale. 28 heures pour acquérir les outils et la posture pour accompagner avec bienveillance.',
+  description: 'Formation pour devenir référent charge mentale. 28 heures pour acquérir les outils et la posture d\'accompagnement professionnel.',
 }
 
 export default async function DevenirReferentPage() {
@@ -22,7 +22,7 @@ export default async function DevenirReferentPage() {
       context={`Cette formation vise à former des référent·es capables d’écouter, d’orienter et de proposer des actions concrètes au sein de leur organisation. Elle répond au besoin d’un accompagnement professionnel, cadré et conforme aux bonnes pratiques de prévention.`}
       audience={[
         'Managers de proximité',
-        'Référents QVT ou santé au travail',
+        'Référents QVT ou qualité de vie au travail',
         'Professionnels·les RH souhaitant intervenir en soutien',
       ]}
       objectives={[
@@ -33,7 +33,7 @@ export default async function DevenirReferentPage() {
       programme={[
         { title: 'Module 1 — Posture et cadre', bullets: ['Rôles et limites du référent', 'Confidentialité et déontologie'] },
         { title: 'Module 2 — Techniques d’écoute', bullets: ['Entretien structuré', 'Questions aidantes'] },
-        { title: 'Module 3 — Actions organisationnelles', bullets: ['Repères pour diagnostiquer les situations', 'Propositions d’amélioration'] },
+        { title: 'Module 3 — Actions organisationnelles', bullets: ['Repères pour identifier et qualifier les situations', 'Propositions d’amélioration'] },
       ]}
       methods={[
         'Alternance d’apports méthodologiques et d’exercices pratiques',

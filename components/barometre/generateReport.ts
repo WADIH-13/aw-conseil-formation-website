@@ -34,7 +34,7 @@ function getInterpretation(score: number) {
   };
   if (score >= 25) return {
     level: "Charge élevée",
-    message: "Votre charge mentale est significative. Il est important d'agir pour éviter l'épuisement.",
+    message: "Votre charge mentale est significative. Il est important d'agir pour éviter la surcharge durable.",
     advice: "Priorisez, déléguez si possible, et n'hésitez pas à demander du soutien."
   };
   return {

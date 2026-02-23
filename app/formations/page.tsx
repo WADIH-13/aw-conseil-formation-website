@@ -44,7 +44,7 @@ export default function FormationsPage() {
                   </span>
                   <h3 className="mt-3 text-xl font-light text-black">Découvrir la charge mentale</h3>
                   <p className="mt-2 text-gray-700 text-sm leading-relaxed">
-                    Prendre conscience des mécanismes invisibles qui nous épuisent au quotidien et apprendre des gestes simples pour agir.
+                    Prendre conscience des mécanismes qui pèsent sur notre quotidien professionnel et acquérir des gestes simples pour agir.
                   </p>
                 </div>
                 <div className="mt-5 flex flex-wrap gap-3">
@@ -114,7 +114,7 @@ export default function FormationsPage() {
           <ul className="grid md:grid-cols-3 gap-6 text-center text-gray-700 text-base">
             <li className="bg-white rounded-xl shadow-sm p-6 border border-black/5">Des contenus fondés sur la science et l’expérience terrain</li>
             <li className="bg-white rounded-xl shadow-sm p-6 border border-black/5">Des outils concrets et des mises en situation</li>
-            <li className="bg-white rounded-xl shadow-sm p-6 border border-black/5">Un accompagnement humain, bienveillant et certifié Qualiopi</li>
+            <li className="bg-white rounded-xl shadow-sm p-6 border border-black/5">Un accompagnement humain, rigoureux et certifié Qualiopi</li>
           </ul>
         </div>
       </section>

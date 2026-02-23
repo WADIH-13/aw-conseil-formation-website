@@ -190,7 +190,7 @@ export default function PostureEngagementPage() {
                   <div>
                     <h3 className="text-lg font-medium text-black mb-2">Pas une intervention ponctuelle déconnectée du fonctionnement réel</h3>
                     <p className="text-gray-700 leading-relaxed">
-                      Nous évitons les diagnostics éclair ou les solutions prêtes à l&apos;emploi. Chaque démarche est construite sur mesure, ancrée dans le contexte et inscrite dans la durée.
+                      Nous évitons les évaluations hâtives ou les solutions prêtes à l&apos;emploi. Chaque démarche est construite sur mesure, ancrée dans le contexte et inscrite dans la durée.
                     </p>
                   </div>
                 </div>

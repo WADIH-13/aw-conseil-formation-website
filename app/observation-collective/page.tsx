@@ -11,7 +11,7 @@ export default function ObservationCollectivePage() {
       <section className="aw-hero-surface py-16 md:py-24">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto text-center">
-            <p className="text-sm tracking-[0.3em] uppercase text-black/50 mb-4">Diagnostic structurant</p>
+            <p className="text-sm tracking-[0.3em] uppercase text-black/50 mb-4">Repérage structurant</p>
             <h1 className="text-4xl md:text-5xl font-light text-black mb-6 leading-tight">
               Observation collective stratégique
             </h1>
@@ -118,7 +118,7 @@ export default function ObservationCollectivePage() {
                 <div className="flex items-start gap-3">
                   <span className="mt-2 h-1 w-8 rounded-full bg-black/20" aria-hidden="true" />
                   <div>
-                    <h3 className="text-lg font-medium text-black mb-2">Aucun diagnostic médical</h3>
+                    <h3 className="text-lg font-medium text-black mb-2">Aucune évaluation médicale</h3>
                     <p className="text-gray-700 leading-relaxed">
                       Nous n&apos;intervenons ni sur le plan clinique ni sur le plan de santé individuelle. Les questions de santé relèvent de professionnels habilités (médecine du travail, services de santé).
                     </p>

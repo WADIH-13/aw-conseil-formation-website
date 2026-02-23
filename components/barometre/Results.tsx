@@ -50,7 +50,7 @@ const getResultContent = (awScore: number) => {
     return {
       title: "Charge élevée",
       message:
-        "Attention, votre charge mentale atteint un niveau préoccupant. Vous portez beaucoup sur vos épaules et les signaux d'alerte sont là. Il est temps d'agir pour éviter l'épuisement.",
+        "Attention, votre charge mentale atteint un niveau préoccupant. Vous portez beaucoup sur vos épaules et les signaux d'alerte sont là. Il est temps d'agir pour éviter la surcharge durable.",
       advice:
         "Priorisez impérativement : identifiez ce qui peut être délégué, reporté ou supprimé. Accordez-vous des pauses, même courtes. Parlez de votre situation à quelqu'un de confiance.",
       ctaTitle: "Vous n'êtes pas seul(e)",

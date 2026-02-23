@@ -38,7 +38,7 @@ export default async function MieuxGererChargeMentale() {
       programme={[
         {
           title: 'Module 1 — Comprendre ses mécanismes',
-          bullets: ['Sources individuelles de surcharge', 'Fonctionnement attentionnel et fatigue mentale'],
+          bullets: ['Sources individuelles de surcharge', 'Fonctionnement attentionnel et surcharge cognitive'],
         },
         {
           title: 'Module 2 — Leviers d’action concrets',
@@ -46,7 +46,7 @@ export default async function MieuxGererChargeMentale() {
         },
         {
           title: 'Module 3 — Ancrer des pratiques durables',
-          bullets: ['Ajustements réalistes', 'Prévention des rechutes', 'Plan d’action personnel'],
+          bullets: ['Ajustements réalistes', 'Maintien des acquis dans la durée', 'Plan d’action personnel'],
         },
       ]}
       methods={[

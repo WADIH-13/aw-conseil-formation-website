@@ -91,7 +91,7 @@ export const questions: Question[] = [
       { text: "Un nombre raisonnable", value: 1 },
       { text: "Pas mal, mais je m'en sors", value: 2 },
       { text: "Trop, j'ai parfois la \"fatigue décisionnelle\"", value: 3 },
-      { text: "Je suis submergé(e), même les petites décisions m'épuisent", value: 4 },
+      { text: "Je suis submergé(e), même les petites décisions me débordent", value: 4 },
     ],
   },
   // Dimension 4: Pression temporelle
