@@ -12,9 +12,17 @@ export default function Header() {
   const [hasFormationSingle, setHasFormationSingle] = useState(false)
   const { items } = useCartStore()
   const [mounted, setMounted] = useState(false)
+  const [isCompact, setIsCompact] = useState(false)
 
   useEffect(() => {
     setMounted(true)
+  }, [])
+
+  useEffect(() => {
+    const update = () => setIsCompact(window.scrollY > 12)
+    update()
+    window.addEventListener('scroll', update, { passive: true })
+    return () => window.removeEventListener('scroll', update)
   }, [])
 
   useEffect(() => {
@@ -26,6 +34,12 @@ export default function Header() {
   }, [pathname])
 
   const isFormationDetail = pathname?.startsWith('/formations') || hasFormationSingle
+
+  const isActiveHref = (href: string) => {
+    if (!pathname) return false
+    if (href === '/') return pathname === '/'
+    return pathname === href || pathname.startsWith(`${href}/`)
+  }
 
   const navigation: Array<{
     name: string
@@ -79,10 +93,17 @@ export default function Header() {
   const desktopPillClass =
     'inline-flex items-center whitespace-nowrap rounded-xl px-3 py-2 transition-all duration-300 group-hover:-translate-y-[1px] hover:bg-white hover:shadow-[0_12px_30px_rgba(0,0,0,0.08)]'
 
+  const desktopPillActiveClass =
+    'bg-white text-aw-red-deep shadow-[0_12px_30px_rgba(0,0,0,0.08)]'
+
   return (
-    <header className="aw-diagonal-surface border-b border-black/5">
+    <header className="sticky top-0 z-50 aw-diagonal-surface border-b border-black/5">
       <nav className="container-custom" aria-label="Navigation principale">
-        <div className="flex items-center justify-between gap-8 py-10 md:py-12">
+        <div
+          className={`flex items-center justify-between gap-8 transition-all duration-300 ${
+            isCompact ? 'py-5 md:py-6' : 'py-10 md:py-12'
+          }`}
+        >
           <div className="flex items-center gap-4">
             <Link
               href="/"
@@ -93,14 +114,23 @@ export default function Header() {
                 alt="AW Conseil et Formation"
                 width={325}
                 height={100}
-                className="h-14 md:h-20 w-auto"
+                className={`w-auto transition-all duration-300 ${isCompact ? 'h-11 md:h-14' : 'h-14 md:h-20'}`}
                 priority
               />
               <div className="hidden lg:flex flex-col leading-tight">
-                <span className="text-[15px] font-medium tracking-[0.24em] uppercase text-black/55">
+                <span
+                  className={`font-medium uppercase text-black/55 transition-all duration-300 ${
+                    isCompact ? 'text-[13px] tracking-[0.22em]' : 'text-[15px] tracking-[0.24em]'
+                  }`}
+                >
                   Conseil <span className="text-[17px] font-semibold tracking-[0.14em] text-aw-red-deep opacity-80">&</span> Formation
                 </span>
-                <span className="mt-2 h-[2px] w-12 bg-aw-red-deep/80" aria-hidden="true" />
+                <span
+                  className={`h-[2px] w-12 bg-aw-red-deep/80 transition-all duration-300 ${
+                    isCompact ? 'mt-1 opacity-70' : 'mt-2 opacity-100'
+                  }`}
+                  aria-hidden="true"
+                />
               </div>
             </Link>
           </div>
@@ -132,11 +162,20 @@ export default function Header() {
 
           <div className="hidden xl:flex items-center justify-center flex-1 gap-1 2xl:gap-6">
             {navigation.map((item) => {
+              const isActive =
+                (item.name === 'Formations' && isFormationDetail) ||
+                isActiveHref(item.href) ||
+                (item.children?.some((child) => isActiveHref(child.href)) ?? false)
+
               if (item.children && item.children.length > 0) {
                 return (
                   <div key={item.name} className={`${desktopItemClass} group`}
                   >
-                    <Link href={item.href} className={desktopPillClass}>
+                    <Link
+                      href={item.href}
+                      className={`${desktopPillClass} ${isActive ? desktopPillActiveClass : ''}`}
+                      aria-current={isActive ? 'page' : undefined}
+                    >
                       {item.name}
                       <svg
                         className="ml-2 h-4 w-4 text-black/45"
@@ -172,7 +211,7 @@ export default function Header() {
 
               return (
                 <Link key={item.name} href={item.href} className={desktopItemClass}>
-                  <span className={desktopPillClass}>{item.name}</span>
+                  <span className={`${desktopPillClass} ${isActive ? desktopPillActiveClass : ''}`}>{item.name}</span>
                 </Link>
               )
             })}

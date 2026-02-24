@@ -3,7 +3,7 @@ import Link from 'next/link'
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="bg-white">
-      <header className="border-b border-black/5 aw-diagonal-surface">
+      <header className="sticky top-0 z-50 border-b border-black/5 aw-diagonal-surface">
         <div className="container-custom py-6 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <p className="text-xs tracking-[0.3em] uppercase text-black/50">Back-office</p>
